@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "customers",
     "properties",
+    "cpf_field",
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
@@ -79,18 +81,18 @@ WSGI_APPLICATION = "rent_io.wsgi.application"
 
 DATABASES = {
     # SQLITE DATABASE
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
     "default": {
-        "ENGINE": config("ENGINE"),
-        "NAME": config("NAME"),
-        "USER": config("USER"),
-        "PASSWORD": config("PASSWORD"),
-        "HOST": config("HOST"),
-        "PORT": config("PORT"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
+    # "default": {
+    #     "ENGINE": config("ENGINE"),
+    #     "NAME": config("NAME"),
+    #     "USER": config("USER"),
+    #     "PASSWORD": config("PASSWORD"),
+    #     "HOST": config("HOST"),
+    #     "PORT": config("PORT"),
+    # }
 }
 
 
@@ -112,6 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "customers.Customer"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
