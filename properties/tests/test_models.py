@@ -95,10 +95,12 @@ class ModelTest(TestCase):
     def test_create_payment(self):
         """Test creating a new payment to a house and an apartment"""
         house = self.create_house()
-        self.create_payment(value=house.price, content_object=house)
+        house.payment.create(value=house.price, **self.payment)
+        house.save()
 
         apartment = self.create_apartment(building=self.create_building())
-        self.create_payment(value=apartment.price, content_object=apartment)
+        apartment.payment.create(value=apartment.price, **self.payment)
+        apartment.save()
 
         self.assertEqual(Payment.objects.count(), 2)
 
@@ -108,21 +110,21 @@ class ModelTest(TestCase):
         )
 
     def test_add_media_to_property(self):
-        """Test adding a media to a house/apartment"""
+        """Test adding a media to a house/building"""
         house = self.create_house()
-        Media.objects.create(
-            image="./static/images/house.jpg",
-            content_object=house,
-        )
+        house.media.create(image="./static/images/house.jpg")
+        house.save()
 
-        apartment = self.create_apartment(building=self.create_building())
-        Media.objects.create(
-            video="https://www.youtube.com/watch?v=9bZkp7q19f0",
-            content_object=apartment,
+        building = self.create_building()
+        building.media.create(
+            image="./static/images/building.jpg", video="./static/videos/building.mp4"
         )
+        building.save()
 
-        self.assertEqual(Media.objects.count(), 2)
-        self.assertEqual(
-            Media.objects.filter(house)[0],
-            Media.objects.first(),
-        )
+        apartment = self.create_apartment(building=building)
+        apartment.media.create(image="./static/images/apartment.jpg")
+        apartment.save()
+
+        self.assertEqual(Media.objects.count(), 3)
+        self.assertEqual(Media.objects.filter(house).count(), 1)
+        self.assertEqual(Media.objects.filter(building)[0], building.media.all()[0])

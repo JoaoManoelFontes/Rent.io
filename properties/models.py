@@ -3,18 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
 from rent_io import settings
-
-
-# Create your models here.
-
-
-class MediaManager(models.Manager):
-    def filter(self, instance):
-        content_type = ContentType.objects.get_for_model(instance.__class__)
-        obj_id = instance.id
-        return super(MediaManager, self).filter(
-            content_type=content_type, object_id=obj_id
-        )
+from .utils.model_managers import MediaManager, PaymentManager
 
 
 class Media(models.Model):
@@ -30,6 +19,20 @@ class Media(models.Model):
         return self.content_object.__str__()
 
 
+class Payment(models.Model):
+    date = models.DateField()
+    next_payment = models.DateField()
+    value = models.DecimalField(max_digits=10, decimal_places=2)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey("content_type", "object_id")
+
+    objects = PaymentManager()
+
+    def __str__(self):
+        return "Histórico de " + self.content_object.__str__()
+
+
 class Property(models.Model):
     class Meta:
         abstract = True
@@ -39,10 +42,6 @@ class Property(models.Model):
     city = models.CharField(max_length=50)
     description = models.TextField()
     media = GenericRelation(Media)
-
-    @property
-    def medias(self):
-        return Media.objects.filter(self)
 
 
 class House(Property):
@@ -54,13 +53,12 @@ class House(Property):
     suites = models.IntegerField()
     area = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+
     contract = models.FileField(upload_to="contracts/", null=True, blank=True)
     vacant = models.BooleanField(default=True)
     late_payment = models.BooleanField(default=False)
 
-    @property
-    def payments(self):
-        return Payment.objects.filter(self)
+    payment = GenericRelation(Payment)
 
     def __str__(self):
         return "Casa em " + self.city + " - " + self.address
@@ -85,37 +83,14 @@ class Apartment(models.Model):
     suites = models.IntegerField()
     area = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+
     vacant = models.BooleanField(default=True)
     late_payment = models.BooleanField(default=False)
     contract = models.FileField(upload_to="contracts/", null=True, blank=True)
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
 
-    @property
-    def payments(self):
-        return Payment.objects.filter(self)
+    media = GenericRelation(Media)
+    payment = GenericRelation(Payment)
 
     def __str__(self):
         return "Apartamento " + str(self.number) + " - " + self.building.name
-
-
-class PaymentManager(models.Manager):
-    def filter(self, instance):
-        content_type = ContentType.objects.get_for_model(instance.__class__)
-        obj_id = instance.id
-        return super(PaymentManager, self).filter(
-            content_type=content_type, object_id=obj_id
-        )
-
-
-class Payment(models.Model):
-    date = models.DateField()
-    next_payment = models.DateField()
-    value = models.DecimalField(max_digits=10, decimal_places=2)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey("content_type", "object_id")
-
-    objects = PaymentManager()
-
-    def __str__(self):
-        return "Histórico de " + self.content_object.__str__()
