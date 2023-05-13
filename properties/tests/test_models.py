@@ -1,4 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
 from ..models import House, Building, Apartment, Media, Payment  # noqa
 from django.test import TestCase
 from core.models import Customer
@@ -104,15 +103,12 @@ class ModelTest(TestCase):
         self.assertEqual(Payment.objects.count(), 2)
 
         self.assertEqual(
-            Payment.objects.filter(
-                content_type=ContentType.objects.get_for_model(apartment),
-                object_id=apartment.id,
-            ).count(),
+            Payment.objects.filter(apartment).count(),
             1,
         )
 
-    def test_add_media_to_house(self):
-        """Test adding a media to a house"""
+    def test_add_media_to_property(self):
+        """Test adding a media to a house/apartment"""
         house = self.create_house()
         Media.objects.create(
             image="./static/images/house.jpg",
@@ -127,9 +123,6 @@ class ModelTest(TestCase):
 
         self.assertEqual(Media.objects.count(), 2)
         self.assertEqual(
-            Media.objects.filter(
-                content_type=ContentType.objects.get_for_model(house),
-                object_id=house.id,
-            )[0],
+            Media.objects.filter(house)[0],
             Media.objects.first(),
         )

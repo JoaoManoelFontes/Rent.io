@@ -8,12 +8,23 @@ from rent_io import settings
 # Create your models here.
 
 
+class MediaManager(models.Manager):
+    def filter(self, instance):
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        obj_id = instance.id
+        return super(MediaManager, self).filter(
+            content_type=content_type, object_id=obj_id
+        )
+
+
 class Media(models.Model):
     image = models.ImageField(upload_to="images/", null=True, blank=True)
     video = models.FileField(upload_to="videos/", null=True, blank=True)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey()
+
+    objects = MediaManager()
 
     def __str__(self) -> str:
         return self.content_object.__str__()
@@ -29,6 +40,10 @@ class Property(models.Model):
     description = models.TextField()
     media = GenericRelation(Media)
 
+    @property
+    def medias(self):
+        return Media.objects.filter(self)
+
 
 class House(Property):
     garage = models.BooleanField(default=False)
@@ -42,6 +57,10 @@ class House(Property):
     contract = models.FileField(upload_to="contracts/", null=True, blank=True)
     vacant = models.BooleanField(default=True)
     late_payment = models.BooleanField(default=False)
+
+    @property
+    def payments(self):
+        return Payment.objects.filter(self)
 
     def __str__(self):
         return "Casa em " + self.city + " - " + self.address
@@ -71,8 +90,21 @@ class Apartment(models.Model):
     contract = models.FileField(upload_to="contracts/", null=True, blank=True)
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
 
+    @property
+    def payments(self):
+        return Payment.objects.filter(self)
+
     def __str__(self):
         return "Apartamento " + str(self.number) + " - " + self.building.name
+
+
+class PaymentManager(models.Manager):
+    def filter(self, instance):
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        obj_id = instance.id
+        return super(PaymentManager, self).filter(
+            content_type=content_type, object_id=obj_id
+        )
 
 
 class Payment(models.Model):
@@ -82,6 +114,8 @@ class Payment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
+
+    objects = PaymentManager()
 
     def __str__(self):
         return "Histórico de " + self.content_object.__str__()
