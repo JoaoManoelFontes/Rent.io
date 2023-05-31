@@ -1,4 +1,4 @@
-from ..models import House, Building, Apartment, Media, Payment  # noqa
+from ..models import House, Building, Apartment, Media, Payment, Contract
 from django.test import TestCase
 from core.models import Customer
 
@@ -48,7 +48,12 @@ class ModelTest(TestCase):
 
         self.payment = {
             "date": "2020-01-01",
-            "next_payment": "2020-02-01",
+            "base_payment_month": "10",
+        }
+
+        self.contract = {
+            "base_payment_date": "2020-01-01",
+            "due_date": "2021-01-01",
         }
 
     # Model Factories
@@ -128,3 +133,16 @@ class ModelTest(TestCase):
         self.assertEqual(Media.objects.count(), 3)
         self.assertEqual(Media.objects.filter(house).count(), 1)
         self.assertEqual(Media.objects.filter(building)[0], building.media.all()[0])
+
+    def test_add_contract_to_property(self):
+        house = self.create_house()
+        house.contract.create(**self.contract)
+        house.save()
+
+        apartment = self.create_apartment(building=self.create_building())
+        apartment.contract.create(**self.contract)
+        apartment.save()
+
+        self.assertEqual(house.contract.count(), 1)
+        self.assertEqual(Contract.objects.filter(house).count(), 1)
+        self.assertEqual(Contract.objects.filter(apartment)[0], apartment.contract.all()[0])
