@@ -1,4 +1,3 @@
-from django.db import IntegrityError
 from django.test import TestCase
 from ..models import Customer
 
@@ -9,9 +8,7 @@ class ModelTest(TestCase):
             "username": "username",
             "password": "password",
             "email": "test@mail.com",
-            "instagram": "https://www.instagram.com/test/",
             "phone_number": "+5511999999999",
-            "cpf": "12345678901",
         }
 
     # Model factories
@@ -38,11 +35,3 @@ class ModelTest(TestCase):
         self.assertEqual(user.username, self.customer.get("username"))
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
-
-    def test_cpf_unique_constraint(self):
-        """Test CPF unique constraint"""
-
-        self.create_user()
-
-        with self.assertRaises(IntegrityError):
-            self.create_user()
