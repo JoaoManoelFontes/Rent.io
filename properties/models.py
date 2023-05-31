@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
 from rent_io import settings
-from .utils.model_managers import MediaManager, PaymentManager
+from .utils.model_managers import MediaManager, PaymentManager, ContractManager
 
 
 class Media(models.Model):
@@ -21,7 +21,7 @@ class Media(models.Model):
 
 class Payment(models.Model):
     date = models.DateField()
-    next_payment = models.DateField()
+    base_payment_month = models.IntegerField()
     value = models.DecimalField(max_digits=10, decimal_places=2)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
@@ -31,6 +31,17 @@ class Payment(models.Model):
 
     def __str__(self):
         return "Histórico de " + self.content_object.__str__()
+
+
+class Contract(models.Model):
+    contract_file = models.FileField(upload_to="contracts/", null=True, blank=True)
+    base_payment_date = models.DateField()
+    due_date = models.DateField()
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey("content_type", "object_id")
+
+    objects = ContractManager()
 
 
 class Property(models.Model):
@@ -54,10 +65,10 @@ class House(Property):
     area = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
-    contract = models.FileField(upload_to="contracts/", null=True, blank=True)
     vacant = models.BooleanField(default=True)
     late_payment = models.BooleanField(default=False)
 
+    contract = GenericRelation(Contract)
     payment = GenericRelation(Payment)
 
     def __str__(self):
@@ -86,11 +97,11 @@ class Apartment(models.Model):
 
     vacant = models.BooleanField(default=True)
     late_payment = models.BooleanField(default=False)
-    contract = models.FileField(upload_to="contracts/", null=True, blank=True)
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
 
     media = GenericRelation(Media)
     payment = GenericRelation(Payment)
+    contract = GenericRelation(Contract)
 
     def __str__(self):
         return "Apartamento " + str(self.number) + " - " + self.building.name
