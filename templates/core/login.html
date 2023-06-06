@@ -13,7 +13,17 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="">Ois</h1>
+        <form action="/login/" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" id="username" />
+            <input type="password" name="password" id="password" />
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div>
+        {% if error %}
+            <p>{{error}}</p>
+        {% endif %}
     </div>
 </body>
 </html>
