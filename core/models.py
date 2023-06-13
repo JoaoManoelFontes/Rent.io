@@ -7,7 +7,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Customer(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    phone_number = PhoneNumberField(blank=True, null=True)
+    phone_number = PhoneNumberField()
+    brith_date = models.DateField()
+    full_name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.username

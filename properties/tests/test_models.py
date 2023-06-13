@@ -1,4 +1,4 @@
-from ..models import House, Building, Apartment, Media, Payment, Contract
+from ..models import House, Building, Apartment, Media, Payment, Contract, Expense
 from django.test import TestCase
 from core.models import Customer
 
@@ -6,7 +6,7 @@ from core.models import Customer
 class ModelTest(TestCase):
     def setUp(self):
         self.customer = Customer.objects.create_user(
-            username="username", password="password"
+            username="username", password="password", phone_number="+5511999999999", brith_date="2000-01-01", full_name="Full Name"
         )
 
         self.house = {
@@ -21,7 +21,7 @@ class ModelTest(TestCase):
             "bathrooms": 2,
             "suites": 1,
             "area": 100,
-            "price": 1000.00,
+            "base_price": 1000.00,
         }
 
         self.building = {
@@ -43,7 +43,7 @@ class ModelTest(TestCase):
             "bathrooms": 2,
             "suites": 1,
             "area": 100,
-            "price": 1000.00,
+            "base_price": 1000.00,
         }
 
         self.payment = {
@@ -54,6 +54,12 @@ class ModelTest(TestCase):
         self.contract = {
             "base_payment_date": "2020-01-01",
             "due_date": "2021-01-01",
+            "price": 1040.00
+        }
+
+        self.expense = {
+            "description": "Teste",
+            "value": 100.00,
         }
 
     # Model Factories
@@ -100,11 +106,11 @@ class ModelTest(TestCase):
     def test_create_payment(self):
         """Test creating a new payment to a house and an apartment"""
         house = self.create_house()
-        house.payment.create(value=house.price, **self.payment)
+        house.payment.create(value=house.base_price, **self.payment)
         house.save()
 
         apartment = self.create_apartment(building=self.create_building())
-        apartment.payment.create(value=apartment.price, **self.payment)
+        apartment.payment.create(value=apartment.base_price, **self.payment)
         apartment.save()
 
         self.assertEqual(Payment.objects.count(), 2)
@@ -126,11 +132,7 @@ class ModelTest(TestCase):
         )
         building.save()
 
-        apartment = self.create_apartment(building=building)
-        apartment.media.create(image="./static/images/apartment.jpg")
-        apartment.save()
-
-        self.assertEqual(Media.objects.count(), 3)
+        self.assertEqual(Media.objects.count(), 2)
         self.assertEqual(Media.objects.filter(house).count(), 1)
         self.assertEqual(Media.objects.filter(building)[0], building.media.all()[0])
 
@@ -146,3 +148,20 @@ class ModelTest(TestCase):
         self.assertEqual(house.contract.count(), 1)
         self.assertEqual(Contract.objects.filter(house).count(), 1)
         self.assertEqual(Contract.objects.filter(apartment)[0], apartment.contract.all()[0])
+
+    def add_expenses_to_property(self):
+        house = self.create_house()
+        house.expenses.create(**self.expense)
+        house.save()
+
+        building = self.create_building()
+        building.expenses.create(**self.expense)
+        building.save()
+
+        house_expense = house.expenses.first()
+        house_expense.done = True
+        house_expense.save()
+
+        self.assertEqual(Expense.objects.all().count(), 2)
+        self.assertTrue(Expense.objects.filter(house).done)
+        self.assertFalse(Expense.objects.filter(building).done)
