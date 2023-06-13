@@ -9,6 +9,8 @@ class ModelTest(TestCase):
             "password": "password",
             "email": "test@mail.com",
             "phone_number": "+5511999999999",
+            "brith_date": "2000-01-01",
+            "full_name": "Full Name",
         }
 
     # Model factories
