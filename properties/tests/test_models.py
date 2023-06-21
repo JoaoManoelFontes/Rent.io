@@ -149,7 +149,7 @@ class ModelTest(TestCase):
         self.assertEqual(Contract.objects.filter(house).count(), 1)
         self.assertEqual(Contract.objects.filter(apartment)[0], apartment.contract.all()[0])
 
-    def add_expenses_to_property(self):
+    def test_add_expenses_to_property(self):
         house = self.create_house()
         house.expenses.create(**self.expense)
         house.save()
@@ -162,6 +162,11 @@ class ModelTest(TestCase):
         house_expense.done = True
         house_expense.save()
 
+        building_expenses = Expense.objects.filter(building)
+        undone_building_expenses = building_expenses.filter(done=False)
+        billing = sum(undone_building_expenses.values_list("value", flat=True))
+
         self.assertEqual(Expense.objects.all().count(), 2)
-        self.assertTrue(Expense.objects.filter(house).done)
-        self.assertFalse(Expense.objects.filter(building).done)
+        self.assertTrue(Expense.objects.filter(house)[0].done)
+        self.assertFalse(Expense.objects.filter(building)[0].done)
+        self.assertEqual(billing, self.expense["value"])
