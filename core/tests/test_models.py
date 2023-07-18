@@ -9,7 +9,7 @@ class ModelTest(TestCase):
             "password": "password",
             "email": "test@mail.com",
             "phone_number": "+5511999999999",
-            "brith_date": "2000-01-01",
+            "birth_date": "1990-01-01",
             "full_name": "Full Name",
         }
 
@@ -25,7 +25,7 @@ class ModelTest(TestCase):
         """Test creating a new user"""
 
         user = self.create_user()
-
+        
         self.assertEqual(Customer.objects.count(), 1)
         self.assertEqual(user.username, self.customer.get("username"))
 

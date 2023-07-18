@@ -6,7 +6,7 @@ from core.models import Customer
 class ModelTest(TestCase):
     def setUp(self):
         self.customer = Customer.objects.create_user(
-            username="username", password="password", phone_number="+5511999999999", brith_date="2000-01-01", full_name="Full Name"
+            username="username", password="password", phone_number="+5511999999999", birth_date="2000-01-01", full_name="Full Name"
         )
 
         self.house = {

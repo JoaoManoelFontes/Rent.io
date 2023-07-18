@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "properties",
     "cpf_field",
     "phonenumber_field",
+    "bootstrap5"
 ]
 
 MIDDLEWARE = [
