@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  {% load bootstrap5 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
-</head>
-<body class="container">
+{% extends 'base.html' %}
+  {% block title %}Login{% endblock %}
+  {% block content %}
   <form action="/login/" method="post" >
     {% csrf_token %}
     <input type="text" name="username" placeholder="username">
     <input type="password" name="password" placeholder="password">
     <input type="submit" value="Login" class="btn btn-secondary">
   </form>
-</body>
-</html>
+  {% endblock %}
