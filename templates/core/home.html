@@ -1,9 +1,36 @@
 {% extends 'base.html' %} {% block title %}Home{% endblock %} 
+{% load static %}
+{% block extrahead %} 
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 {% block content%} 
-    {% if request.user.is_authenticated %}
-        <h1 class="">Oi {{request.user}}</h1>
-        <a href="/logout"><button>Sair</button></a>
-    {% else %}
-        <a href="/login">Faça o login</a>
-    {% endif %} 
+    <div id="main-poster" >
+        <div id="main-poster-title">
+            <h4>Gerencie e anuncie seu imóvel </h4>
+                <br />
+            <h4>da melhor forma</h4>
+            <br />
+            <div id="main-poster-btn">
+                <a href="#" id="main-poster-button" class="btn btn-primary">Acesse suas propriedades</a>
+            </div>
+        </div>
+    </div>
+    <section>
+        <div class="container">
+            <h2 class="lead" id="section-main-title">ENCONTRE SUA CASA PARA MORAR</h2>
+            <hr />
+        </div>
+        <div class="container" id="section-nav">
+                <form action="" method="get" id="section-search-form">
+                    <input type="text" name="q" id="section-search-input" placeholder="Pesquisar imóvel"/>
+                    <button type="submit" id="section-search-btn"><i class="bi bi-search"></i></button>
+                </form>
+            <div id="section-nav-filter">
+                <a href="#">
+                    <i class="bi bi-sliders"></i>
+                    <span>Filtrar</span>
+                </a>
+            </div>
+        </div>
+    </section>
 {% endblock %}
