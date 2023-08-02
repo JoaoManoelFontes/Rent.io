@@ -1,10 +1,47 @@
 {% extends 'base.html' %}
   {% block title %}Login{% endblock %}
+  {% load static %}
+  {% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  {% endblock %}
   {% block content %}
-  <form action="/login/" method="post" >
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit" value="Login" class="btn btn-secondary">
-  </form>
+  <div class="container" id="main-content">
+    <section >
+      <div id="form-left-section">
+        <h2>Bem-vindo</h2><br />
+        <h2>de volta!</h2>
+      </div>
+      <div class="vr bg-white"></div>
+      <div id="form-right-section">
+        <div id="form-right-title">
+          <h2>Entrar</h2>
+        </div>
+        <br />
+        <div id="form-right-content">
+          <form action="/login/" method="post" >
+            {% csrf_token %}
+            <div class="form-group" style="display: flex; flex-direction: column;">
+              <label for="username" style="align-self: flex-start; margin-bottom: 0.5rem;">Username:</label>
+              <input type="text" class="form-control" id="usename" name="username" placeholder="username">
+            </div>
+            <br />
+            <div class="form-group" style="display: flex; flex-direction: column;">
+              <label for="password" style="align-self: flex-start; margin-bottom: 0.5rem;">Senha</label>
+              <input type="password" id="password" class="form-control" name="password" placeholder="password">
+              <a href="#" id="form-forgot-pass">
+                <span >Esqueci minha senha</span>
+              </a>
+            </div>
+            <br />
+              <input type="submit" id="form-button" value="Entrar">
+          </form>
+          <br />
+          <div id="form-register">
+            <span>Não tem uma conta?</span>
+            <a href="/register/" id="form-register-link">Cadastre-se</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
   {% endblock %}

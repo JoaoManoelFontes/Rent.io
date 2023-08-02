@@ -1,0 +1,100 @@
+#main-poster{
+    width: 100%;
+    height: 400px;
+    background-image: url('../images/poster.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-poster-title{
+    margin-right: 5em;
+    color: #27374D;
+    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+#main-poster-button{
+    border: none;
+    background-color: #27374D;
+    color: #fff;
+    padding: 1em;
+    border-radius: 50px;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 1em;
+}
+
+#main-poster-button:hover{
+    background-color: #132a3b;
+}
+
+section{
+    padding-top: 1em;
+}
+
+#section-main-title{
+    letter-spacing: 0.1em;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #27374D;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+#section-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+
+#section-nav-filter{
+    border: 0.5px solid #27374D;
+    border-radius: 50px;
+    padding: 0.5em 1em 0.5em 1em;
+
+}
+
+#section-nav-filter > a{
+    text-decoration: none;
+    color: #27374D;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+}
+
+#section-nav-filter > a:hover{
+    color: #27374D;
+    font-weight: 600;
+}
+
+#section-search-form{
+    border: 0.5px solid #27374D;
+    padding: 0.5em ;
+    border-radius: 50px;
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+}
+#section-search-btn{
+    border: none;
+    background-color: #d9d9d9;
+}
+
+#section-search-input{
+    border: none;
+    width: 100%;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    background-color: #d9d9d9;
+    color: #27374D;
+}
+
+#section-search-input:focus{
+    outline: none;
+}
