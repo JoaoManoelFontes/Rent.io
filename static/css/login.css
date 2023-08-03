@@ -34,25 +34,13 @@ section{
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-#form-right-title{
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing:2px;
-}
-
-#form-right-title > span{
-    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.1em;
 }
 
 form{
     margin-top: 2rem;
     color: #fff;
-}
-
-#form-right-content{
-    font-family: 'Roboto', sans-serif;
 }
 
 #form-forgot-pass{
@@ -75,9 +63,9 @@ form{
     padding: 0.5em;
     border-radius: 50px;
     font-size: 1em;
-    letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-top: 1em;
+    letter-spacing: 0.1em;
 }
 
 #form-button:hover{
@@ -88,7 +76,6 @@ form{
 #form-register{
     margin-top: 1rem;
     color: #fff;
-    letter-spacing: 0.1em;
 }
 
 #form-register a{
