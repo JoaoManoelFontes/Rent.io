@@ -74,7 +74,6 @@ form{
 
 
 #form-register{
-    margin-top: 1rem;
     color: #fff;
 }
 
@@ -86,4 +85,14 @@ form{
 #form-register a:hover{
     color: #e6e6e6;
     text-decoration: underline;
+}
+
+#danger-message{
+    padding: 0.5em;
+    border-radius: 0.5em;
+    margin-top: 1em;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 500;
+    letter-spacing: 0.1em;
 }

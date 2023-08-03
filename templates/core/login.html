@@ -6,6 +6,7 @@
   {% endblock %}
   {% block content %}
   <div class="container" id="main-content">
+    <h2></h2>
     <section >
       <div id="form-left-section">
         <h2>Bem-vindo</h2><br />
@@ -29,6 +30,11 @@
             </div>
             <br />
               <input type="submit" id="form-button" value="Entrar">
+              {% if error %}
+                <div class="alert alert-danger" id="danger-message" role="alert">
+                  {{ error }}
+                </div>
+              {% endif %}
           </form>
           <br />
           <div id="form-register">

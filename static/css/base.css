@@ -11,6 +11,7 @@ header{
     background-color: #27374D;
     color: #D9D9D9;
     display: flex;
+    letter-spacing: 0.1em;
     flex-direction: row;
     justify-content: space-between;
     padding: 0.5%;
@@ -43,7 +44,27 @@ header{
     color: #A9A9A9;
 }
 
+#dropdown-button{
+    background-color: #27374D;
+    border: none;
+    color: #D9D9D9;
+    font-size: 1em;
+    cursor: pointer;
+    margin-left: 1%;
+}
 
+#dropdown-button:hover{
+    color: #A9A9A9;
+}
+
+#dropdown-content{
+    position: relative;
+    background-color: #d9d9d9;
+    min-width: 100px;
+    z-index: 1;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
 
 #header-main-title{
     display: flex;
@@ -58,6 +79,9 @@ main{
 }
 
 footer{
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.8em;
+    letter-spacing: 0.1em;
     color: #D9D9D9;
     background-color: #27374D;
     top: 100%;
