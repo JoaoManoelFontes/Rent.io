@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block title %}Home{% endblock %} 
+{% load static %}
+{% block extrahead %} 
+    <link rel="stylesheet" href="{% static 'css/sign_up.css' %}">
+{% endblock %}
+{% block content%}
+    <div class="container" id="main-content">
+        <section>
+            <div id="form-left-section">
+                <h2 style="text-transform: uppercase;">Cadastrar</h2>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-group" style="display: flex; flex-direction: column;">
+                        <label for="full_name" style="align-self: flex-start; margin-bottom: 0.5rem;">Nome Completo:</label>
+                        <input type="text" class="form-control" id="full_name" name="full_name">
+                      </div>
+                      <div class="form-group" style="display: flex; flex-direction: column;">
+                        <label for="full_name" style="align-self: flex-start; margin-bottom: 0.5rem;">E-mail:</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                      </div>
+                        <div class="form-group" style="display: flex; flex-direction: column;">
+                            <label for="full_name" style="align-self: flex-start; margin-bottom: 0.5rem;">Telefone:</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                      </div>
+                      <div class="form-group" style="display: flex; flex-direction: column;">
+                        <label for="full_name" style="align-self: flex-start; margin-bottom: 0.5rem;">Data de nascimento:</label>
+                        <input type="date" class="form-control" id="birth_date" name="birth_date">
+                  </div>
+                  <hr class="hr"/>
+                  <div class="form-group" style="display: flex; flex-direction: column;">
+                    <label for="full_name" style="align-self: flex-start; margin-bottom: 0.5rem;">Username:</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                  </div>
+                  <div class="form-group" style="display: flex; flex-direction: column;">
+                    <label for="full_name" style="align-self: flex-start; margin-bottom: 0.5rem;">Senha:</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                  </div>
+                  <input type="submit" id="form-button" value="Entrar">
+                  {% if error %}<p style="color: red;">{{ error}}</p>{% endif %}
+                </form>
+              </div>
+              <div id="form-right-section">
+                <div id="form-right-title">
+                    <h2>Organize</h2><br />
+                    <h2>seu mundo</h2><br />
+                    <h2>imobiliário</h2><br />
+                    <h2>com facilidade!</h2>
+                </div>
+              </div>
+        </section>
+    </div>
+{% endblock %}
