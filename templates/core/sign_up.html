@@ -36,7 +36,11 @@
                     <input type="password" class="form-control" id="password" name="password">
                   </div>
                   <input type="submit" id="form-button" value="Entrar">
-                  {% if error %}<p style="color: red;">{{ error}}</p>{% endif %}
+                  {% if error %}
+                <div class="alert alert-danger" id="danger-message" role="alert">
+                  {{ error }}
+                </div>
+              {% endif %}
                 </form>
               </div>
               <div id="form-right-section">
