@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from ..models import Customer 
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -27,3 +28,19 @@ def sign_out(request):
 def sign_up(request):
     if request.method == 'GET':
         return render(request, 'core/sign_up.html')
+
+    try:
+        user = Customer.objects.create_user(
+            username=request.POST['username'],
+            email=request.POST['email'],
+            password=request.POST['password'],
+            birth_date=request.POST['birth_date'],
+            phone_number=request.POST['phone'],
+            full_name=request.POST['full_name'],
+        )
+        user.save()
+
+        login(request, user)
+        return redirect('home')
+    except Exception as e:
+        return render(request, 'core/sign_up.html', {'error': e})
