@@ -10,11 +10,16 @@ from django.contrib.auth import authenticate, login, logout
 
 def sign_in(request):
     if request.method == 'GET':
-        return render(request, 'core/login.html')
+        return render(request, 'core/login.html', context={
+            'title': 'Login',
+        })
 
     user = authenticate(username=request.POST['username'], password=request.POST['password'])
     if not user:
-        return render(request, 'core/login.html', {'error': 'Usuário ou senha inválidos'})
+        return render(request, 'core/login.html', {
+            'title': 'Login',
+            'error': 'Usuário ou senha inválidos'
+        })
 
     login(request, user)
     return redirect('home')
@@ -27,7 +32,9 @@ def sign_out(request):
 
 def sign_up(request):
     if request.method == 'GET':
-        return render(request, 'core/sign_up.html')
+        return render(request, 'core/sign_up.html', context={
+            'title': 'Sign Up',
+        })
 
     try:
         user = Customer.objects.create_user(
@@ -43,4 +50,7 @@ def sign_up(request):
         login(request, user)
         return redirect('home')
     except Exception as e:
-        return render(request, 'core/sign_up.html', {'error': e})
+        return render(request, 'core/sign_up.html', {
+            'title': 'Sign Up',
+            'error': e
+        })

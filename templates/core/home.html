@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block title %}Home{% endblock %} 
+{% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
 {% load static %}
 {% block extrahead %} 
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
@@ -11,7 +11,7 @@
             <h4>da melhor forma</h4>
             <br />
             <div id="main-poster-btn">
-                <a href="#" id="main-poster-button" class="btn btn-primary">Acesse suas propriedades</a>
+                <a href="/customer" id="main-poster-button" class="btn btn-primary">Acesse suas propriedades</a>
             </div>
         </div>
     </div>
