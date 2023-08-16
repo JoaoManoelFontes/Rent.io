@@ -1,0 +1,31 @@
+
+#main > h4{
+    font-family: 'Popins', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+#main-infos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem;
+}
+
+#main-infos > .card {
+    margin: 1rem;
+    width: 18rem;
+}
+
+.card{
+    background-color: #f3f3f3;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.card:hover{
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.02);
+}
