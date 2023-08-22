@@ -2,6 +2,7 @@
 #main > h4{
     font-family: 'Popins', sans-serif;
     font-size: 2rem;
+    padding-top: 2rem;
     letter-spacing: 2px;
 }
 
@@ -16,16 +17,71 @@
 #main-infos > .card {
     margin: 1rem;
     width: 18rem;
-}
-
-.card{
-    background-color: #f3f3f3;
     border: none;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 10px 15px 10px rgba(0, 0, 0, 0.526);
 }
 
-.card:hover{
+#main-infos > .card:hover{
     transition: all 0.2s ease-in-out;
     transform: scale(1.02);
+}
+
+#properties_list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#property-card{
+    background-color: #f3f3f3;
+    width: 70%;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.526);
+    border-radius: 25px;
+}
+
+#property-card:hover{
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.02);
+}
+
+.card-img{
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0 0 0 0;
+}
+
+.title{
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title > a {
+    margin-bottom: 1em;
+    border: none;
+    background-color: #27374D;
+    color: #fff;
+    padding: 1em;
+    border-radius: 50px;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 1em;
+}
+
+.title > a:hover{
+    background-color: #132a3b;
+}
+
+#properties-infos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }

@@ -35,7 +35,7 @@ class ExpenseAdmin(admin.ModelAdmin):
 class ContractAdmin(admin.ModelAdmin):
     '''Admin View for Contract'''
 
-    list_display = ('contract_file', 'base_payment_date', 'due_date', 'price', 'content_object')
+    list_display = ('base_payment_date', 'due_date', 'price', 'content_object')
 
 
 @admin.register(Media)
