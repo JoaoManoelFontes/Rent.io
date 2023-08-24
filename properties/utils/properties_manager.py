@@ -18,11 +18,9 @@ def get_late_payments_amount(customer) -> int:
     '''Returns the amount of late payments of a customer'''
     houses = House.objects.filter(customer=customer)
     for house in houses:
-
-        if house.payment.all().count() > 0 or house.contract.get().base_payment_date is not None:
+        if not house.vacant:
             if validate_payment_date(
                 house.payment.all().last().base_payment_month,
-                house.payment.all().last().date,
                 house.contract.get().base_payment_date
             ) is False:
                 house.late_payment = True
@@ -39,7 +37,8 @@ def get_properties_list(customer) -> list:
     houses = House.objects.filter(customer=customer)
     for house in houses:
         setattr(house, 'image', house.media.get().image)
-        setattr(house, 'contracts', house.contract.get())
+        if not house.vacant:
+            setattr(house, 'contracts', house.contract.get())
 
     buildings = Building.objects.filter(customer=customer)
     for building in buildings:
