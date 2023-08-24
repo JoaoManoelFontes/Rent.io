@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import House, Building, Apartment, Payment, Expense, Contract
+from .models import House, Building, Apartment, Payment, Expense, Contract, Media
 
 # Register your models here.
 
@@ -35,4 +35,11 @@ class ExpenseAdmin(admin.ModelAdmin):
 class ContractAdmin(admin.ModelAdmin):
     '''Admin View for Contract'''
 
-    list_display = ('contract_file', 'base_payment_date', 'due_date', 'price', 'content_object')
+    list_display = ('base_payment_date', 'due_date', 'price', 'content_object')
+
+
+@admin.register(Media)
+class MediaAdmin(admin.ModelAdmin):
+    '''Admin View for Media'''
+
+    list_display = ('content_type', 'content_object')

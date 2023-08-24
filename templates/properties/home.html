@@ -1,5 +1,85 @@
 {% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
 {% load static %}
+{% load util %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/customer_home.css' %}">
+{% endblock %}
 {% block content%} 
-    <h4>{{request.user}}</h4>
+    <div class="container" style="padding-bottom: 2%;" id="main">
+        <h4>Olá, {{request.user}}</h4>
+        <section id="main-infos">
+            <div class="card" style="background-color: #7181a1;">
+                <div class="card-body">
+                  <h5 >Total de imóveis</h5>  
+                  <h4 class="card-text" style="text-align: center; padding: 5%;">{{properties_amount}}</h4>
+                </div>
+              </div>
+            <div class="card" style="background-color: #b3ccd4;">
+                <div class="card-body">
+                    <h5 >Ocupados</h5>  
+                    <h4 class="card-text" style="text-align: center; padding: 5%;">{{occupied_properties_amount}}</h4>
+                </div>
+            </div>
+            <div class="card" style="background-color: #bfb0dd;">
+                <div class="card-body">
+                    <h5 >Atrasados</h5>  
+                    <h4 class="card-text" style="text-align: center; padding: 5%;">{{late_payments_amount}}</h4>
+                </div>
+            </div>
+        </section>
+        <hr />
+        <section id="properties_list">
+            <div class="title">
+                <h4>Suas Propriedades</h4>
+                <a href="#" style="text-decoration: none;">Cadastrar</a>
+            </div>
+            {% for property in properties_list %}
+            <div class="card mb-3" id="property-card">
+                <div class="row no-gutters">
+                  <div class="col-md-4"  class="card-img">
+                    <img src="{{property.image.url}}" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{property}}</h5>
+                      <p class="card-text">{{ property.address }}</p>
+                      <p class="card-text"><small class="text-muted">
+                        {% if property|get_house_instance %}
+                          {% if property.vacant %}
+                            Casa vazia
+                          {% else %}
+                            Pagamento mensal: {{property.contracts.price}}<br />
+                            Data de expiração: {{property.contracts.due_date}}
+                            {% if property.late_payment %}
+                                <br />
+                                <br />
+                                <span style="color: #bd7575; border: solid; border-radius: 50px; padding: 1%;">
+                                  Pagamento atrasado
+                                </span>
+                            {% else %}
+                                <br />
+                                <br />
+                                <span style="color: #75bda1; border: solid; border-radius: 50px; padding: 1%;">
+                                  Pagamento em dia
+                                </span>
+                            {% endif %}
+                          {% endif %}
+                        {% else %}
+                          Prédio <br />
+                          {{property.apartments}} apartamento(s) <br />
+                          {{property.apartments_occupied}} ocupado(s)
+                        {% endif %}
+                      </small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>            
+              {% endfor %}
+        </section>
+        <!-- {% if property|get_house_instance %}
+                  <p>Casa: {{property}}</p>
+                {% else %}
+                  <p>Prédio: {{property}}</p>
+                {% endif %} -->
+    </div>
 {% endblock %}
