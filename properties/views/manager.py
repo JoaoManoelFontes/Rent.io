@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from properties.models import Building, House
 
 from properties.utils.properties_manager import get_late_payments_amount, get_occupied_properties_amount, get_properties_amount, get_properties_list
 
@@ -20,3 +21,27 @@ def home(request):
     }
 
     return render(request, 'properties/home.html', context=context)
+
+
+@login_required(login_url='/login')
+def detail_building(request, building_id):
+    building = Building.objects.get(id=building_id)
+
+    context = {
+        'title': 'Building Detail | ' + request.user.username,
+        'building': building,
+    }
+
+    return render(request, 'properties/detail_building.html', context=context)
+
+
+@login_required(login_url='/login')
+def detail_house(request, house_id):
+    house = House.objects.get(id=house_id)
+
+    context = {
+        'title': 'House Detail | ' + request.user.username,
+        'house': house,
+    }
+
+    return render(request, 'properties/detail_house.html', context=context)

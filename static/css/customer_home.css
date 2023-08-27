@@ -6,6 +6,20 @@
     letter-spacing: 2px;
 }
 
+#properties_list > a{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #27374D;
+}
+
+a:hover{
+    color: #132a3b;
+}
+
 #main-infos{
     display: flex;
     flex-wrap: wrap;
@@ -25,13 +39,6 @@
 #main-infos > .card:hover{
     transition: all 0.2s ease-in-out;
     transform: scale(1.02);
-}
-
-#properties_list{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 #property-card{
