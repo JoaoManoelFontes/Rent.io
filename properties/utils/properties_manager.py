@@ -45,5 +45,6 @@ def get_properties_list(customer) -> list:
         setattr(building, 'image', Media.objects.filter(building)[0].image)
         setattr(building, 'apartments', Apartment.objects.filter(building=building).count())
         setattr(building, 'apartments_occupied', Apartment.objects.filter(building=building, vacant=False).count())
+        setattr(building, 'apartments_late_payments', Apartment.objects.filter(building=building, late_payment=True).count())
 
     return list(houses) + list(buildings)

@@ -84,7 +84,10 @@
                         <p class="card-text">{{ property.address }}</p>
                         Prédio <br />
                             {{property.apartments}} apartamento(s) <br />
-                            {{property.apartments_occupied}} ocupado(s)
+                            {{property.apartments_occupied}} ocupado(s) <br />
+                            {% if property.apartments_late_payment %}
+                              {{property.apartments_late_payment}} atrasado(s)
+                            {% endif %}
                       </div>
                     </div>
                   </div>
