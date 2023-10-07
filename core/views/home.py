@@ -2,15 +2,26 @@ from django.shortcuts import render
 from properties.models import Apartment, House, Building
 
 
-def home(request):
+def home(request, pk=id):
     apartments = Apartment.objects.all()
     houses = House.objects.all()
     buildings = Building.objects.all()
+    for building in buildings:
+        building.vacant = Apartment.objects.filter(vacant=True, building=building).count()
     context = {
         'title': 'Home',
         'apartments': apartments,
         'houses': houses,
         'buildings': buildings,
+    }
+    return render(request, 'core/home.html', context=context)
+
+
+def vacant(request, pk=id):
+    vacant = Apartment.objects.filter(vacant=True, building=pk).count()
+    context = {
+        'title': 'Vacant',
+        'vacant': vacant,
     }
     return render(request, 'core/home.html', context=context)
 

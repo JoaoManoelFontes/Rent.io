@@ -1,3 +1,4 @@
+
 #main-poster{
     width: 100%;
     height: 400px;
@@ -26,9 +27,11 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-top: 1em;
+    transition: 0.3s;
 }
 
 #main-poster-button:hover{
+    transform: scale(1.1);
     background-color: #132a3b;
 }
 
@@ -56,19 +59,17 @@ section{
     border: 0.5px solid #27374D;
     border-radius: 50px;
     padding: 0.5em 1em 0.5em 1em;
-
+    transition: 0.3s;  
 }
 
-#section-nav-filter > a{
+#section-nav-filter:hover{
+    background-color: #132a3b;
+    color: #d9d9d9;
+}
+.seemore-link{
+    color: #27374D;
     text-decoration: none;
-    color: #27374D;
-    font-size: 1em;
-    letter-spacing: 0.1em;
-}
-
-#section-nav-filter > a:hover{
-    color: #27374D;
-    font-weight: 600;
+    transition: 0.3s; 
 }
 
 #section-search-form{

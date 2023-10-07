@@ -78,6 +78,87 @@ main{
     background-color: #d9d9d9;
 }
 
+.card-link{
+    color: #27374D;
+    text-decoration: none;
+    transition: 0.5s; 
+}
+
+.card-link:hover{
+    color: #27374D;  
+}
+
+.trending-carrousel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 80px;
+    margin-bottom: 20px;
+  }
+  
+.card {
+    width: 190px;
+    height: 260px;
+    border-radius: 30px;
+    background: #e0e0e0;
+    box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #D9D9D9;
+    margin: 10px;
+    margin-right: 30px;
+    transition: 0.5s;
+  }
+
+.card:hover {
+    transform: scale(1.05);
+  }
+
+.card-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }	    
+
+.card-title {
+    font-size: 80%;
+    font-weight: 600;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+
+.card-subtitle {
+    font-size: 70%;
+    font-weight: 500;
+    margin-left: 5px;
+    margin-bottom: 10px;
+  }
+
+.card-image {
+    object-fit:cover;
+    width: 189px;
+    height: 235px;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+  }
+
+.card-text {
+    font-size: 85%;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+.card-text2 {
+    font-size: 70%;
+    font-weight: 400;
+    text-align: center;
+  }
+
+.card-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+
 footer{
     font-family: 'Roboto', sans-serif;
     font-size: 0.8em;
