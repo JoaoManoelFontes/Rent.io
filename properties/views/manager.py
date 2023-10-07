@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from properties.models import Building, House
+from properties.models import Apartment, Building, House
 
 from properties.utils.properties_manager import get_late_payments_amount, get_occupied_properties_amount, get_properties_amount, get_properties_list
 
@@ -45,3 +45,16 @@ def detail_house(request, house_id):
     }
 
     return render(request, 'properties/detail_house.html', context=context)
+
+
+@login_required(login_url='/login')
+def payments_history(request, property_id):
+    property_instance = Apartment.objects.get(id=property_id) if isinstance(property_id, Apartment) else House.objects.get(id=property_id)
+
+    payments = property_instance.payment.all()
+    context = {
+        'title': 'Payments History | ' + property_instance,
+        'payments': payments,
+    }
+
+    return render(request, 'properties/payments_history.html', context=context)
