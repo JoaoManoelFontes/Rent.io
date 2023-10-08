@@ -7,6 +7,7 @@ from properties.utils.properties_manager import get_late_payments_amount, get_oc
 
 @login_required(login_url='/login')
 def home(request):
+    '''Home view for the properties managment.'''
     properties_amount = get_properties_amount(request.user)
     occupied_properties_amount = get_occupied_properties_amount(request.user)
     late_payments_amount = get_late_payments_amount(request.user)
@@ -25,6 +26,7 @@ def home(request):
 
 @login_required(login_url='/login')
 def detail_building(request, building_id):
+    '''Detail view for a building.'''
     building = Building.objects.get(id=building_id)
 
     context = {
@@ -37,6 +39,7 @@ def detail_building(request, building_id):
 
 @login_required(login_url='/login')
 def detail_house(request, house_id):
+    '''Detail view for a house.'''
     house = House.objects.get(id=house_id)
 
     context = {
@@ -48,12 +51,25 @@ def detail_house(request, house_id):
 
 
 @login_required(login_url='/login')
-def payments_history(request, property_id):
-    property_instance = Apartment.objects.get(id=property_id) if isinstance(property_id, Apartment) else House.objects.get(id=property_id)
-
-    payments = property_instance.payment.all()
+def house_payments_history(request, property_id):
+    '''Payments history view for a house.'''
+    house = House.objects.get(id=property_id)
+    payments = house.payment.all()
     context = {
-        'title': 'Payments History | ' + property_instance,
+        'title': 'Payments History | ' + house.__str__(),
+        'payments': payments,
+    }
+
+    return render(request, 'properties/payments_history.html', context=context)
+
+
+@login_required(login_url='/login')
+def apartment_payments_history(request, property_id):
+    '''Payments history view for an apartment.'''
+    apartment = Apartment.objects.get(id=property_id)
+    payments = apartment.payment.all()
+    context = {
+        'title': 'Payments History | ' + apartment.__str__(),
         'payments': payments,
     }
 

@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
+{% load static %}
+{% load util %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/payments_history.css' %}">
+{% endblock %}
+{% block content%}
+    {% for payment in payments %}
+        {{payment}}
+    {% endfor %}
+{% endblock %}

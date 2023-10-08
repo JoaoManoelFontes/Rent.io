@@ -3,6 +3,7 @@ from properties.models import Apartment, House, Building
 
 
 def home(request, pk=id):
+    '''Properties listing view.'''
     apartments = Apartment.objects.all()
     houses = House.objects.all()
     buildings = Building.objects.all()
