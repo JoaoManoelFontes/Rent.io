@@ -58,5 +58,4 @@ def get_properties_list(customer) -> list:
         setattr(building, 'apartments', Apartment.objects.filter(building=building).count())
         setattr(building, 'apartments_occupied', Apartment.objects.filter(building=building, vacant=False).count())
         setattr(building, 'apartments_late_payments', Apartment.objects.filter(building=building, late_payment=True).count())
-        print(building.apartments_late_payments)
     return list(houses) + list(buildings)
