@@ -35,7 +35,7 @@
             </div>
             {% for property in properties_list %}
             {% if property|get_house_instance %}
-            <a href="house/{{property.id}}">
+            <a href="house_payments_history/{{property.id}}">
               <div class="card mb-3" id="property-card">
                   <div class="row no-gutters">
                     <div class="col-md-4"  class="card-img">
@@ -72,7 +72,7 @@
                 </div>
             </a>
             {% else %}
-            <a href="building/{{property.id}}">
+            <a href="apartment_payments_history/{{property.id}}">
               <div class="card mb-3" id="property-card">
                   <div class="row no-gutters">
                     <div class="col-md-4"  class="card-img">
@@ -85,8 +85,8 @@
                         Prédio <br />
                             {{property.apartments}} apartamento(s) <br />
                             {{property.apartments_occupied}} ocupado(s) <br />
-                            {% if property.apartments_late_payment %}
-                              {{property.apartments_late_payment}} atrasado(s)
+                            {% if property.apartments_late_payments %}
+                              {{property.apartments_late_payments}} atrasado(s)
                             {% endif %}
                       </div>
                     </div>

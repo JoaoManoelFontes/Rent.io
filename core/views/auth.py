@@ -9,8 +9,9 @@ from django.contrib.auth import authenticate, login, logout
 
 
 def sign_in(request):
+    '''customer login view '''
     if request.method == 'GET':
-        return render(request, 'core/login.html', context={
+        return render(request, 'core/login.html', {
             'title': 'Login',
         })
 
@@ -26,13 +27,15 @@ def sign_in(request):
 
 
 def sign_out(request):
+    '''customer logout view '''
     logout(request)
     return redirect('home')
 
 
 def sign_up(request):
+    '''customer sign up view '''
     if request.method == 'GET':
-        return render(request, 'core/sign_up.html', context={
+        return render(request, 'core/sign_up.html', {
             'title': 'Sign Up',
         })
 
