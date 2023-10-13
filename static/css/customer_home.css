@@ -69,7 +69,7 @@ a:hover{
     justify-content: space-between;
 }
 
-.title > a {
+#dropdownMenuButton {
     margin-bottom: 1em;
     border: none;
     background-color: #27374D;
@@ -82,7 +82,7 @@ a:hover{
     margin-top: 1em;
 }
 
-.title > a:hover{
+#dropdownMenuButton:hover{
     background-color: #132a3b;
 }
 
