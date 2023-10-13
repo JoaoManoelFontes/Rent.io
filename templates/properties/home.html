@@ -31,7 +31,16 @@
         <section id="properties_list">
             <div class="title">
                 <h4>Suas Propriedades</h4>
-                <a href="#" style="text-decoration: none;">Cadastrar</a>
+                <div class="dropdown">
+                  <a id="dropdownMenuButton" class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Cadastrar
+                  </a>
+                  <div id="dropdown-content" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Casa</a>
+                    <a class="dropdown-item" href="#">Prédio</a>
+                  </div>
+                </div>
+              
             </div>
             {% for property in properties_list %}
             {% if property|get_house_instance %}
