@@ -92,7 +92,7 @@ class House(Property):
     payment = GenericRelation(Payment)
 
     def __str__(self):
-        return "Casa em " + self.city + " - " + self.address
+        return "Casa em " + self.city
 
 
 class Building(Property):

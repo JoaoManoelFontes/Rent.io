@@ -20,6 +20,11 @@ section{
     box-shadow: 10px 15px 10px rgba(0, 0, 0, 0.526);
 }
 
+section:hover{
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.01);
+}
+
 #form-left-section{
     padding: 2rem;
     color: #fff;
@@ -43,7 +48,7 @@ section{
     background-repeat: no-repeat;
     background-position: center;
     width: 50%;
-    min-height: 110vh;
+    min-height: 100vh;
     border-radius: 0 1rem 1rem 0;
     display: flex;
     justify-content: center;
@@ -65,14 +70,19 @@ section{
     height: 100%;
     object-fit: contain;
     border-radius: 0 1rem 1rem 0;
+    
 }
 
 #form-right-title{
+    text-align: left;
     margin-top: 20rem;
     color: #fff;
     text-transform: uppercase;
-    line-height: 0.5;
     font-weight: bolder;
+}
+
+#form-right-title > h2{
+    font-size: 2.4em;
 }
 
 #form-button{

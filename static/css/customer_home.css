@@ -6,15 +6,6 @@
     letter-spacing: 2px;
 }
 
-#properties_list > a{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    color: #27374D;
-}
 
 a:hover{
     color: #132a3b;
@@ -41,16 +32,16 @@ a:hover{
     transform: scale(1.02);
 }
 
-#property-card{
+#property{
+    padding: 0;
     background-color: #f3f3f3;
-    width: 70%;
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.526);
     border-radius: 25px;
 }
 
-#property-card:hover{
-    transition: all 0.2s ease-in-out;
-    transform: scale(1.02);
+#property:hover{
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.01);
 }
 
 .card-img{
@@ -58,7 +49,6 @@ a:hover{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 0 0 0 0;
 }
 
 .title{
@@ -91,4 +81,9 @@ a:hover{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.status-span{
+    border-radius: 30px;
+    padding: 0.3rem;
 }

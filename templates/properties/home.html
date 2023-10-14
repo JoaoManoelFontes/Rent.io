@@ -8,7 +8,7 @@
     <div class="container" style="padding-bottom: 2%;" id="main">
         <h4>Olá, {{request.user}}</h4>
         <section id="main-infos">
-            <div class="info-card" style="background-color: #7181a1;">
+            <div class="info-card" style="background-color: #7181a1;" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                 <div class="card-body">
                   <h5 >Total de imóveis</h5>  
                   <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{properties_amount}}</h4>
@@ -42,68 +42,122 @@
                 </div>
               
             </div>
-            {% for property in properties_list %}
-            {% if property|get_house_instance %}
-            <a href="house_payments_history/{{property.id}}">
-              <div class="card mb-3" id="property-card">
-                  <div class="row no-gutters">
-                    <div class="col-md-4" class="card-img">
-                      <img src="{{property.image.url}}" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="card-title">{{property}}</h5>
-                        <p class="card-text">{{ property.address }}</p>
-                        <p class="card-text"><small class="text-muted">
-                            {% if property.vacant %}
-                              Casa vazia
-                            {% else %}
-                              Pagamento mensal: {{property.contracts.price}}<br />
-                              Data de expiração: {{property.contracts.due_date}}
-                              {% if property.late_payment %}
-                                  <br />
-                                  <br />
-                                  <span style="color: #bd7575; border: solid; border-radius: 50px; padding: 1%;">
+            
+            {% if properties_list %}
+                <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                  {% for property in properties_list %}
+                    {% if property|get_house_instance %}
+                    <div style="margin-bottom: 1rem; margin-top: 1rem;">
+                      <a href="house_payments_history/{{property.id}}" style="text-decoration: none; color: black;">
+                        <div class="container-fluid" id="property">
+                          <div class="row">
+                            <div class="col-3">
+                              <img src="{{property.image.url}}" alt="house" class="card-img">
+                            </div>
+                            <div class="col-6" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; margin-top: 1rem;">
+                              <div class="row">
+                                <div class="col-12">
+                                  <h5>{{property}}</h5>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  <p>{{property.address}}</p>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row" style="margin-bottom: 1rem;">
+                                <div class="col-12">
+                                  {% if property.vacant %}
+                                  <p class="card-text">
+                                      Casa vazia
+                                    </p>
+                                    {% else %}
+                                    <p class="card-text" style="text-align: left;">
+                                      Pagamento mensal: R${{property.contracts.price}}
+                                    </p>
+                                      <p class="card-text">
+                                        Data de expiração: {{property.contracts.due_date}}
+                                      </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                          </div>
+                          <div class="col-3" style="margin-top: 1rem;">
+                            <div class="row">
+                              <div class="col-12" >
+                                <p style="text-align: left; ">
+                                  {% if property.late_payment %}
+                                  <span style="text-decoration: underline; text-decoration-color: #d67171; text-decoration-thickness: 2px;" class="status-span">
                                     Pagamento atrasado
                                   </span>
-                              {% else %}
-                                  <br />
-                                  <br />
-                                  <span style="color: #75bda1; border: solid; border-radius: 50px; padding: 1%;">
+                                  {% else %}
+                                  <span style="text-decoration: underline; text-decoration-color: #75bda1; text-decoration-thickness: 2px;" class="status-span">
                                     Pagamento em dia
                                   </span>
-                              {% endif %}
-                            {% endif %}
-                        </small></p>
-                      </div>
+                                  {% endif %}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
                     </div>
-                  </div>
+                    {% else %}
+                    <div style="margin-top: 1rem; margin-bottom: 1rem;">
+                      <a href="apartment_payments_history/{{property.id}}" style="text-decoration: none; color: black;">
+                        <div class="container-fluid" id="property">
+                          <div class="row">
+                            <div class="col-3">
+                              <img src="{{property.image.url}}" alt="building" class="card-img">
+                            </div>
+                            <div class="col-6" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; margin-top: 1rem;">
+                              <div class="row">
+                                <div class="col-12">
+                                  <h5>{{property}}</h5>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  <p>{{property.address}}</p>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row" style="margin-bottom: 1rem;">
+                                <div class="col-12">
+                                  <p class="card-text"> {{property.apartments}} apartamento(s)</p>
+                                  <p class="card-text" style="text-align: left;">
+                                    {{property.apartments_occupied}} ocupado(s)
+                                  </p>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="col-3" style="margin-top: 1rem;">
+                            <div class="row">
+                              <div class="col-12" >
+                                <p style="text-align: left; ">
+                                  {% if property.apartments_late_payments %}
+                                  <span style="text-decoration: underline; text-decoration-color: #d67171; text-decoration-thickness: 2px;" class="status-span">
+                                    {{property.apartments_late_payments}} apartamento(s) atrasado(s)
+                                  </span>
+                                  {% else %}
+                                  <span style="text-decoration: underline; text-decoration-color: #75bda1; text-decoration-thickness: 2px;" class="status-span">
+                                    0 apartamentos atrasado(s)
+                                  </span>
+                                  {% endif %}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
                 </div>
-            </a>
             {% else %}
-            <a href="apartment_payments_history/{{property.id}}">
-              <div class="card mb-3" id="property-card">
-                  <div class="row no-gutters">
-                    <div class="col-md-4"  class="card-img">
-                      <img src="{{property.image.url}}" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="card-title">{{property}}</h5>
-                        <p class="card-text">{{ property.address }}</p>
-                        Prédio <br />
-                            {{property.apartments}} apartamento(s) <br />
-                            {{property.apartments_occupied}} ocupado(s) <br />
-                            {% if property.apartments_late_payments %}
-                              {{property.apartments_late_payments}} atrasado(s)
-                            {% endif %}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </a>
+            <p>Você ainda não possui nenhuma propriedade cadastrada.</p>
             {% endif %}
-          {% endfor %}
         </section>
     </div>
 {% endblock %}
