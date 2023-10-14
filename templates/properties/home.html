@@ -8,22 +8,22 @@
     <div class="container" style="padding-bottom: 2%;" id="main">
         <h4>Olá, {{request.user}}</h4>
         <section id="main-infos">
-            <div class="card" style="background-color: #7181a1;">
+            <div class="info-card" style="background-color: #7181a1;">
                 <div class="card-body">
                   <h5 >Total de imóveis</h5>  
-                  <h4 class="card-text" style="text-align: center; padding: 5%;">{{properties_amount}}</h4>
+                  <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{properties_amount}}</h4>
                 </div>
               </div>
-            <div class="card" style="background-color: #b3ccd4;">
+            <div class="info-card" style="background-color: #b3ccd4;">
                 <div class="card-body">
                     <h5 >Ocupados</h5>  
-                    <h4 class="card-text" style="text-align: center; padding: 5%;">{{occupied_properties_amount}}</h4>
+                    <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{occupied_properties_amount}}</h4>
                 </div>
             </div>
-            <div class="card" style="background-color: #bfb0dd;">
+            <div class="info-card" style="background-color: #bfb0dd;">
                 <div class="card-body">
                     <h5 >Atrasados</h5>  
-                    <h4 class="card-text" style="text-align: center; padding: 5%;">{{late_payments_amount}}</h4>
+                    <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{late_payments_amount}}</h4>
                 </div>
             </div>
         </section>
@@ -47,7 +47,7 @@
             <a href="house_payments_history/{{property.id}}">
               <div class="card mb-3" id="property-card">
                   <div class="row no-gutters">
-                    <div class="col-md-4"  class="card-img">
+                    <div class="col-md-4" class="card-img">
                       <img src="{{property.image.url}}" alt="...">
                     </div>
                     <div class="col-md-8">
