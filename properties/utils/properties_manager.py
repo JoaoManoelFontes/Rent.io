@@ -5,7 +5,7 @@ from properties.utils.validate_payment_date import validate_payment_date
 def get_properties_amount(customer) -> int:
     '''Returns the amount of properties of a customer'''
 
-    return House.objects.filter(customer=customer).count() + Building.objects.filter(customer=customer).count()
+    return House.objects.filter(customer=customer).count() + Apartment.objects.filter(building__customer=customer).count()
 
 
 def get_occupied_properties_amount(customer) -> int:
