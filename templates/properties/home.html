@@ -8,19 +8,19 @@
     <div class="container" style="padding-bottom: 2%;" id="main">
         <h4>Olá, {{request.user}}</h4>
         <section id="main-infos">
-            <div class="info-card" style="background-color: #7181a1;" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+            <div class="info-card" style="background-image: linear-gradient(to left, #063773, #063773b2, #06377359);" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                 <div class="card-body">
                   <h5 >Total de imóveis</h5>  
                   <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{properties_amount}}</h4>
                 </div>
               </div>
-            <div class="info-card" style="background-color: #b3ccd4;">
+            <div class="info-card" style="background-image: linear-gradient(to left, #57B657, #57B657b2, #57B6574d);">
                 <div class="card-body">
                     <h5 >Ocupados</h5>  
                     <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{occupied_properties_amount}}</h4>
                 </div>
             </div>
-            <div class="info-card" style="background-color: #bfb0dd;">
+            <div class="info-card" style="background-image: linear-gradient(to left, #B15959, #B15959b2, #B159594d);">
                 <div class="card-body">
                     <h5 >Atrasados</h5>  
                     <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{late_payments_amount}}</h4>
@@ -83,16 +83,16 @@
                                 </div>
                             </div>
                           </div>
-                          <div class="col-3" style="margin-top: 1rem;">
+                          <div class="col-3" style="margin-top: 1rem; display: flex; align-items: end; justify-content: end; ">
                             <div class="row">
                               <div class="col-12" >
-                                <p style="text-align: left; ">
+                                <p style="text-align: left; margin-right: 1rem;">
                                   {% if property.late_payment %}
-                                  <span style="border: solid; border-color: #d67171; border-width: 2px;" class="status-span">
-                                    Pagamento atrasado
+                                  <span style="border: solid; border-color: #B15959; border-width: 2px;" class="status-span">
+                                    Atrasado
                                   </span>
                                   {% else %}
-                                  <span style="border: solid; border-color: #75bda1; border-width: 2px;" class="status-span">
+                                  <span style="border: solid; border-color: #57B657; border-width: 2px;" class="status-span">
                                     Em dia
                                   </span>
                                   {% endif %}
@@ -132,17 +132,17 @@
                                 </div>
                             </div>
                           </div>
-                          <div class="col-3" style="margin-top: 1rem;">
+                          <div class="col-3" style="margin-top: 1rem; display: flex; align-items: end; justify-content: end;">
                             <div class="row">
                               <div class="col-12" >
-                                <p style="text-align: left; ">
+                                <p style="text-align: left; margin-right: 1rem;">
                                   {% if property.apartments_late_payments %}
-                                  <span style="text-decoration: underline; text-decoration-color: #d67171; text-decoration-thickness: 2px;" class="status-span">
-                                    {{property.apartments_late_payments}} apartamento(s) atrasado(s)
+                                  <span style="border: solid; border-color: #B15959; border-width: 2px;" class="status-span">
+                                    {{property.apartments_late_payments}} atrasado(s)
                                   </span>
                                   {% else %}
-                                  <span style="text-decoration: underline; text-decoration-color: #75bda1; text-decoration-thickness: 2px;" class="status-span">
-                                    0 apartamentos atrasado(s)
+                                  <span style="border: solid; border-color: #57B657; border-width: 2px;" class="status-span">
+                                    0 atrasados
                                   </span>
                                   {% endif %}
                                 </p>
