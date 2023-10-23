@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
+{% load static %}
+{% load util %}
+{% block extrahead %} 
+    <link rel="stylesheet" href="{% static 'css/all_properties.css' %}">
+{% endblock %}
+{% block content%} 
+<section class="section_card">
+    <br>
+    <div class="container">
+        <h2 class="lead" id="section-main-title">Todas as casas</h2>
+        <hr />
+    </div>
+    <div class="container" id="section-nav">
+            <form action="" method="get" id="section-search-form">
+                <input type="text" name="q" id="section-search-input" placeholder="Pesquisar imóvel"/>
+                <button type="submit" id="section-search-btn"><i class="bi bi-search"></i></button>
+            </form>
+            <a class="seemore-link" href="#">
+                <div id="section-nav-filter">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 3px;" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                    <span>Filtrar</span>
+                </div>
+            </a>
+    </div>
+    <br>
+    <div class="trending-carrousel">
+        {% for House in houses %}
+        {% if House.vacant == True%}
+        <a class="card-link" href="{% url 'house_detail' House.id %}">
+            <div class="card">
+                <img class="card-image" src="{{House|get_property_image}}" alt="img-card">  
+                <p class="card-title">{{House.city}}</p>
+                <p class="card-subtitle">Casa</p>
+                <div class="card-info">
+                    <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
+                    <p class="card-text">{{House.rooms}}</p>
+                    <i class="bi bi-rulers"></i>
+                    <p class="card-text">{{House.area}}m²</p>
+                </div>
+                <p class="card-text" style="margin-top: 5px;"><strong>R$ {{House.base_price}}</strong> por mês</p>
+            </div>
+        </a>
+        {% endif %}
+        <br>
+        {% endfor %}
+    </div>
+      
+</section>
+{% endblock %}

@@ -25,32 +25,46 @@ a:hover{
     border: none;
     border-radius: 10px;
     box-shadow: 10px 15px 10px rgba(0, 0, 0, 0.526);
+    transition: all 0.2s ease-in-out;
 }
 
 .info-card:hover{
-    transition: all 0.2s ease-in-out;
     transform: scale(1.02);
+}
+
+.card-t{
+    color: #fff;
+}
+
+.card-text1{
+    color: #fff;
 }
 
 #property{
     padding: 0;
+    max-height: 170px;
     background-color: #f3f3f3;
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.526);
     border-radius: 25px;
-}
+    transition: all 0.3s ease-in-out;
+}   
 
 #property:hover{
-    transition: all 0.3s ease-in-out;
     transform: scale(1.01);
 }
 
 .card-img{
-    width: 100%;
-    height: 100%;
-    border-radius: 25px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    object-fit: cover;
+    width: 320px;
+    height: 150px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.card-text{
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #132a3b;
 }
 
 .title{
