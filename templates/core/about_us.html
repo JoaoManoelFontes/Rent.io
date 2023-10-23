@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rent.io</title>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="navbar">
+                <img src="{% static 'images/icon.png' %}" height="50px" width="55px" alt="icon">        
+                <div id="header-profile">
+                <a href="/" id="profile-link">
+                    <h5 class="lead">Início</h5>
+                </a>
+                </div>
+            </div>
+            <img src="{% static 'images/fml.png'%}" alt="" style="width: 100%;">
+        </header>
+        <br>    
+        <main>
+            <section>
+                <div class="container">
+                    <h5 class="text_section" style="font-size: 1.5em;">Sobre nós</h5>
+                    <p class="text_section">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit vestibulum justo vel tempor. Nullam vel neque vehicula, lobortis nisl ac, mollis libero. Ut id lorem eros. Mauris arcu felis, fringilla eget orci non, iaculis imperdiet sem. Donec quis massa vitae magna consequat tincidunt. Morbi id lorem purus. Cras id tortor arcu. Suspendisse potenti. Duis volutpat urna tellus, ac tristique sem sodales ut. Sed laoreet risus non dolor posuere, id iaculis orci euismod. Aenean hendrerit nibh eget neque varius tincidunt. Cras odio elit, consectetur nec volutpat id, molestie ac felis. Integer pulvinar feugiat elementum. Aliquam sollicitudin vulputate sem, ut placerat dolor fringilla et.</p>
+                </div>
+                <br>
+            </section>
+            <section id="section_2">
+              <div class="container" style="margin: 2%;">
+                <h5 class="text_section2">Fundadores</h5>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                  <div id="content_section2">
+                    <div class="text_content">
+                      <img src="{% static 'images/user_foto.png' %}" alt="">
+                      <p class="text_card"><strong>Cauã Alexandre</strong></p>
+                      <p class="text_card" style="font-size: 1.1em;">Cofundador</p>
+                    </div>
+                    <div class="text_content">
+                      <img src="{% static 'images/user_foto2.png' %}" alt="">
+                      <p class="text_card"><strong>João Manoel</strong></p>
+                      <p class="text_card" style="font-size: 1.1em;">Cofundador</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="section_3">
+              <div class="container">
+                <h5 class="text_section" style="font-size: 1.5em;">Oferecemos</h5>
+                <div class="content_section3">
+                  <img src="{% static 'images/icon2.png' %}" width="290" height="290" alt="icon">
+                  <div class="text_content">
+                    <h5 class="text_section" style="font-size: 1.5em;">Serviço de gerenciamento do seu imóvel</h5>
+                    <p class="text_section">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit vestibulum justo vel tempor. Nullam vel neque vehicula, lobortis nisl ac, mollis libero. Ut id lorem eros. Mauris arcu felis, fringilla eget orci non, iaculis imperdiet sem. Donec quis massa vitae magna consequat tincidunt. </p>
+                    <h5 class="text_section" style="font-size: 1.5em;">Serviço de Divulgação sua propriedade</h5>
+                    <p class="text_section">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit vestibulum justo vel tempor. Nullam vel neque vehicula, lobortis nisl ac, mollis libero. Ut id lorem eros. Mauris arcu felis, fringilla eget orci non, iaculis imperdiet sem. Donec quis massa vitae magna consequat tincidunt. </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-main-title">
+                <h3>IDEALHOME .</h3>
+            </div>
+            <div class="footer-list">
+              <h5 class="bold">PROPRIEDADES</h5>
+              <ul class="list-group">
+                <li class="list-group"><a href="#">Anuncie seu imóvel</a></li>
+                <li class="list-group"><a href="#">Gerenciar imóveis</a></li>
+                <li class="list-group"><a href="#">Procure sua próxima casa</a></li>
+              </ul>
+            </div>
+            <div class="footer-list">
+              <h5 class="bold">CONTATOS</h5>
+              <ul class="list-group">
+                <li class="list-group"><a href="#">+55 (84) 9 1234-5678</a></li>
+                <li class="list-group"><a href="#">Suporteideal@gmail.com</a></li>
+              </ul>
+            </div>
+            <div class="footer-list">
+              <h5 class="bold">REDES SOCIAIS</h5>
+              <ul class="list-group">
+                <li class="list-group"><a href="#">
+                  <i class="bi bi-instagram"></i>
+                  Instagram
+                </a></li>
+                <li class="list-group"><a href="#">
+                  <i class="bi bi-twitter"></i>
+                  Twitter
+                </a></li>
+                <li class="list-group"><a href="#">
+                  <i class="bi bi-linkedin"></i>
+                  Linkedin
+                </a></li>
+              </ul>
+            </div>
+        </footer>
+          <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+          crossorigin="anonymous"
+        ></script>
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> 
+    </body>
+
+</html>

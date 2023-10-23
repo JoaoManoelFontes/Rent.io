@@ -8,22 +8,22 @@
     <div class="container" style="padding-bottom: 2%;" id="main">
         <h4>Olá, {{request.user}}</h4>
         <section id="main-infos">
-            <div class="info-card" style="background-image: linear-gradient(to left, #063773, #063773b2, #06377359);" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+            <div class="info-card" style="background-image: linear-gradient(to left, #0637736f, #063773b9, #01479b);" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                 <div class="card-body">
-                  <h5 >Total de imóveis</h5>  
-                  <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{properties_amount}}</h4>
+                  <h5 class="card-t">Total de imóveis</h5>  
+                  <h4 class="card-text1" style="text-align: center; font-size: larger; padding: 5%;">{{properties_amount}}</h4>
                 </div>
               </div>
-            <div class="info-card" style="background-image: linear-gradient(to left, #57B657, #57B657b2, #57B6574d);">
+            <div class="info-card" style="background-image: linear-gradient(to right, #57B657, #57B657b2, #57B6574d);">
                 <div class="card-body">
-                    <h5 >Ocupados</h5>  
-                    <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{occupied_properties_amount}}</h4>
+                    <h5 class="card-t">Ocupados</h5>  
+                    <h4 class="card-text1" style="text-align: center; font-size: larger; padding: 5%;">{{occupied_properties_amount}}</h4>
                 </div>
             </div>
-            <div class="info-card" style="background-image: linear-gradient(to left, #B15959, #B15959b2, #B159594d);">
+            <div class="info-card" style="background-image: linear-gradient(to right, #B15959, #B15959b2, #B159594d);">
                 <div class="card-body">
-                    <h5 >Atrasados</h5>  
-                    <h4 class="card-text" style="text-align: center; font-size: larger; padding: 5%;">{{late_payments_amount}}</h4>
+                    <h5 class="card-t">Atrasados</h5>  
+                    <h4 class="card-text1" style="text-align: center; font-size: larger; padding: 5%;">{{late_payments_amount}}</h4>
                 </div>
             </div>
         </section>
@@ -47,7 +47,7 @@
                 <div style="display: flex; flex-direction: column; justify-content: space-between;">
                   {% for property in properties_list %}
                     {% if property|get_house_instance %}
-                    <div style="margin-bottom: 1rem; margin-top: 1rem;">
+                    <div style="margin-bottom: 1rem; margin-top: 1rem;" >
                       <a href="house_payments_history/{{property.id}}" style="text-decoration: none; color: black;">
                         <div class="container-fluid" id="property">
                           <div class="row">
@@ -122,8 +122,8 @@
                                   <p>{{property.address}}</p>
                                 </div>
                               </div>
-                              <br>
-                              <div class="row" style="margin-bottom: 1rem;">
+
+                              <div class="row">
                                 <div class="col-12">
                                   <p class="card-text"> {{property.apartments}} apartamento(s)</p>
                                   <p class="card-text" style="text-align: left;">
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                           </div>
-                          <div class="col-3" style="margin-top: 1rem; display: flex; align-items: end; justify-content: end;">
+                          <div class="col-3" style="display: flex; align-items: end; justify-content: end;">
                             <div class="row">
                               <div class="col-12" >
                                 <p style="text-align: left; margin-right: 1rem;">

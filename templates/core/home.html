@@ -16,18 +16,18 @@
             </div>
         </div>
     </div>
-    <section>
+    <section class="section_card">
         <br>
         <div class="container">
             <h2 class="lead" id="section-main-title">ENCONTRE SUA CASA PARA MORAR</h2>
             <hr />
         </div>
-        <div class="container" id="section-nav">
+        <div class="container" id="section-nav" style="justify-content: space-between;">
                 <form action="" method="get" id="section-search-form">
                     <input type="text" name="q" id="section-search-input" placeholder="Pesquisar imóvel"/>
                     <button type="submit" id="section-search-btn"><i class="bi bi-search"></i></button>
                 </form>
-                <a class="seemore-link" href="#">
+                <a class="seemore-link" href="{% url 'all_houses' %}">
                     <div id="section-nav-filter">
                         <span>Ver mais</span>
                     </div>
@@ -53,19 +53,15 @@
                 </div>
             </a>
             {% endif %}
-            <br>
             {% endfor %}
         </div>
+        <br>
         <div class="container">
             <h2 class="lead" id="section-main-title">OU SEU NOVO APARTAMENTO</h2>
             <hr />
         </div>
         <div class="container" id="section-nav">
-            <form action="" method="get" id="section-search-form">
-                <input type="text" name="q" id="section-search-input" placeholder="Pesquisar imóvel"/>
-                <button type="submit" id="section-search-btn"><i class="bi bi-search"></i></button>
-            </form>
-            <a class="seemore-link" href="#">
+            <a class="seemore-link" href="/all_buildings">
                 <div id="section-nav-filter">
                     <span>Ver mais</span>
                 </div>
@@ -91,7 +87,6 @@
                 </div>
             </a>
             {% endif %}
-            <br>
             {% endfor %}
         </div>        
     </section>

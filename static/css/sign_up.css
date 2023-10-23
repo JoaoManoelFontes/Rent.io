@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 5rem;
+    padding: 1rem;
 }
 
 section{
@@ -18,10 +18,10 @@ section{
     align-items: center;
     border-radius: 1rem;
     box-shadow: 10px 15px 10px rgba(0, 0, 0, 0.526);
+    transition: all 0.3s ease-in-out;
 }
 
 section:hover{
-    transition: all 0.3s ease-in-out;
     transform: scale(1.01);
 }
 
@@ -41,7 +41,13 @@ section:hover{
     margin: 1rem 0;
 }
 
-
+.form-right-title{
+    text-shadow: 4px 4px 8px #000000;
+    text-align: left;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bolder;
+}
 
 #form-right-section{
     background-image: url(../images/signup.png);
@@ -52,6 +58,7 @@ section:hover{
     border-radius: 0 1rem 1rem 0;
     display: flex;
     justify-content: center;
+    padding: 0;
     align-items: center;
 }
 
@@ -138,11 +145,26 @@ section:hover{
     color: #0d0c22;
     transition: .5s ease;
   }
+
   
   .input::placeholder {
     color: #94a3b8;
   }
   
+  #form-register{
+    color: #fff;
+    }
+
+    #form-register a{
+        text-decoration: none;
+        color: #fff;
+    }
+
+    #form-register a:hover{
+        color: #e6e6e6;
+        text-decoration: underline;
+    }
+
   .icon {
     color: #27374D;
     position: absolute;
