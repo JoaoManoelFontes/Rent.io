@@ -9,10 +9,32 @@ def home_use_case():
     buildings = Building.objects.all()
     for building in buildings:
         building.vacant = Apartment.objects.filter(vacant=True, building=building).count()
+        building.min_price = Apartment.objects.filter(building=building).order_by('base_price').first()
+
     context = {
         'title': 'Home',
         'apartments': apartments,
         'houses': houses,
+        'buildings': buildings,
+    }
+    return context
+
+
+def all_houses_use_case():
+    '''Houses listing use case.'''
+    houses = House.objects.all()
+    context = {
+        'title': 'Houses',
+        'houses': houses,
+    }
+    return context
+
+
+def all_buildings_use_case():
+    '''Buildings listing use case.'''
+    buildings = Building.objects.all()
+    context = {
+        'title': 'Buildings',
         'buildings': buildings,
     }
     return context

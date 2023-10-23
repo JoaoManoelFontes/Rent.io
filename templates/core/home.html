@@ -16,17 +16,19 @@
             </div>
         </div>
     </div>
+    <div class="container" style="margin-top: 1.5rem;">
+        <form action="" method="get" id="section-search-form">
+            <input type="text" name="q" id="section-search-input" placeholder="Pesquisar imóvel"/>
+            <button type="submit" id="section-search-btn"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
     <section class="section_card">
         <br>
         <div class="container">
             <h2 class="lead" id="section-main-title">ENCONTRE SUA CASA PARA MORAR</h2>
             <hr />
         </div>
-        <div class="container" id="section-nav" style="justify-content: space-between;">
-                <form action="" method="get" id="section-search-form">
-                    <input type="text" name="q" id="section-search-input" placeholder="Pesquisar imóvel"/>
-                    <button type="submit" id="section-search-btn"><i class="bi bi-search"></i></button>
-                </form>
+        <div class="container" id="section-nav" style="justify-content: end;">
                 <a class="seemore-link" href="{% url 'all_houses' %}">
                     <div id="section-nav-filter">
                         <span>Ver mais</span>
@@ -83,7 +85,7 @@
                     <p class="card-text2">{{Building.vacant}} apartamento disponível</p>
                     {% endif %}
                     </div>
-                    <p class="card-text" style="margin-top: 5px;">A partir de <strong>R$ {{House.base_price}}</strong></p>
+                    <p class="card-text" style="margin-top: 5px;">A partir de <strong>R$ {{Building.min_price.base_price}}</strong></p>
                 </div>
             </a>
             {% endif %}

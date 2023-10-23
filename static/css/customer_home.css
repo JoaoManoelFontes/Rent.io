@@ -55,8 +55,8 @@ a:hover{
 
 .card-img{
     object-fit: cover;
-    width: 320px;
-    height: 150px;
+    max-width: 320px;
+    max-height: 170px;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
 }

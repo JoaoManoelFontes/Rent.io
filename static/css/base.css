@@ -100,7 +100,7 @@ main{
   
 .card {
     width: 190px;
-    height: 260px;
+    min-height: 260px;
     border-radius: 30px;
     background: #e0e0e0;
     box-shadow: 15px 15px 30px #bebebe,
@@ -136,7 +136,7 @@ main{
 
 .card-image {
     object-fit:cover;
-    width: 189px;
+    max-width: 189px;
     height: 235px;
     border-top-right-radius: 30px;
     border-top-left-radius: 30px;
