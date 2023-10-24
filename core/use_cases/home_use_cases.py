@@ -43,7 +43,6 @@ def all_buildings_use_case():
 def detail_building_use_case(pk):
     '''Building detail use case.'''
     building = get_object_or_404(Building, pk=pk)
-    print(building)
     apartments = Apartment.objects.filter(building=building)
     context = {
         'title': 'Building Detail | ' + building.name,

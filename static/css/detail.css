@@ -1,0 +1,13 @@
+#detail-image{
+    height: 300px; 
+    border-radius: 15px;
+    object-fit: fill;
+    width: 100%;
+}
+
+#detail-images{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
