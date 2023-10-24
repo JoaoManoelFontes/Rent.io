@@ -48,13 +48,13 @@ def get_properties_list(customer) -> list:
     '''Returns a list of properties of a customer'''
     houses = House.objects.filter(customer=customer)
     for house in houses:
-        house.image = house.media.get().image
+        house.image = house.media.first().image
         if not house.vacant:
             house.contracts = house.contract.get()
 
     buildings = Building.objects.filter(customer=customer)
     for building in buildings:
-        building.image = building.media.get().image
+        building.image = building.media.first().image
         building.apartments = Apartment.objects.filter(building=building).count()
         building.apartments_occupied = Apartment.objects.filter(building=building, vacant=False).count()
         building.apartments_late_payments = Apartment.objects.filter(building=building, late_payment=True).count()
