@@ -2,7 +2,55 @@
 {% load static %}
 {% load util %}
 {% block extrahead %}
-    <link rel="stylesheet" href="{% static 'css/payments_history.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
 {% endblock %}
 {% block content%}
+<section style="padding-top: 1rem;">
+    <div class="container">
+        <h4>{{house}}</h4>
+        <p class="text-muted">{{house.address}}</p>
+    </div>
+    <div class="container" id="detail-images">
+        {% if has_many_medias %}
+        <div class="row" id="image-container">
+            <div class="col-md-8">
+                <div style="display: flex; ">
+                    <img style="flex: 1;" id="detail-image"  src="{{house|get_property_image}}" alt="">
+                </div>
+            </div>
+            <div class="col-md-4" >
+                    <div>
+                        <img id="detail-image"  src="{{house|get_property_second_image}}" alt="">
+                    </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row" id="image-container">
+            <div class="col-md-12">
+                <div style="display: flex; ">
+                    <img style="flex: 1;" id="detail-image"  src="{{house|get_property_image}}" alt="">
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <hr style="margin: 1rem;">
+    <div class="container" id="property-infos">
+        <div style="display: flex; width: 100%; justify-content: space-between;">
+            <div style="display: flex; align-items: center; justify-content: space-around;">
+                <img style=" background-color: #27374D; margin-right: 1rem; border-radius: 60%;" src="{% static 'images/profile.png' %}" width="40px" height="40px" alt="profile">
+                <div>
+                    <p style="margin-bottom: 0;">{{house.customer}}</p>
+                    <p class="text-muted" style="margin-bottom: 0; font-size: small; ">Proprietário</p>
+                </div>
+            </div>
+            <div>
+                <div id="property-description">
+                    <p style="margin-bottom: 0;">Descrição</p>
+                    <p  style="margin-bottom: 0; font-size: small; ">{{house.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

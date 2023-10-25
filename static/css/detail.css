@@ -1,13 +1,36 @@
 #detail-image{
     height: 300px; 
     border-radius: 15px;
-    object-fit: fill;
+    object-fit: cover;
     width: 100%;
+    display: flex;
 }
 
 #detail-images{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+#image-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#property-infos{
+    width: 80%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+#property-description{
+    width: 350px;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
 }
