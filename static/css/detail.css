@@ -6,12 +6,11 @@
     display: flex;
 }
 
-#detail-images{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
+#property-offers-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
 
 #image-container{
     width: 100%;
@@ -34,3 +33,23 @@
     flex-direction: column;
     align-items: start;
 }
+
+.property-offers-container{
+    display: flex;
+    margin: 0 2rem 0 2rem;
+    align-items: space-between;
+    justify-content: space-between;
+}
+
+#property-offers-section{
+    transition: all 0.3s ease-in-out;
+    border: 0.5px solid; 
+    border-radius: 20px; 
+    padding: 1rem;
+}
+
+#property-offers-section:hover{
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    transform: scale(1.01);
+}
+

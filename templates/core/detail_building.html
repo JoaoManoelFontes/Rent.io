@@ -7,50 +7,82 @@
 {% block content%}
 <section style="padding-top: 1rem;">
     <div class="container">
-        <h4>{{building.name}}</h4>
-        <p class="text-muted">{{building.address}}</p>
-    </div>
-    <div class="container" id="detail-images">
-        {% if has_many_medias %}
-        <div class="row" id="image-container">
-            <div class="col-md-8">
-                <div style="display: flex; ">
-                    <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>{{building.name}}</h4>
+                <p class="text-muted">{{building.city}} - {{building.address}}</p>
             </div>
-            <div class="col-md-4" >
+            <div class="col-md-6">
+                <div style="display: flex; align-items: center; justify-content: end;">
+                    <img style=" background-color: #27374D; margin-right: 1rem; border-radius: 60%;" src="{% static 'images/profile.png' %}" width="40px" height="40px" alt="profile">
                     <div>
-                        <img id="detail-image"  src="{{building|get_property_second_image}}" alt="">
+                        <p style="margin-bottom: 0;">{{building.customer}}</p>
+                        <p class="text-muted" style="margin-bottom: 0; font-size: small; ">Proprietário</p>
                     </div>
-            </div>
-        </div>
-        {% else %}
-        <div class="row" id="image-container" style="display: flex; justify-content: center;">
-            <div class="col-md-10">
-                <div style="display: flex; ">
-                    <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
                 </div>
+        </div>
+    </div>
+    {% if has_many_medias %}
+    <div class="row" id="image-container">
+        <div class="col-md-8">
+            <div style="display: flex; ">
+                <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
             </div>
         </div>
-        {% endif %}
-    </div>
-    <hr style="margin: 1rem;">
-    <div class="container" id="property-infos">
-        <div style="display: flex; width: 100%; justify-content: space-between;">
-            <div style="display: flex; align-items: center; justify-content: space-around;">
-                <img style=" background-color: #27374D; margin-right: 1rem; border-radius: 60%;" src="{% static 'images/profile.png' %}" width="40px" height="40px" alt="profile">
+        <div class="col-md-4" >
                 <div>
-                    <p style="margin-bottom: 0;">{{building.customer}}</p>
-                    <p class="text-muted" style="margin-bottom: 0; font-size: small; ">Proprietário</p>
+                    <img id="detail-image"  src="{{building|get_property_second_image}}" alt="">
                 </div>
-            </div>
-            <div>
-                <div id="property-description">
-                    <p style="margin-bottom: 0;">Descrição</p>
-                    <p  style="margin-bottom: 0; font-size: small; ">{{building.description}}</p>
-                </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row" id="image-container" style="display: flex; justify-content: center;">
+        <div class="col-md-10">
+            <div style="display: flex; ">
+                <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
             </div>
         </div>
     </div>
+    {% endif %}
+    <hr style="margin: 1rem;">
+    <div class="row">
+        <div class="col-md-5" id="property-offers-section">
+            <h5 style="text-align: center;">Oferece:</h5>
+            <div class="property-offers-container">
+                <div>
+                        <ul id="property-offers-list">
+                            <li>
+                                <p>{{building.floors}} andares</p>
+                            </li>
+                            {% if building.recreation_area %}
+                            <li>
+                                <p>Área de lazer</p>
+                            </li>
+                            {% endif %}
+                        </ul>
+                </div>
+                <div>
+                    <ul id="property-offers-list">
+                        {% if building.elevator %}
+                        <li>
+                            <p>Elevador</p>
+                        </li>
+                        {% endif %}
+                        {% if building.concierge %}
+                        <li>
+                            <p>Portaria</p>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <h5>Descrição:</h5>
+            <p style="font-size: small; color:#27374D">{{building.description}}</p>
+        </div>
+    </div>
+</div>
+<br>
 </section>
 {% endblock %}
