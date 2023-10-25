@@ -14,4 +14,10 @@ def get_house_instance(value) -> bool:
 @register.filter
 def get_property_image(value) -> str:
     '''Returns the FIRST image of the House/Building instance.'''
-    return value.media.get().image.url
+    return value.media.first().image.url
+
+
+@register.filter
+def get_property_second_image(value) -> str:
+    '''Returns the SECOND image of the House/Building instance.'''
+    return value.media.all()[1].image.url

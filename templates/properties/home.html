@@ -72,18 +72,20 @@
                                   <p class="card-text">
                                       Casa vazia
                                     </p>
+                                  </div>
+                                </div>
+                              </div>
                                     {% else %}
-                                    <p class="card-text" style="text-align: left;">
+                                    <p class="card-text" style="text-align: left; font-weight: 400;">
                                       Pagamento mensal: R${{property.contracts.price}}
                                     </p>
-                                      <p class="card-text">
+                                      <p class="card-text" style="font-weight: 400;">
                                         Data de expiração: {{property.contracts.due_date}}
                                       </p>
-                                    {% endif %}
-                                </div>
-                            </div>
+                                    </div>
+                                  </div>
                           </div>
-                          <div class="col-3" style="margin-top: 1rem; display: flex; align-items: end; justify-content: end; ">
+                          <div class="col-3" style="display: flex; align-items: end; justify-content: end; margin-bottom: 0.5rem; ">
                             <div class="row">
                               <div class="col-12" >
                                 <p style="text-align: left; margin-right: 1rem;">
@@ -100,6 +102,7 @@
                               </div>
                             </div>
                           </div>
+                          {% endif %}
                         </div>
                       </a>
                     </div>
@@ -123,16 +126,16 @@
                                 </div>
                               </div>
 
-                              <div class="row">
+                              <div class="row" style="margin-bottom: 1rem;">
                                 <div class="col-12">
-                                  <p class="card-text"> {{property.apartments}} apartamento(s)</p>
-                                  <p class="card-text" style="text-align: left;">
+                                  <p class="card-text" style="font-weight: 400;"> {{property.apartments}} apartamento(s)</p>
+                                  <p class="card-text" style="text-align: left; font-weight: 400;">
                                     {{property.apartments_occupied}} ocupado(s)
                                   </p>
                                 </div>
                             </div>
                           </div>
-                          <div class="col-3" style="display: flex; align-items: end; justify-content: end;">
+                          <div class="col-3" style="display: flex; align-items: end; justify-content: end; margin-bottom: 0.5rem;">
                             <div class="row">
                               <div class="col-12" >
                                 <p style="text-align: left; margin-right: 1rem;">

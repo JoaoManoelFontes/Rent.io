@@ -28,7 +28,7 @@
     <div class="trending-carrousel">
         {% for Building in buildings %}
         {% if Building.vacant > 0 %}
-        <a class="card-link" href="{% url 'customer_building_detail' Building.id %}">
+        <a class="card-link" href="{% url 'building_detail' Building.id %}">
             <div class="card">
                 <img class="card-image" src="{{Building|get_property_image}}" alt="img-card">
                 <p class="card-title">{{Building.name}}</p>
@@ -41,7 +41,7 @@
                 <p class="card-text2">{{Building.vacant}} apartamento disponível</p>
                 {% endif %}
                 </div>
-                <p class="card-text" style="margin-top: 5px;">A partir de <strong>R$ {{House.base_price}}</strong></p>
+                <p class="card-text" style="margin-top: 5px;">A partir de <strong>R$ {{Building.min_price.base_price}}</strong></p>
             </div>
         </a>
         {% endif %}

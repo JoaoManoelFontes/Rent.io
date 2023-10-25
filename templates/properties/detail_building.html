@@ -2,7 +2,13 @@
 {% load static %}
 {% load util %}
 {% block extrahead %}
-    <link rel="stylesheet" href="{% static 'css/customer_home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
 {% endblock %}
-{% block content%} 
+{% block content%}
+<section style="padding-top: 1rem;">
+    <div class="container">
+        <h4>{{building.name}}</h4>
+        <p class="text-muted">{{building.address}}</p>
+    </div>
+</section>
 {% endblock %}

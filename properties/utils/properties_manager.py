@@ -1,4 +1,4 @@
-from properties.models import Building, House, Apartment, Media
+from properties.models import Building, House, Apartment
 from properties.utils.validate_payment_date import validate_payment_date
 
 
@@ -48,14 +48,14 @@ def get_properties_list(customer) -> list:
     '''Returns a list of properties of a customer'''
     houses = House.objects.filter(customer=customer)
     for house in houses:
-        setattr(house, 'image', house.media.get().image)
+        house.image = house.media.first().image
         if not house.vacant:
-            setattr(house, 'contracts', house.contract.get())
+            house.contracts = house.contract.get()
 
     buildings = Building.objects.filter(customer=customer)
     for building in buildings:
-        setattr(building, 'image', Media.objects.filter(building)[0].image)
-        setattr(building, 'apartments', Apartment.objects.filter(building=building).count())
-        setattr(building, 'apartments_occupied', Apartment.objects.filter(building=building, vacant=False).count())
-        setattr(building, 'apartments_late_payments', Apartment.objects.filter(building=building, late_payment=True).count())
+        building.image = building.media.first().image
+        building.apartments = Apartment.objects.filter(building=building).count()
+        building.apartments_occupied = Apartment.objects.filter(building=building, vacant=False).count()
+        building.apartments_late_payments = Apartment.objects.filter(building=building, late_payment=True).count()
     return list(houses) + list(buildings)
