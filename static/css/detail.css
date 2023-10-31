@@ -1,3 +1,4 @@
+
 #detail-image{
     height: 300px; 
     border-radius: 15px;
@@ -57,8 +58,6 @@
 
 #building-container{
     display: flex;
-    height: 70%;
-    align-items: center;
     justify-content: space-between;
 }
 

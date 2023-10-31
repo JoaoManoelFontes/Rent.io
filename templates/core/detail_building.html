@@ -80,16 +80,12 @@
         <div class="col-md-7">
             <h5>Descrição:</h5>
             <p style="font-size: small; color:#27374D">{{building.description}}</p>
-            <hr>
-            <h5 >Entrar em contato:</h5>
-            <p style="font-size: small; color:#27374D; margin: 0;">Telefone: <a href="tel:{{building.customer.phone_number}}">{{building.customer.phone_number}}</a></p>
-            <p style="font-size: small; color:#27374D; margin: 0;">E-mail: <a  href="mailto:{{building.customer.email}}"> {{building.customer.email}}</a></p>
         </div>
     </div>
     <br>
-    <div class="row">
+    <div class="row" style="display: flex; align-items: center;">
         <div class="col-md-5">
-            <div class="tab-content" id="nav-tab-content">
+            <div class="tab-content" id="nav-tab-content" >
                 {% for apartment in apartments %}
                 {% if forloop.first %}
                 <div class="tab-pane fade show active p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
@@ -128,7 +124,7 @@
     </div>
     </div>
     <div class="col-md-7">
-        <div id="apartments-container">
+        <div id="apartments-container" >
             <div style="text-align: center;">
                 <h5>Apartamentos disponíveis:</h5>
             </div>
