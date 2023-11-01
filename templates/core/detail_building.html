@@ -45,101 +45,88 @@
     </div>
     {% endif %}
     <hr style="margin: 1rem;">
-    <div class="row">
-        <div class="col-md-5" id="property-offers-section">
-            <h5 style="text-align: center;">Oferece:</h5>
-            <div class="property-offers-container" id="building-container">
-                <div>
-                        <ul id="property-offers-list">
-                            <li>
-                                <p>{{building.floors}} andar(es)</p>
-                            </li>
-                            {% if building.recreation_area %}
-                            <li>
-                                <p>Área de lazer</p>
-                            </li>
-                            {% endif %}
-                        </ul>
-                </div>
-                <div>
-                    <ul id="property-offers-list">
-                        {% if building.elevator %}
-                        <li>
-                            <p>Elevador</p>
-                        </li>
-                        {% endif %}
-                        {% if building.concierge %}
-                        <li>
-                            <p>Portaria</p>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-7">
+    <div class="row" style="display: flex; align-items: center;">
+        <div class="col-md-6">
             <h5>Descrição:</h5>
-            <p style="font-size: small; color:#27374D">{{building.description}}</p>
+            <p style="font-size: small;">{{building.description}}</p>
+        </div>
+        <div class="col-md-6">
+            <div class="property-container">
+                <p>{{building.floors}} andares</p>
+                <p>{{apartments.count}} apartamentos disponíveis</p>
+            </div>
         </div>
     </div>
     <br>
     <div class="row" style="display: flex; align-items: center;">
         <div class="col-md-5">
-            <div class="tab-content" id="nav-tab-content" >
+            <div class="property-container">
+                <h5>Oferece:</h5>
+                {% if building.elevator %}
+                <p>Elevador</p>
+                {% endif %}
+                {% if building.concierge %}
+                <p>Portaria</p>
+                {% endif %}
+                {% if building.recreation_area%}
+                <p>Área de lazer</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-7"></div>
+    </div>
+    <br>
+    <div class="row" style="display: flex; align-items: center;">
+        <div class="col-md-5">
+            <div class="apartments-container">
+                <h5>Apartamentos:</h5>
+                <div class="nav nav-tabs" id="nav-tabs" role="tablist">
+                    {% for apartment in apartments %}
+                    {% if forloop.first %}
+                        <button class="nav-link active" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
+                    {% else %}
+                        <button class="nav-link" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>      
+        <div class="col-md-7">
+            <div class="tab-content" id="nav-tab-content">
                 {% for apartment in apartments %}
                 {% if forloop.first %}
                 <div class="tab-pane fade show active p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
                     <h5 style="text-align: center;">Informações do apartamento {{apartment.number}}:</h5>
-                    <div class="apartment-info-container">
-                        <ul id="apartment-info-list">
-                            <li>{{apartment.floor}}° andar</li>
-                            <li>{{apartment.rooms}} quarto(s)</li>
-                            <li>{{apartment.bathrooms}} banheiro(s)</li>
-                        </ul>
-                        <ul id="apartment-info-list" style="text-align: end;">
-                            <li>{{apartment.suites}} suite(s)</li>
-                            <li>{{apartment.area}}m<sup>2</sup> </li>
-                            <li>R$ {{apartment.base_price}} (negociável)</li>
-                        </ul>
+                    <div class="apartment-infos">
+                        <div>
+                            <p>{{apartment.rooms}} quarto(s)</p>
+                            <p>{{apartment.bathrooms}} banheiro(s)</p>
+                        </div>
+                        <div>
+                            <p>{{apartment.suites}} suite(s)</p>
+                            <p>{{apartment.area}} m²</p>
+                        </div>
                     </div>
                 </div>
                 {% else %}
                 <div class="tab-pane fade p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
                     <h5 style="text-align: center;">Informações do apartamento {{apartment.number}}:</h5>
-                    <div class="apartment-info-container">
-                        <ul id="apartment-info-list">
-                            <li>{{apartment.floor}}° andar</li>
-                            <li>{{apartment.rooms}} quarto(s)</li>
-                            <li>{{apartment.bathrooms}} banheiro(s)</li>
-                        </ul>
-                        <ul id="apartment-info-list" style="text-align: end;">
-                            <li>{{apartment.suites}} suite(s)</li>
-                            <li>{{apartment.area}}m<sup>2</sup> </li>
-                            <li>R$ {{apartment.base_price}} (negociável)</li>
-                        </ul>
+                    <div class="apartment-infos">
+                        <div>
+                            <p>{{apartment.rooms}} quarto(s)</p>
+                            <p>{{apartment.bathrooms}} banheiro(s)</p>
+                        </div>
+                        <div>
+                            <p>{{apartment.suites}} suite(s)</p>
+                            <p>{{apartment.area}} m²</p>
+                        </div>
                     </div>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
+        </div>      
     </div>
     </div>
-    <div class="col-md-7">
-        <div id="apartments-container" >
-            <div style="text-align: center;">
-                <h5>Apartamentos disponíveis:</h5>
-            </div>
-            <div class="nav nav-tabs" id="nav-tabs" role="tablist">
-            {% for apartment in apartments %}
-            {% if forloop.first %}
-                <button class="nav-link active" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
-            {% else %}
-                <button class="nav-link" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
-            {% endif %}
-            {% endfor %}
-            </div>
-        </div>
-        </div>
-    </div>
-<br>
 </section>
 {% endblock %}
