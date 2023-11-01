@@ -45,55 +45,39 @@
     </div>
     {% endif %}
     <hr style="margin: 1rem;">
-    <div class="row">
-        <div class="col-md-5" id="property-offers-section">
-            <h5 style="text-align: center;">Oferece:</h5>
-            <div class="property-offers-container">
-                <div>
-                        <ul id="property-offers-list" class="house-list">
-                            <li>
-                                {% if house.garage %}
-                                <p>Garagem</p>
-                                {% endif %}
-                            </li>
-                            {% if house.backyard %}
-                            <li>
-                                <p>Quintal</p>
-                            </li>
-                            {% endif %}
-                            {% if house.pool %}
-                        <li>
-                            <p>Piscina</p>
-                        </li>
-                        {% endif %}
-                        </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-7">
+    <div class="row" style="display: flex; align-items: center;">
+        <div class="col-md-6">
             <h5>Descrição:</h5>
-            <p style="font-size: small; color:#27374D">{{house.description}}</p>
+            <p style="font-size: small;">{{house.description}}</p>
+        </div>
+        <div class="col-md-6" style="display: flex; justify-content: space-around;">
+            <div class="property-container" style="width: 30%;">
+                <p>{{house.rooms}} quarto(s)</p>
+                <p>{{house.bathrooms}} banheiros(s)</p>
+            </div>
+            <div class="property-container" style="width: 30%;">
+                <p>{{house.suites}} suite(s)</p>
+                <p>{{house.area}} m²</p>
+            </div>
         </div>
     </div>
     <br>
-    <div class="row">
+    <div class="row" style="display: flex; align-items: center;">
         <div class="col-md-5">
-            <h5 style="text-align: center;">Informações da casa:</h5>
-            <div class="apartment-info-container">
-                <ul id="apartment-info-list">
-                    <li>{{house.rooms}} quarto(s)</li>
-                    <li>{{house.bathrooms}} banheiro(s)</li>
-                    <li>R$ {{house.base_price}} (negociável)</li>
-                </ul>
-                <ul id="apartment-info-list" style="text-align: end;">
-                    <li>{{house.suites}} suite(s)</li>
-                    <li>{{house.area}}m<sup>2</sup> </li>
-                </ul>
+            <div class="property-container">
+                <h5>Oferece:</h5>
+                {% if house.garage %}
+                <p>Garagem</p>
+                {% endif %}
+                {% if house.backyard %}
+                <p>Quintal</p>
+                {% endif %}
+                {% if house.pool%}
+                <p>Piscina</p>
+                {% endif %}
             </div>
         </div>
-        <div class="col-md-7" >
-        </div>
-            
+        <div class="col-md-7"></div>
     </div>
 </div>
 <br>
