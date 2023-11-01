@@ -29,7 +29,7 @@ def sign_in(request):
 def sign_out(request):
     '''customer logout view '''
     logout(request)
-    return redirect('home')
+    return redirect(request.META['HTTP_REFERER'])
 
 
 def sign_up(request):
