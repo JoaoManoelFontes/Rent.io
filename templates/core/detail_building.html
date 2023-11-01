@@ -48,11 +48,11 @@
     <div class="row">
         <div class="col-md-5" id="property-offers-section">
             <h5 style="text-align: center;">Oferece:</h5>
-            <div class="property-offers-container">
+            <div class="property-offers-container" id="building-container">
                 <div>
                         <ul id="property-offers-list">
                             <li>
-                                <p>{{building.floors}} andares</p>
+                                <p>{{building.floors}} andar(es)</p>
                             </li>
                             {% if building.recreation_area %}
                             <li>
@@ -80,9 +80,70 @@
         <div class="col-md-7">
             <h5>Descrição:</h5>
             <p style="font-size: small; color:#27374D">{{building.description}}</p>
+            <hr>
+            <h5 >Entrar em contato:</h5>
+            <p style="font-size: small; color:#27374D; margin: 0;">Telefone: <a href="tel:{{building.customer.phone_number}}">{{building.customer.phone_number}}</a></p>
+            <p style="font-size: small; color:#27374D; margin: 0;">E-mail: <a  href="mailto:{{building.customer.email}}"> {{building.customer.email}}</a></p>
         </div>
     </div>
-</div>
+    <br>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="tab-content" id="nav-tab-content">
+                {% for apartment in apartments %}
+                {% if forloop.first %}
+                <div class="tab-pane fade show active p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
+                    <h5 style="text-align: center;">Informações do apartamento {{apartment.number}}:</h5>
+                    <div class="apartment-info-container">
+                        <ul id="apartment-info-list">
+                            <li>{{apartment.floor}}° andar</li>
+                            <li>{{apartment.rooms}} quarto(s)</li>
+                            <li>{{apartment.bathrooms}} banheiro(s)</li>
+                        </ul>
+                        <ul id="apartment-info-list" style="text-align: end;">
+                            <li>{{apartment.suites}} suite(s)</li>
+                            <li>{{apartment.area}}m<sup>2</sup> </li>
+                            <li>R$ {{apartment.base_price}} (negociável)</li>
+                        </ul>
+                    </div>
+                </div>
+                {% else %}
+                <div class="tab-pane fade p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
+                    <h5 style="text-align: center;">Informações do apartamento {{apartment.number}}:</h5>
+                    <div class="apartment-info-container">
+                        <ul id="apartment-info-list">
+                            <li>{{apartment.floor}}° andar</li>
+                            <li>{{apartment.rooms}} quarto(s)</li>
+                            <li>{{apartment.bathrooms}} banheiro(s)</li>
+                        </ul>
+                        <ul id="apartment-info-list" style="text-align: end;">
+                            <li>{{apartment.suites}} suite(s)</li>
+                            <li>{{apartment.area}}m<sup>2</sup> </li>
+                            <li>R$ {{apartment.base_price}} (negociável)</li>
+                        </ul>
+                    </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+    </div>
+    </div>
+    <div class="col-md-7">
+        <div id="apartments-container">
+            <div style="text-align: center;">
+                <h5>Apartamentos disponíveis:</h5>
+            </div>
+            <div class="nav nav-tabs" id="nav-tabs" role="tablist">
+            {% for apartment in apartments %}
+            {% if forloop.first %}
+                <button class="nav-link active" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
+            {% else %}
+                <button class="nav-link" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
+            {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+        </div>
+    </div>
 <br>
 </section>
 {% endblock %}

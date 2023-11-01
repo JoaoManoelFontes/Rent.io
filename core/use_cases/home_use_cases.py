@@ -42,7 +42,7 @@ def all_buildings_use_case():
 def detail_building_use_case(pk):
     '''Building detail use case.'''
     building = get_object_or_404(Building, pk=pk)
-    apartments = Apartment.objects.filter(building=building)
+    apartments = Apartment.objects.filter(building=building, vacant=True)
     has_many_medias = validate_medias(building)
     context = {
         'title': 'Building Detail | ' + building.name,
