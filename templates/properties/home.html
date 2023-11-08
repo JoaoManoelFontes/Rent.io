@@ -48,7 +48,7 @@
                   {% for property in properties_list %}
                     {% if property|get_house_instance %}
                     <div style="margin-bottom: 1rem; margin-top: 1rem;" >
-                      <a href="house_payments_history/{{property.id}}" style="text-decoration: none; color: black;">
+                      <a href="{% url 'customer_house_detail' property.id %}" style="text-decoration: none; color: black;">
                         <div class="container-fluid" id="property">
                           <div class="row">
                             <div class="col-3">
@@ -108,7 +108,7 @@
                     </div>
                     {% else %}
                     <div style="margin-top: 1rem; margin-bottom: 1rem;">
-                      <a href="apartment_payments_history/{{property.id}}" style="text-decoration: none; color: black;">
+                      <a href="{% url 'customer_building_detail' property.id %}" style="text-decoration: none; color: black;">
                         <div class="container-fluid" id="property">
                           <div class="row">
                             <div class="col-3">

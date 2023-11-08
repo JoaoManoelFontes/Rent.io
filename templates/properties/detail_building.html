@@ -7,8 +7,126 @@
 {% block content%}
 <section style="padding-top: 1rem;">
     <div class="container">
-        <h4>{{building.name}}</h4>
-        <p class="text-muted">{{building.address}}</p>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>{{building.name}}</h4>
+                <p class="text-muted">{{building.city}} - {{building.address}}</p>
+            </div>
+            <div class="col-md-6">
+                <div style="display: flex; align-items: center; justify-content: end;">
+                    <img style=" background-color: #27374D; margin-right: 1rem; border-radius: 60%;" src="{% static 'images/profile.png' %}" width="40px" height="40px" alt="profile">
+                    <div>
+                        <p style="margin-bottom: 0;">{{building.customer}}</p>
+                        <p class="text-muted" style="margin-bottom: 0; font-size: small; ">Proprietário</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+    {% if has_many_medias %}
+    <div class="row" id="image-container">
+        <div class="col-md-8">
+            <div style="display: flex; ">
+                <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
+            </div>
+        </div>
+        <div class="col-md-4" >
+                <div>
+                    <img id="detail-image"  src="{{building|get_property_second_image}}" alt="">
+                </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row" id="image-container" style="display: flex; justify-content: center;">
+        <div class="col-md-10">
+            <div style="display: flex; ">
+                <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <hr style="margin: 1rem;">
+    <div class="row" style="display: flex; align-items: center;">
+        <div class="col-md-6">
+            <h5>Descrição:</h5>
+            <p style="font-size: small;">{{building.description}}</p>
+        </div>
+        <div class="col-md-6">
+            <div class="property-container">
+                <p>{{building.floors}} andares</p>
+                <p>{{apartments.count}} apartamentos disponíveis</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row" style="display: flex; align-items: center;">
+        <div class="col-md-5">
+            <div class="property-container">
+                <h5>Oferece:</h5>
+                {% if building.elevator %}
+                <p>Elevador</p>
+                {% endif %}
+                {% if building.concierge %}
+                <p>Portaria</p>
+                {% endif %}
+                {% if building.recreation_area%}
+                <p>Área de lazer</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-7"></div>
+    </div>
+    <br>
+    <div class="row" style="display: flex; align-items: center;">
+        <div class="col-md-5">
+            <div class="apartments-container">
+                <h5>Apartamentos:</h5>
+                <div class="nav nav-tabs" id="nav-tabs" role="tablist">
+                    {% for apartment in apartments %}
+                    {% if forloop.first %}
+                        <button class="nav-link active" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
+                    {% else %}
+                        <button class="nav-link" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>      
+        <div class="col-md-7">
+            <div class="tab-content" id="nav-tab-content">
+                {% for apartment in apartments %}
+                {% if forloop.first %}
+                <div class="tab-pane fade show active p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
+                    <h5 style="text-align: center;">Informações do apartamento {{apartment.number}}:</h5>
+                    <div class="apartment-infos">
+                        <div>
+                            <p>{{apartment.rooms}} quarto(s)</p>
+                            <p>{{apartment.bathrooms}} banheiro(s)</p>
+                        </div>
+                        <div>
+                            <p>{{apartment.suites}} suite(s)</p>
+                            <p>{{apartment.area}} m²</p>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="tab-pane fade p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
+                    <h5 style="text-align: center;">Informações do apartamento {{apartment.number}}:</h5>
+                    <div class="apartment-infos">
+                        <div>
+                            <p>{{apartment.rooms}} quarto(s)</p>
+                            <p>{{apartment.bathrooms}} banheiro(s)</p>
+                        </div>
+                        <div>
+                            <p>{{apartment.suites}} suite(s)</p>
+                            <p>{{apartment.area}} m²</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>      
+    </div>
     </div>
 </section>
 {% endblock %}

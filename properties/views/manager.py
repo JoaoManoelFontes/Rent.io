@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from core.use_cases.home_use_cases import detail_house_use_case
-from properties.use_cases.manager_use_cases import apartment_payments_history_use_case, detail_building_use_case, home_use_case, house_payments_history_use_case
+from properties.use_cases.manager_use_cases import apartment_payments_history_use_case, detail_building_use_case, detail_house_use_case, home_use_case, house_payments_history_use_case
 
 
 @login_required(login_url='/login')
