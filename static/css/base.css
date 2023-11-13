@@ -99,8 +99,8 @@ main{
   }
   
 .card {
-    width: 190px;
-    height: 260px;
+    width: 15vw;
+    height: 40vh;
     border-radius: 30px;
     background: #e0e0e0;
     box-shadow: 15px 15px 30px #bebebe,
@@ -135,7 +135,7 @@ main{
   }
 
 .card-image {
-    object-fit:fill;
+    object-fit:cover;
     width: 100%;
     height: 100%;
     border-top-right-radius: 30px;
