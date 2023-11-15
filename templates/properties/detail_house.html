@@ -3,6 +3,7 @@
 {% load util %}
 {% block extrahead %}
     <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/customer_home.css' %}">
 {% endblock %}
 {% block content%}
 <section style="padding-top: 1rem;">
@@ -20,9 +21,137 @@
                         <p class="text-muted" style="margin-bottom: 0; font-size: small; ">Proprietário</p>
                     </div>
                 </div>
+            </div>
         </div>
-    </div>
-    {% if has_many_medias %}
+          <div style="margin: 1rem 0 1rem 0;">
+            <div class="container-fluid" id="property">
+              <div class="row">
+                <div class="col-3">
+                  <img src="{{house|get_property_image}}" alt="house" class="card-img">
+                </div>
+                <div class="col-6" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; margin-top: 1rem;">
+                  <div class="row">
+                    <div class="col-12">
+                      <h5>Informações</h5>
+                    </div>
+                  </div>
+                  {% if house.vacant %}
+                  <div class="row" style="margin-bottom: 1rem;">
+                    <div class="col-12">
+                      <p class="card-text">
+                          Casa vazia
+                        </p>
+                    </div>
+                  </div>
+                  {% else %}
+                    <div class="row" style="margin-bottom: 1rem;">
+                      <div class="col-12">
+                        <p class="card-text" style="text-align: left; font-weight: 400;">
+                          Pagamento mensal: R${{house.contracts.price}}
+                        </p>
+                          <p class="card-text" style="font-weight: 400;">
+                            Contrato criado em: {{house.contracts.base_payment_date}}
+                          </p>
+                          <p class="card-text" style="font-weight: 400; text-align: start;">
+                            Total de pagamentos realizados: {{house.payments_amount}}
+                          </p>
+                      </div>
+                    </div>
+                    
+                  {% endif %}
+                </div>
+                <div class="col-3"  style="display: flex; align-items: end; justify-content: end; margin-bottom: 0.5rem;">
+                  <div class="row">
+                    <div class="col-12">
+                      <p style="text-align: left; margin-right: 1rem;">
+                        {% if house.late_payment %}
+                        <span style="border: solid; border-color: #B15959; border-width: 2px;" class="status-span">
+                          Atrasado
+                        </span>
+                        {% else %}
+                        <span style="border: solid; border-color: #57B657; border-width: 2px;" class="status-span">
+                          Em dia
+                        </span>
+                        {% endif %}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <div id="contract-container">
+              {% if house.vacant %}
+              <div class="contract-container-title">
+                <h5 style="margin: 0;">Contrato</h5>
+              </div>
+              <br>
+              <p style="text-align: start;">Você não adicionou nenhum contrato no momento!</p>
+              <br>
+              <a href="#"><span>Cadastrar contrato</span></a>
+              {% else %}
+              <div class="contract-container-title">
+                <h5 style="margin: 0;">Contrato</h5>
+                <p class="card-text" style="font-weight: 400;">Tipo: {{house.months_of_contract}} meses</p>
+              </div>
+              <br>
+              <div id="contract-download" style="text-align: center;">
+                <a id="download" href="{{house.contracts.contract_file.url}}" download>
+                  <span>{{house.contract_name}}</span>
+                </a>
+              </div>
+              <br>
+              <div>
+                <p class="card-text" style="font-weight: 400; text-align: start;">
+                  Dia do pagamento: {{house.payment_day}}
+                </p>
+                <p class="card-text" style="font-weight: 400; text-align: start;">
+                  Expira em: {{house.contracts.due_date}}
+                </p>
+                
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5>Descrição:</h5>
+            <p style="font-size: small; text-align:justify;">{{house.description}}</p>
+        </div>
+        </div>  
+        <br>
+        <div class="row">
+          <h5 style="margin-bottom: 1.5rem;">Oferece:</h5>
+          <div class="col-md-4">
+            <div class="property-container">
+                {% if house.garage %}
+                <p>Garagem</p>
+                {% endif %}
+                {% if house.backyard %}
+                <p>Quintal</p>
+                {% endif %}
+                {% if house.pool%}
+                <p>Piscina</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="property-container" >
+            <p>{{house.rooms}} quarto(s)</p>
+            <p>{{house.bathrooms}} banheiros(s)</p>
+        </div>
+        </div>
+        <div class="col-md-4">
+          <div class="property-container" >
+              <p>{{house.suites}} suite(s)</p>
+              <p>{{house.area}} m²</p>
+          </div>
+      </div>
+        </div>    
+
+    <!-- {% if has_many_medias %}
     <div class="row" id="image-container">
         <div class="col-md-8">
             <div style="display: flex; ">
@@ -78,7 +207,7 @@
             </div>
         </div>
         <div class="col-md-7"></div>
-    </div>
+    </div> -->
 </div>
 <br>
 </section>

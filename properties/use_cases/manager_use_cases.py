@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from properties.models import Apartment, Building, House
-from properties.utils.properties_manager import get_late_payments_amount, get_occupied_properties_amount, get_properties_amount, get_properties_list
+from properties.utils.properties_manager import get_house_infos, get_late_payments_amount, get_occupied_properties_amount, get_properties_amount, get_properties_list
 
 
 def home_use_case(user):
@@ -35,7 +35,7 @@ def detail_building_use_case(building_id):
 
 def detail_house_use_case(house_id):
     '''House detail use case.'''
-    house = get_object_or_404(House, pk=house_id)
+    house = get_house_infos(house_id)
     context = {
         'title': 'House Detail | ' + house.__str__(),
         'house': house,
