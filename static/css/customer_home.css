@@ -6,6 +6,14 @@
     letter-spacing: 2px;
 }
 
+.icon{
+    color: #132a3b;
+    text-decoration: none;
+}
+
+.icon:hover{
+    color: #27374D;
+}
 
 a:hover{
     color: #132a3b;
