@@ -8,22 +8,30 @@
     <div class="container" style="padding-bottom: 2%;" id="main">
         <h4>Olá, {{request.user}}</h4>
         <section id="main-infos">
-            <div class="info-card" style="background-image: linear-gradient(to left, #0637736f, #063773b9, #01479b);" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                <div class="card-body">
-                  <h5 class="card-t">Total de imóveis</h5>  
-                  <h4 class="card-text1" style="text-align: center; font-size: larger; padding: 5%;">{{properties_amount}}</h4>
+            <div class="info-card" >
+              <div class="card-number" style="background-image: linear-gradient(to left, #0637736f, #063773b9, #01479b);">
+                <h2 class="card-text1" style="text-align: center; padding: 5%; ">{{properties_amount}}</h2>
+              </div>
+                <div class="card-body" style="width: 10rem;">
+                  <h4 class="card-t" style="color: black; text-align: center;">Imóveis 
+                  </h4>  
+                  
                 </div>
               </div>
-            <div class="info-card" style="background-image: linear-gradient(to right, #57B657, #57B657b2, #57B6574d);">
-                <div class="card-body">
-                    <h5 class="card-t">Ocupados</h5>  
-                    <h4 class="card-text1" style="text-align: center; font-size: larger; padding: 5%;">{{occupied_properties_amount}}</h4>
+            <div class="info-card" >
+              <div class="card-number" style="background-image: linear-gradient(to right, #57B657, #57B657b2, #57B6574d);">
+                <h2 class="card-text1" style="text-align: center; padding: 5%;">{{occupied_properties_amount}}</h2>
+              </div>
+                <div class="card-body" style="width: 10rem;">
+                    <h4 class="card-t" style="color: black; text-align: center;">Ocupados</h4>  
                 </div>
             </div>
-            <div class="info-card" style="background-image: linear-gradient(to right, #B15959, #B15959b2, #B159594d);">
-                <div class="card-body">
-                    <h5 class="card-t">Atrasados</h5>  
-                    <h4 class="card-text1" style="text-align: center; font-size: larger; padding: 5%;">{{late_payments_amount}}</h4>
+            <div class="info-card" >
+              <div class="card-number" style="background-image: linear-gradient(to right, #B15959, #B15959b2, #b1595981);">
+                <h2 class="card-text1" style="text-align: center; padding: 5%;">{{late_payments_amount}}</h2>
+              </div>
+                <div class="card-body" style="width: 10rem;">
+                    <h4 class="card-t" style="color: black; text-align: center;">Atrasados</h4>  
                 </div>
             </div>
         </section>

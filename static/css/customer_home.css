@@ -28,8 +28,12 @@ a:hover{
 }
 
 .info-card {
+    background-color: white;
     margin: 1rem;
     width: 18rem;
+    height: 9rem;
+    display: flex;
+    align-items: center;
     border: none;
     border-radius: 10px;
     box-shadow: 10px 15px 10px rgba(0, 0, 0, 0.526);
@@ -38,6 +42,15 @@ a:hover{
 
 .info-card:hover{
     transform: scale(1.02);
+}
+
+.card-number{
+    width: 8rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px
 }
 
 .card-t{
