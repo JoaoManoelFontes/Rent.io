@@ -3,6 +3,12 @@
 {% load util %}
 {% block extrahead %}
     <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 {% endblock %}
 {% block content%}
 <section style="padding-top: 1rem;">
@@ -108,7 +114,9 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="col-md-7"></div>
+            <div class="col-md-6">
+                <div id="map" style="height: 150px;"></div>
+            </div>
         </div>
         <br>
         <div class="row" style="display: flex; align-items: center;">
@@ -118,9 +126,9 @@
                     <div class="nav nav-tabs" id="nav-tabs" role="tablist">
                         {% for apartment in apartments %}
                         {% if forloop.first %}
-                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true">{{apartment.number}}</button>
+                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" onclick="get_apartment_number('{{apartment.base_price}}')">{{apartment.number}}</button>
                         {% else %}
-                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false">{{apartment.number}}</button>
+                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" onclick="get_apartment_number('{{apartment.base_price}}')">{{apartment.number}}</button>
                         {% endif %}
                         {% endfor %}
                     </div>
@@ -195,27 +203,45 @@
                         <div class="property-container">
                             <div class="price-container">
                                 <div>
-                                    <div class="tab-content" id="nav-tab-content">
-                                        {% for apartment in apartments %}
-                                        {% if forloop.first %}
-                                        <div class="tab-pane fade show active" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
-                                            <h4 class="price-tag"><strong>R${{apartment.base_price}}</strong> por mês</h4>
-                                        </div>
-                                        {% else %}
-                                        <div class="tab-pane fade" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
-                                            <h4 class="price-tag"><strong>R${{apartment.base_price}}</strong> por mês</h4>
-                                        </div>
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
+                                            <h4 class="price-tag"><strong>R${{building | get_first_apartment_by_building}}</strong> por mês</h4>
+                                        
+                                        
                                 </div>
                                 <a href="#" class="contact-button" class="btn btn-primary">Entrar em contato</a>
                             </div>
                         </div>
                 </div>
             </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
         </div>
-        <br>
-    </div>
 </section>
+<script>
+    function get_apartment_number(base_price){
+        const price_tag = document.querySelector('.price-tag');
+        price_tag.innerHTML = `<strong>R$${base_price}</strong> por mês`;
+    }
+</script>
+<script>
+    const city = "{{building.city}}".replace(/ /g, "+")
+    const street = "{{building.address}}".replace(/ /g, "+")
+
+    const data = fetch(`https://nominatim.openstreetmap.org/search?format=json&street=${street}&city=${city}`).then(
+        response => response.json()).then(
+            (data) => {
+                var map = L.map('map').setView([data[0].lat, data[0].lon], 15);
+            
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19
+            }).addTo(map);
+
+                var marker = L.marker([data[0].lat, data[0].lon]).addTo(map);
+            }
+            );
+</script>
 {% endblock %}

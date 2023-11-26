@@ -65,6 +65,8 @@
                     
                   {% endif %}
                 </div>
+                {% if house.vacant %}
+                {% else %}
                 <div class="col-3"  style="display: flex; align-items: end; justify-content: end; margin-bottom: 0.5rem;">
                   <div class="row">
                     <div class="col-12">
@@ -82,12 +84,13 @@
                     </div>
                   </div>
                 </div>
+                {% endif %}
               </div>
           </div>
         </div>
         <br>
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-md-4">
             <div id="contract-container">
               {% if house.vacant %}
               <div class="icon-container">
@@ -199,66 +202,43 @@
             </div>
           </div>
       </div>
-        </div>    
-
-    <!-- {% if has_many_medias %}
-    <div class="row" id="image-container">
-        <div class="col-md-8">
-            <div style="display: flex; ">
-                <img style="flex: 1;" id="detail-image"  src="{{house|get_property_image}}" alt="">
-            </div>
-        </div>
-        <div class="col-md-4" >
-                <div>
-                    <img id="detail-image"  src="{{house|get_property_second_image}}" alt="">
-                </div>
-        </div>
-    </div>
-    {% else %}
-    <div class="row" id="image-container" style="display: flex; justify-content: center;">
-        <div class="col-md-10">
-            <div style="display: flex; ">
-                <img style="flex: 1;" id="detail-image"  src="{{house|get_property_image}}" alt="">
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    <hr style="margin: 1rem;">
-    <div class="row" style="display: flex; align-items: center;">
-        <div class="col-md-6">
-            <h5>Descrição:</h5>
-            <p style="font-size: small;">{{house.description}}</p>
-        </div>
-        <div class="col-md-6" style="display: flex; justify-content: space-around;">
-            <div class="property-container" style="width: 35%;">
-                <p>{{house.rooms}} quarto(s)</p>
-                <p>{{house.bathrooms}} banheiros(s)</p>
-            </div>
-            <div class="property-container" style="width: 35%;">
-                <p>{{house.suites}} suite(s)</p>
-                <p>{{house.area}} m²</p>
-            </div>
-        </div>
+    </div>    
+    <br>
+    <div class="payments-container">
+      <div class="payments-container-title">
+        <h5>Pagamentos: </h5>
+      </div>
+      <table class="table">
+        <thead class="thead" style="background-color: #27374D; color: white; ">
+            <th scope="col">Data</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Mês referente</th>
+            <th scope="col">Ações</th>
+        </thead>
+        <tbody>
+          {% if house.vacant %}
+            <tr >
+              <td colspan="4" style="text-align: center;">Crie um contrato para realizar os pagamentos.</td>
+            </tr>
+          {% elif house.payments_amount == 0 %}
+            <tr >
+              <td colspan="4" style="text-align: center;">Nenhum pagamento realizado.</td>
+            </tr>
+          {% endif %}
+          {% for payment in house.payments %}
+            <tr >
+              <td>{{payment.date}}</td>
+              <td>{{payment.value}}</td>
+              <td>{{payment.base_payment_month}}</td>
+              <td style="display: flex; justify-content: space-evenly; border: none;">
+                <a href="#" class="btn" style="background-color: #27374D; color: white;">Editar</a>
+                <a href="#" class="btn" style="background-color: #8b4747; color: white;">Excluir</a>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
     <br>
-    <div class="row" style="display: flex; align-items: center;">
-        <div class="col-md-5">
-            <div class="property-container">
-                <h5>Oferece:</h5>
-                {% if house.garage %}
-                <p>Garagem</p>
-                {% endif %}
-                {% if house.backyard %}
-                <p>Quintal</p>
-                {% endif %}
-                {% if house.pool%}
-                <p>Piscina</p>
-                {% endif %}
-            </div>
-        </div>
-        <div class="col-md-7"></div>
-    </div> -->
 </div>
-<br>
 </section>
 {% endblock %}

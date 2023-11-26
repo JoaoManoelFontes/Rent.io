@@ -1,0 +1,181 @@
+{% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
+{% load static %}
+{% load util %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/customer_home.css' %}">
+{% endblock %}
+{% block content%}
+<section style="padding-top: 1rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-1" style="width: 3%;">
+              <a href="/customer" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+              </svg></a>
+            </div>
+              <div class="col-md-6">
+                  <h4>{{apartment}}</h4>
+                  <p class="text-muted">{{apartment.building.city}} - {{apartment.building.address}}</p>
+              </div>
+              <div class="col-md-5">
+                  <div style="display: flex; align-items: center; justify-content: end;">
+                      <img style=" background-color: #27374D; margin-right: 1rem; border-radius: 60%;" src="{% static 'images/profile.png' %}" width="40px" height="40px" alt="profile">
+                      <div>
+                          <p style="margin-bottom: 0;">{{house.customer}}</p>
+                          <p class="text-muted" style="margin-bottom: 0; font-size: small; ">Proprietário</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div style="margin: 1rem 0 1rem 0;">
+            <div class="container-fluid" id="property" style="padding: 1rem;">
+              <div class="row" style="display: flex; justify-content: space-between;">
+                <div class="col-6" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; margin-top: 1rem;">
+                  <div class="row">
+                    <div class="col-12">
+                      <h5>Informações</h5>
+                    </div>
+                  </div>
+                  {% if apartment.vacant %}
+                  <div class="row" style="margin-bottom: 1rem;">
+                    <div class="col-12">
+                      <p class="card-text">
+                          Apartamento vazio
+                        </p>
+                    </div>
+                  </div>
+                  {% else %}
+                    <div class="row" style="margin-bottom: 1rem;">
+                      <div class="col-12">
+                        <p class="card-text" style="text-align: left; font-weight: 400;">
+                          Pagamento mensal: R${{apartment.contracts.price}}
+                        </p>
+                          <p class="card-text" style="font-weight: 400;">
+                            Contrato criado em: {{apartment.contracts.base_payment_date}}
+                          </p>
+                          <p class="card-text" style="font-weight: 400; text-align: start;">
+                            Total de pagamentos realizados: {{apartment.payments_amount}}
+                          </p>
+                      </div>
+                    </div>
+                    
+                  {% endif %}
+                </div>
+                {% if apartment.vacant %}
+                {% else %}
+                <div class="col-6"  style="display: flex; align-items: end; justify-content: end; margin-bottom: 0.5rem;">
+                    <div class="row">
+                      <div class="col-12">
+                        <p style="text-align: left; margin-right: 1rem;">
+                          {% if apartment.late_payment %}
+                          <span style="border: solid; border-color: #B15959; border-width: 2px;" class="status-span">
+                            Atrasado
+                          </span>
+                          {% else %}
+                          <span style="border: solid; border-color: #57B657; border-width: 2px;" class="status-span">
+                            Em dia
+                          </span>
+                          {% endif %}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <div id="contract-container">
+              {% if apartment.vacant %}
+              <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
+                  <path d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z"/>
+                  <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z"/>
+                </svg>
+                <div class="contract-container-title">
+                  <h5 style="margin: 0;">Contrato</h5>
+                </div>
+              </div>
+              <br>
+              <p style="text-align: start;">Você não adicionou nenhum contrato no momento!</p>
+              <br>
+              <a href="#"><span>Cadastrar contrato</span></a>
+              {% else %}
+              <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
+                  <path d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z"/>
+                  <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z"/>
+                </svg>
+                <div class="contract-container-title">
+                  <h5 style="margin: 0;">Contrato</h5>
+                  <p class="card-text" style="font-weight: 400; justify-content: end;">Tipo: {{apartment.months_of_contract}} meses</p>
+                </div>
+              </div>
+              <br>
+              <a id="download" href="{{apartment.contracts.contract_file.url}}" download>
+                <div id="contract-download" style="text-align: center;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="margin-right:0.5em;" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                  </svg>
+                  <span>{{apartment.contract_name}}</span>
+                </div>
+              </a>
+              <br>
+              <div>
+                <p class="card-text" style="font-weight: 400; text-align: start;">
+                  Dia do pagamento: {{apartment.payment_day}}
+                </p>
+                <p class="card-text" style="font-weight: 400; text-align: start;">
+                  Expira em: {{apartment.contracts.due_date}}
+                </p>
+                
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-8">
+          </div>  
+        </div>
+        <br>
+        <div class="payments-container">
+          <div class="payments-container-title">
+            <h5>Pagamentos: </h5>
+          </div>
+          <table class="table">
+            <thead class="thead" style="background-color: #27374D; color: white; ">
+                <th scope="col">Data</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Mês referente</th>
+                <th scope="col">Ações</th>
+            </thead>
+            <tbody>
+              {% if apartment.vacant %}
+                <tr >
+                  <td colspan="4" style="text-align: center;">Crie um contrato para realizar os pagamentos.</td>
+                </tr>
+              {% elif apartment.payments_amount == 0 %}
+                <tr >
+                  <td colspan="4" style="text-align: center;">Nenhum pagamento realizado.</td>
+                </tr>
+              {% endif %}
+              {% for payment in apartment.payments %}
+                <tr >
+                  <td>{{payment.date}}</td>
+                  <td>{{payment.value}}</td>
+                  <td>{{payment.base_payment_month}}</td>
+                  <td style="display: flex; justify-content: space-evenly; border: none;">
+                    <a href="#" class="btn" style="background-color: #27374D; color: white;">Editar</a>
+                    <a href="#" class="btn" style="background-color: #8b4747; color: white;">Excluir</a>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <br>
+    </div>
+</section>
+{% endblock %}

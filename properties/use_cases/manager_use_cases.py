@@ -1,6 +1,4 @@
-from django.shortcuts import get_object_or_404
-from properties.models import Apartment, Building, House
-from properties.utils.properties_manager import get_house_infos, get_late_payments_amount, get_occupied_properties_amount, get_properties_amount, get_properties_list
+from properties.utils.properties_manager import get_apartment_infos, get_apartment_list, get_building_infos, get_house_infos, get_late_payments_amount, get_occupied_properties_amount, get_properties_amount, get_properties_list
 
 
 def home_use_case(user):
@@ -23,8 +21,8 @@ def home_use_case(user):
 
 def detail_building_use_case(building_id):
     '''Building detail use case.'''
-    building = get_object_or_404(Building, pk=building_id)
-    apartments = Apartment.objects.filter(building=building)
+    building = get_building_infos(building_id)
+    apartments = get_apartment_list(building_id)
     context = {
         'title': 'Building Detail | ' + building.name,
         'building': building,
@@ -43,25 +41,11 @@ def detail_house_use_case(house_id):
     return context
 
 
-def house_payments_history_use_case(property_id):
-    '''Payments history use case for a house.'''
-    house = get_object_or_404(House, pk=property_id)
-    payments = house.payment.all()
+def detail_apartment_use_case(apartment_id):
+    '''Apartment detail use case.'''
+    apartment = get_apartment_infos(apartment_id)
     context = {
-        'title': 'Payments History | ' + house.__str__(),
-        'payments': payments,
+        'title': 'Apartment Detail | ' + apartment.__str__(),
+        'apartment': apartment,
     }
-
-    return context
-
-
-def apartment_payments_history_use_case(property_id):
-    '''Payments history use case for an apartment.'''
-    apartment = get_object_or_404(Apartment, pk=property_id)
-    payments = apartment.payment.all()
-    context = {
-        'title': 'Payments History | ' + apartment.__str__(),
-        'payments': payments,
-    }
-
     return context

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from properties.use_cases.manager_use_cases import apartment_payments_history_use_case, detail_building_use_case, detail_house_use_case, home_use_case, house_payments_history_use_case
+from properties.use_cases.manager_use_cases import detail_apartment_use_case, detail_building_use_case, detail_house_use_case, home_use_case
 
 
 @login_required(login_url='/login')
@@ -22,12 +22,6 @@ def detail_house(request, house_id):
 
 
 @login_required(login_url='/login')
-def house_payments_history(request, property_id):
-    '''Payments history view for a house.'''
-    return render(request, 'properties/payments_history.html', context=house_payments_history_use_case(property_id))
-
-
-@login_required(login_url='/login')
-def apartment_payments_history(request, property_id):
-    '''Payments history view for an apartment.'''
-    return render(request, 'properties/payments_history.html', context=apartment_payments_history_use_case(property_id))
+def detail_apartment(request, apartment_id):
+    '''Detail view for an apartment.'''
+    return render(request, 'properties/detail_apartment.html', context=detail_apartment_use_case(apartment_id))

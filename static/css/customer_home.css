@@ -111,3 +111,13 @@ a:hover{
     border-radius: 30px;
     padding: 0.5rem 1rem 0.5rem 1rem;
 }
+
+
+a{
+    text-decoration: none;
+    color: #132a3b;
+}
+
+a:hover{
+    color: #70767e;
+}
