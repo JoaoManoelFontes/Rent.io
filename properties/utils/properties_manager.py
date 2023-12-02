@@ -58,6 +58,9 @@ def get_house_infos(house_id) -> House:
         house.months_of_contract = get_time_between_two_dates(house.contracts.base_payment_date, house.contracts.due_date)
         house.contract_name = house.contracts.contract_file.name.split('/')[-1]
         house.payments = house.payment.all()
+        house.expenses_amount = house.expenses.all().count()
+        if house.expenses.all().count() > 0:
+            house.expenses_list = house.expenses.all()
     return house
 
 
@@ -68,6 +71,9 @@ def get_building_infos(building_id) -> Building:
     building.apartments = Apartment.objects.filter(building=building).count()
     building.apartments_occupied = Apartment.objects.filter(building=building, vacant=False).count()
     building.apartments_late_payments = Apartment.objects.filter(building=building, late_payment=True).count()
+    building.expenses_amount = building.expenses.all().count()
+    if building.expenses.all().count() > 0:
+        building.expenses_list = building.expenses.all()
     return building
 
 

@@ -9,29 +9,29 @@
         <h4>Olá, {{request.user}}</h4>
         <section id="main-infos">
             <div class="info-card" >
-              <div class="card-number" style="background-image: linear-gradient(to left, #0637736f, #063773b9, #01479b);">
+              <div class="card-number" style="background: linear-gradient(90deg, rgba(1,71,155,1) 35%, rgba(0,98,215,1) 100%);">
                 <h2 class="card-text1" style="text-align: center; padding: 5%; ">{{properties_amount}}</h2>
               </div>
                 <div class="card-body" style="width: 10rem;">
-                  <h4 class="card-t" style="color: black; text-align: center;">Imóveis 
+                  <h4 style="margin: 0; color: black; text-align: center;">Imóveis 
                   </h4>  
                   
                 </div>
               </div>
             <div class="info-card" >
-              <div class="card-number" style="background-image: linear-gradient(to right, #57B657, #57B657b2, #57B6574d);">
+              <div class="card-number" style="background: linear-gradient(90deg, rgba(87,182,87,1) 35%, rgba(105,217,105,1) 100%);">
                 <h2 class="card-text1" style="text-align: center; padding: 5%;">{{occupied_properties_amount}}</h2>
               </div>
                 <div class="card-body" style="width: 10rem;">
-                    <h4 class="card-t" style="color: black; text-align: center;">Ocupados</h4>  
+                    <h4 style="margin: 0; color: black; text-align: center;">Ocupados</h4>  
                 </div>
             </div>
             <div class="info-card" >
-              <div class="card-number" style="background-image: linear-gradient(to right, #B15959, #B15959b2, #b1595981);">
+              <div class="card-number" style="background: linear-gradient(90deg, rgba(177,89,89,1) 35%, rgba(222,110,110,1) 100%);">
                 <h2 class="card-text1" style="text-align: center; padding: 5%;">{{late_payments_amount}}</h2>
               </div>
                 <div class="card-body" style="width: 10rem;">
-                    <h4 class="card-t" style="color: black; text-align: center;">Atrasados</h4>  
+                    <h4 style="margin: 0; color: black; text-align: center;">Atrasados</h4>  
                 </div>
             </div>
         </section>
@@ -169,6 +169,32 @@
                 </div>
             {% else %}
             <p>Você ainda não possui nenhuma propriedade cadastrada.</p>
+            {% endif %}
+            <br>
+            {% if properties_list.has_other_pages %}
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                  {% if properties_list.has_previous %}
+                  <a class="page-link" href="?page={{ properties_list.previous_page_number }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                  </svg></a>
+                  {% endif %}
+              </li>
+              {% for num in properties_list.paginator.page_range %}
+              <li class="page-item {% if num == property_list.number %}active{% endif %}">
+                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+              </li>
+              {% endfor %}
+              <li class="page-item">
+                  {% if properties_list.has_next %}
+                  <a class="page-link" href="?page={{ properties_list.next_page_number }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                  </svg></a>
+                  {% endif %}
+              </li>
+              </ul>
+            </nav>
             {% endif %}
         </section>
     </div>

@@ -125,10 +125,18 @@
                     <h5>Apartamentos:</h5>
                     <div class="nav nav-tabs" id="nav-tabs" role="tablist">
                         {% for apartment in apartments %}
+                        {% if apartment.vacant == True%}
                         {% if forloop.first %}
                             <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" onclick="get_apartment_number('{{apartment.base_price}}')">{{apartment.number}}</button>
                         {% else %}
                             <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" onclick="get_apartment_number('{{apartment.base_price}}')">{{apartment.number}}</button>
+                        {% endif %}
+                        {%else%}
+                        {% if forloop.first %}
+                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" onclick="get_apartment_number('{{apartment.base_price}}')" disabled>{{apartment.number}}</button>
+                        {% else %}
+                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" onclick="get_apartment_number('{{apartment.base_price}}')" disabled>{{apartment.number}}</button>
+                        {% endif %}
                         {% endif %}
                         {% endfor %}
                     </div>
@@ -198,14 +206,13 @@
                 </div>
             </div>      
         </div>
+        <br>
         <div class="row">
             <div class="col-md-12">
                         <div class="property-container">
                             <div class="price-container">
                                 <div>
-                                            <h4 class="price-tag"><strong>R${{building | get_first_apartment_by_building}}</strong> por mês</h4>
-                                        
-                                        
+                                    <h4 class="price-tag"><strong>R${{building | get_first_apartment_by_building}}</strong> por mês</h4>    
                                 </div>
                                 <a href="#" class="contact-button" class="btn btn-primary">Entrar em contato</a>
                             </div>

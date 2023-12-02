@@ -31,12 +31,12 @@ a:hover{
     background-color: white;
     margin: 1rem;
     width: 18rem;
-    height: 9rem;
+    height: 7rem;
     display: flex;
     align-items: center;
     border: none;
     border-radius: 10px;
-    box-shadow: 10px 15px 10px rgba(0, 0, 0, 0.526);
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, 0.526);
     transition: all 0.2s ease-in-out;
 }
 
@@ -50,11 +50,7 @@ a:hover{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px
-}
-
-.card-t{
-    color: #fff;
+    border-radius: 10px 0px 0px 10px;
 }
 
 .card-text1{
@@ -133,4 +129,29 @@ a{
 
 a:hover{
     color: #70767e;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.page-item{
+    border-radius: 50px;
+    margin: 0 0.2rem 0 0.2rem;
+}
+
+.page-link{
+    color: #132a3b;
+    border: none;
+    background-color: transparent;
+    border-radius: 50px;
+    transition: all 0.2s ease-in-out;
+}
+
+.page-link:hover{
+    background-color: #132a3b;
+    color: #fff;
 }

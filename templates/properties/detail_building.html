@@ -4,15 +4,26 @@
 {% block extrahead %}
     <link rel="stylesheet" href="{% static 'css/detail.css' %}">
     <link rel="stylesheet" href="{% static 'css/customer_home.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 {% endblock %}
 {% block content%}
 <section style="padding-top: 1rem;">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h4>{{building.name}}</h4>
-                <p class="text-muted">{{building.city}} - {{building.address}}</p>
-            </div>    
+          <div class="col-1" style="width: 3%;">
+            <a href="/customer" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg></a>
+          </div>
+          <div class="col-md-6">
+              <h4>{{building.name}}</h4>
+              <p class="text-muted">{{building.city}} - {{building.address}}</p>
+          </div>    
     </div>
     <div style="margin-top: 1rem; margin-bottom: 1rem;">
           <div class="container-fluid" id="property">
@@ -124,7 +135,7 @@
       </div>
       </div>
       <div class="col-md-6">
-        
+        <div id="map" style="height: 150px;"></div>
       </div>
     </div>
     <br>
@@ -134,10 +145,12 @@
         </div>
         <table class="table">
           <thead class="thead" style="background-color: #27374D; color: white;">
-              <th scope="col">Número</th>
-              <th scope="col">Andar</th>
-              <th scope="col">Status</th>
-              <th scope="col">Ações</th>
+              <tr>
+                <th style="border-top-left-radius: 1rem;" scope="col">Número</th>
+                <th scope="col">Andar</th>
+                <th scope="col">Status</th>
+                <th style="border-top-right-radius: 1rem;" scope="col">Ações</th>
+              </tr>
           </thead>
           <tbody>
             {% for apartment in apartments %}
@@ -156,13 +169,101 @@
                 {% endif %}
               </td>
               <td >
-                <a href="{% url 'customer_apartment_detail' apartment.id %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D;">Detalhar</a>
+                <a href="{% url 'customer_apartment_detail' apartment.id %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem;">Detalhar</a>
               </td>
+            </tr>
             {% endfor %}
+          </tbody>
+        </table>
+        {% if apartments.has_other_pages %}
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+            {% if apartments.has_previous %}
+              <a class="page-link" href="?page={{ apartments.previous_page_number }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+              </svg></a>
+            {% endif %}
+            </li>
+            {% for num in apartments.paginator.page_range %}
+              <li class="page-item {% if num == apartments.number %}active{% endif %}">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+              </li>
+            {% endfor %}
+            <li class="page-item">
+            {% if apartments.has_next %}
+              <a class="page-link" href="?page={{ apartments.next_page_number }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+              </svg></a>
+            {% endif %}
+            </li>
+          </ul>
+        </nav>
+        {% endif %}
+      </div>
+      <br>
+      <div class="payments-container">
+        <div class="payments-container-title">
+          <h5>Despesas: </h5>
+        </div>
+        <table class="table">
+          <thead class="thead" style="background-color: #27374D; color: white; ">
+              <th scope="col" style="border-top-left-radius: 1rem;">Descrição</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Realizada</th>
+              <th scope="col" style="border-top-right-radius: 1rem;">Ações</th>
+          </thead>
+          <tbody>
+            {% if building.vacant %}
+              <tr >
+                <td colspan="4" style="text-align: center;">Crie um contrato para realizar os pagamentos.</td>
+              </tr>
+            {% elif building.expenses_amount == 0 %}
+              <tr >
+                <td colspan="4" style="text-align: center;">Nenhuma despesas cadastrada.</td>
+              </tr>
+            {% else %}
+              {% for expense in building.expenses_list %}
+                <tr >
+                  <td>{{expense.description}}</td>
+                  <td>{{expense.value}}</td>
+                  {% if expense.done == true %}
+                    <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                      <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                    </svg></td>
+                  {% else %}
+                    <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg></td>
+                  {% endif %}
+                  <td style="margin-left: 1rem;">
+                    <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem;">Editar</a>
+                    <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
+                </tr>
+              {% endfor %}
+            {% endif %}
           </tbody>
         </table>
       </div>
       <br>
     </div>
 </section>
+
+<script>
+  const city = "{{building.city}}".replace(/ /g, "+")
+  const street = "{{building.address}}".replace(/ /g, "+")
+
+  const data = fetch(`https://nominatim.openstreetmap.org/search?format=json&street=${street}&city=${city}`).then(
+      response => response.json()).then(
+          (data) => {
+              var map = L.map('map').setView([data[0].lat, data[0].lon], 15);
+          
+              L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19
+          }).addTo(map);
+
+              var marker = L.marker([data[0].lat, data[0].lon]).addTo(map);
+          }
+          );
+</script>
 {% endblock %}

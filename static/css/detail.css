@@ -127,8 +127,8 @@
 }
 
 .payments-container{
-    background-color: #f3f3f3;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.526);
+    background-color: transparent;
+    border: solid 0.5px;
     border-radius: 25px;
     transition: all 0.3s ease-in-out;
     padding: 1rem;
@@ -141,4 +141,6 @@
 .payments-container-title{
     display: flex;
     justify-content: space-between;
+    padding: 0.5rem 0rem 0.5rem 0rem;
+    
 }
