@@ -1,7 +1,7 @@
 from properties.models import Apartment, Building
 
 
-def get_buildings_infos() -> list[Building]:
+def get_all_buildings_infos() -> list[Building]:
     '''Buildings infos listing '''
     buildings = Building.objects.all()
     for building in buildings:

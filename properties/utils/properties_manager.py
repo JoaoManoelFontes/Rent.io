@@ -87,6 +87,8 @@ def get_apartment_infos(apartment_id) -> Apartment:
         apartment.months_of_contract = get_time_between_two_dates(apartment.contracts.base_payment_date, apartment.contracts.due_date)
         apartment.contract_name = apartment.contracts.contract_file.name.split('/')[-1]
         apartment.payments = apartment.payment.all()
+    else:
+        apartment.payments = []
     return apartment
 
 

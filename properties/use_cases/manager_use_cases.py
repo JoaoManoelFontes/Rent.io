@@ -33,7 +33,7 @@ def detail_building_use_case(request, building_id):
     '''Building detail use case.'''
     building = get_building_infos(building_id)
     apartments = get_apartment_list(building_id)
-    
+
     paginator = Paginator(apartments, 5)
     page = request.GET.get('page')
     try:
@@ -57,7 +57,7 @@ def detail_house_use_case(request, house_id):
 
     paginator = Paginator(house.payments, 5)
     page = request.GET.get('page')
-    
+
     try:
         house.payments = paginator.page(page)
     except PageNotAnInteger:

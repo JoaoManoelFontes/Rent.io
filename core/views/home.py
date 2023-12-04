@@ -14,7 +14,7 @@ def about_us(request):
 
 def all_houses(request):
     '''Houses listing view.'''
-    return render(request, 'core/all_houses.html', context=all_houses_use_case())
+    return render(request, 'core/all_houses.html', context=all_houses_use_case(request))
 
 
 def all_buildings(request):
