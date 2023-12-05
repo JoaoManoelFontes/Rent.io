@@ -1,11 +1,13 @@
 from django.urls import path
 
-from .views.manager import detail_building, detail_house, home, house_payments_history, apartment_payments_history
+from .views.manager import detail_apartment, detail_building, detail_house, home
+from .views.forms import contract_form, house_form
 
 urlpatterns = [
     path('', home, name='customer_home'),
     path('building/<int:building_id>/', detail_building, name='customer_building_detail'),
     path('house/<int:house_id>/', detail_house, name='customer_house_detail'),
-    path('house_payments_history/<int:property_id>/', house_payments_history, name='house_payments_history'),
-    path('apartment_payments_history/<int:property_id>/', apartment_payments_history, name='apartment_payments_history'),
+    path('apartment/<int:apartment_id>/', detail_apartment, name='customer_apartment_detail'),
+    path('register_house/', house_form , name='house_form'),
+    path('register_contract/<int:house_id>/', contract_form , name='contract_form'),
 ]

@@ -91,6 +91,39 @@ main{
     color: #27374D;  
 }
 
+.icon-container{
+    display: flex;
+    flex-direction: row;
+    margin: 0.5rem;
+    align-items: center;
+}
+
+.price-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contact-button{
+    border: none;
+    background-color: #27374D;
+    color: #fff;
+    padding: 1em;
+    border-radius: 50px;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;  
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.contact-button:hover{
+    background-color: #132a3b;
+    color: #fff;
+    transform: scale(1.05);
+}
+
 .trending-carrousel {
     display: flex;
     flex-direction: row;
@@ -99,8 +132,8 @@ main{
   }
   
 .card {
-    width: 15vw;
-    height: 40vh;
+    width: 14vw;
+    height: 42vh;
     border-radius: 30px;
     background: #e0e0e0;
     box-shadow: 15px 15px 30px #bebebe,
@@ -131,7 +164,7 @@ main{
     font-size: 70%;
     font-weight: 500;
     margin-left: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
   }
 
 .card-image {
@@ -146,6 +179,33 @@ main{
     font-size: 85%;
     font-weight: 500;
     text-align: center;
+    margin-bottom: 1em;
+  }
+
+.card-text-icon {
+    font-size: 85%;
+    font-weight: 500;
+    text-align: center;
+    margin-left: 1em;
+    margin-bottom: 0;
+}
+
+.icon{
+    color: #132a3b;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.icon:hover{
+    color: #132a3b;
+    transform: translateX(-0.3em); 
+}
+
+
+.card-price {
+    font-size: 85%;
+    font-weight: 500;
+    text-align: center;
     margin-bottom: 10px;
   }
 
@@ -153,6 +213,8 @@ main{
     font-size: 70%;
     font-weight: 400;
     text-align: center;
+    margin-left: 1em;
+    margin-bottom: 0;
   }
 
 .card-icon {

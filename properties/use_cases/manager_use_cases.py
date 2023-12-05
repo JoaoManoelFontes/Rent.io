@@ -1,17 +1,25 @@
-from django.shortcuts import get_object_or_404
-from properties.models import Apartment, Building, House
-from properties.utils.properties_manager import get_house_infos, get_late_payments_amount, get_occupied_properties_amount, get_properties_amount, get_properties_list
+from properties.utils.properties_manager import get_apartment_infos, get_apartment_list, get_building_infos, get_house_infos, get_late_payments_amount, get_occupied_properties_amount, get_properties_amount, get_properties_list
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-def home_use_case(user):
+def home_use_case(request):
     '''Properties managment use case.'''
-    properties_amount = get_properties_amount(user)
-    occupied_properties_amount = get_occupied_properties_amount(user)
-    late_payments_amount = get_late_payments_amount(user)
-    properties_list = get_properties_list(user)
+    properties_amount = get_properties_amount(request.user)
+    occupied_properties_amount = get_occupied_properties_amount(request.user)
+    late_payments_amount = get_late_payments_amount(request.user)
+    properties_list = get_properties_list(request.user)
+
+    paginator = Paginator(properties_list, 5)
+    page = request.GET.get('page')
+    try:
+        properties_list = paginator.page(page)
+    except PageNotAnInteger:
+        properties_list = paginator.page(1)
+    except EmptyPage:
+        properties_list = paginator.page(paginator.num_pages)
 
     context = {
-        'title': 'Home | ' + user.username,
+        'title': 'Home | ' + request.user.username,
         'properties_amount': properties_amount,
         'occupied_properties_amount': occupied_properties_amount,
         'late_payments_amount': late_payments_amount,
@@ -21,10 +29,20 @@ def home_use_case(user):
     return context
 
 
-def detail_building_use_case(building_id):
+def detail_building_use_case(request, building_id):
     '''Building detail use case.'''
-    building = get_object_or_404(Building, pk=building_id)
-    apartments = Apartment.objects.filter(building=building)
+    building = get_building_infos(building_id)
+    apartments = get_apartment_list(building_id)
+
+    paginator = Paginator(apartments, 5)
+    page = request.GET.get('page')
+    try:
+        apartments = paginator.page(page)
+    except PageNotAnInteger:
+        apartments = paginator.page(1)
+    except EmptyPage:
+        apartments = paginator.page(paginator.num_pages)
+
     context = {
         'title': 'Building Detail | ' + building.name,
         'building': building,
@@ -33,35 +51,48 @@ def detail_building_use_case(building_id):
     return context
 
 
-def detail_house_use_case(house_id):
+def detail_house_use_case(request, house_id):
     '''House detail use case.'''
     house = get_house_infos(house_id)
+
     context = {
         'title': 'House Detail | ' + house.__str__(),
         'house': house,
     }
+
+    if len(house.payment.all()) > 0:
+        paginator = Paginator(house.payments, 5)
+        page = request.GET.get('page')
+
+        try:
+            house.payments = paginator.page(page)
+        except PageNotAnInteger:
+            house.payments = paginator.page(1)
+        except EmptyPage:
+            house.payments = paginator.page(paginator.num_pages)
+
+        context['payment'] = house.payments
+
     return context
 
 
-def house_payments_history_use_case(property_id):
-    '''Payments history use case for a house.'''
-    house = get_object_or_404(House, pk=property_id)
-    payments = house.payment.all()
+def detail_apartment_use_case(request, apartment_id):
+    '''Apartment detail use case.'''
+    apartment = get_apartment_infos(apartment_id)
+
+    paginator = Paginator(apartment.payments, 5)
+    page = request.GET.get('page')
+
+    try:
+        apartment.payments = paginator.page(page)
+    except PageNotAnInteger:
+        apartment.payments = paginator.page(1)
+    except EmptyPage:
+        apartment.payments = paginator.page(paginator.num_pages)
+
     context = {
-        'title': 'Payments History | ' + house.__str__(),
-        'payments': payments,
+        'title': 'Apartment Detail | ' + apartment.__str__(),
+        'apartment': apartment,
+        'payment': apartment.payments,
     }
-
-    return context
-
-
-def apartment_payments_history_use_case(property_id):
-    '''Payments history use case for an apartment.'''
-    apartment = get_object_or_404(Apartment, pk=property_id)
-    payments = apartment.payment.all()
-    context = {
-        'title': 'Payments History | ' + apartment.__str__(),
-        'payments': payments,
-    }
-
     return context

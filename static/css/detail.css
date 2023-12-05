@@ -9,7 +9,7 @@
 
 .property-container{
     border: 0.5px solid;
-    padding: 0.5rem 1rem 0 1rem;
+    padding: 0.5rem 1rem 0.5em 1rem;
     border-radius: 15px;
     transition: all 0.3s ease-in-out;
 }
@@ -17,6 +17,11 @@
 .property-container:hover{
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
     transform: scale(1.01);
+}
+
+.price-tag{ 
+    align-items: center;
+    margin: 0.5em
 }
 
 .apartments-container{
@@ -33,9 +38,38 @@
 
 .apartment-infos{
     display: flex;
-    padding: 1rem 2.5rem 0 1.5rem;
+    padding: 0.5rem 2.5rem 0 0;
     justify-content: space-between;
     align-items: center;
+}
+
+.apartment-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5em;  
+    border-radius: 20px;
+    border: 0.5px solid;
+    background-color: #d9d9d9;
+    transition: all 0.3s ease-in-out;
+}
+
+.apartment-button:hover{
+    border: 0;
+    background-color: black;
+    transform: scale(1.1);
+    color: #d9d9d9;
+    background: rgb(39,55,77);
+    background: linear-gradient(90deg, rgba(39,55,77,1) 70%, rgba(47,64,87,1) 86%);
+}
+
+.apartment-button:focus{
+    border: 0;
+    background-color: black;
+    transform: scale(1.1);
+    color: #d9d9d9;
+    background: rgb(39,55,77);
+    background: linear-gradient(90deg, rgba(39,55,77,1) 70%, rgba(47,64,87,1) 86%);
 }
 
 #nav-tabs{
@@ -72,6 +106,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 1rem ;
+    width: 100%;
 }
 
 #contract-download{
@@ -84,4 +120,27 @@
 #download{
     text-decoration: none;
     color: black;
+}
+
+.info-text{
+    margin: 0em 0em 0em 1em;
+}
+
+.payments-container{
+    background-color: transparent;
+    border: solid 0.5px;
+    border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+    padding: 1rem;
+}
+
+.payments-container:hover{
+    transform: scale(1.01);
+}
+
+.payments-container-title{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0rem 0.5rem 0rem;
+    
 }

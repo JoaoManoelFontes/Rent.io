@@ -14,12 +14,12 @@ def about_us(request):
 
 def all_houses(request):
     '''Houses listing view.'''
-    return render(request, 'core/all_houses.html', context=all_houses_use_case())
+    return render(request, 'core/all_houses.html', context=all_houses_use_case(request))
 
 
 def all_buildings(request):
     '''Buildings listing view.'''
-    return render(request, 'core/all_buildings.html', context=all_buildings_use_case())
+    return render(request, 'core/all_buildings.html', context=all_buildings_use_case(request))
 
 
 def detail_building(request, pk=id):

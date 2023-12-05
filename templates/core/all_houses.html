@@ -14,7 +14,9 @@
     <div class="container" id="section-nav">
             <form action="" method="get" id="section-search-form">
                 <input type="text" name="q" id="section-search-input" placeholder="Pesquisar imóvel"/>
-                <button type="submit" id="section-search-btn"><i class="bi bi-search"></i></button>
+                <button type="submit" id="section-search-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                  </svg></button>
             </form>
             <a class="seemore-link" href="#">
                 <div id="section-nav-filter">
@@ -35,12 +37,18 @@
                 <p class="card-title">{{House.city}}</p>
                 <p class="card-subtitle">Casa</p>
                 <div class="card-info">
-                    <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
-                    <p class="card-text">{{House.rooms}}</p>
-                    <i class="bi bi-rulers"></i>
-                    <p class="card-text">{{House.area}}m²</p>
+                    <div class="icon-container">
+                        <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
+                        <p class="card-text-icon">{{House.rooms}}</p>
+                    </div>
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rulers" viewBox="0 0 16 16">
+                            <path d="M1 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5v-1H2v-1h4v-1H4v-1h2v-1H2v-1h4V9H4V8h2V7H2V6h4V2h1v4h1V4h1v2h1V2h1v4h1V4h1v2h1V2h1v4h1V1a1 1 0 0 0-1-1H1z"/>
+                        </svg>
+                        <p class="card-text-icon">{{House.area}}m²</p>
+                    </div>
                 </div>
-                <p class="card-text" style="margin-top: 5px;"><strong>R$ {{House.base_price}}</strong> por mês</p>
+                <p class="card-price"><strong>R$ {{House.base_price}}</strong> por mês</p>
             </div>
         </a>
         {% endif %}

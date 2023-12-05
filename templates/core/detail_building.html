@@ -3,130 +3,252 @@
 {% load util %}
 {% block extrahead %}
     <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 {% endblock %}
 {% block content%}
 <section style="padding-top: 1rem;">
     <div class="container">
         <div class="row">
+            <div class="col-1" style="width: 3%;">
+                <a href="/" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg></a>
+            </div>
             <div class="col-md-6">
                 <h4>{{building.name}}</h4>
                 <p class="text-muted">{{building.city}} - {{building.address}}</p>
             </div>
-            <div class="col-md-6">
-                <div style="display: flex; align-items: center; justify-content: end;">
-                    <img style=" background-color: #27374D; margin-right: 1rem; border-radius: 60%;" src="{% static 'images/profile.png' %}" width="40px" height="40px" alt="profile">
+        </div>
+        {% if has_many_medias %}
+        <div class="row" id="image-container">
+            <div class="col-md-8">
+                <div style="display: flex; ">
+                    <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
+                </div>
+            </div>
+            <div class="col-md-4" >
                     <div>
-                        <p style="margin-bottom: 0;">{{building.customer}}</p>
+                        <img id="detail-image"  src="{{building|get_property_second_image}}" alt="">
+                    </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row" id="image-container" style="display: flex; justify-content: center;">
+            <div class="col-md-10">
+                <div style="display: flex; ">
+                    <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <hr style="margin: 1rem;">
+        <div class="row" style="margin-bottom: 2em; margin-top: 1em;">
+            <div class="col-md-5">
+                <div style="display: flex; align-items: center;">
+                    <img style=" background-color: #27374D; margin-right: 1rem; border-radius: 60%;" src="{% static 'images/profile.png' %}" width="60px" height="60px" alt="profile">
+                    <div>
+                        <h5 style="margin-bottom: 0;">{{building.customer}}</h5>
                         <p class="text-muted" style="margin-bottom: 0; font-size: small; ">Proprietário</p>
                     </div>
                 </div>
-        </div>
-    </div>
-    {% if has_many_medias %}
-    <div class="row" id="image-container">
-        <div class="col-md-8">
-            <div style="display: flex; ">
-                <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
             </div>
-        </div>
-        <div class="col-md-4" >
-                <div>
-                    <img id="detail-image"  src="{{building|get_property_second_image}}" alt="">
+        </div>  
+        <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-6">
+                <h5>Descrição:</h5>
+                <p style="font-size: small; text-align: justify;">{{building.description}}</p>
+            </div>
+            <div class="col-md-6">
+                <div class="property-container">
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layers" viewBox="0 0 16 16">
+                            <path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zm3.515 7.008L14.438 10 8 13.433 1.562 10 4.25 8.567l3.515 1.874a.5.5 0 0 0 .47 0l3.515-1.874zM8 9.433 1.562 6 8 2.567 14.438 6 8 9.433z"/>
+                        </svg>
+                        <p class="info-text">{{building.floors}} andares</p>
+                    </div>
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-check" viewBox="0 0 16 16">
+                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514Z"/>
+                            <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1V1Z"/>
+                            <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+                        </svg>
+                        <p class="info-text">{{apartments.count}} apartamentos disponíveis</p>
+                    </div>
                 </div>
-        </div>
-    </div>
-    {% else %}
-    <div class="row" id="image-container" style="display: flex; justify-content: center;">
-        <div class="col-md-10">
-            <div style="display: flex; ">
-                <img style="flex: 1;" id="detail-image"  src="{{building|get_property_image}}" alt="">
             </div>
         </div>
-    </div>
-    {% endif %}
-    <hr style="margin: 1rem;">
-    <div class="row" style="display: flex; align-items: center;">
-        <div class="col-md-6">
-            <h5>Descrição:</h5>
-            <p style="font-size: small; text-align: justify;">{{building.description}}</p>
-        </div>
-        <div class="col-md-6">
-            <div class="property-container">
-                <p>{{building.floors}} andares</p>
-                <p>{{apartments.count}} apartamentos disponíveis</p>
+        <br>
+        <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-6">
+                <div class="property-container">
+                    <h5>Oferece:</h5>
+                    {% if building.elevator %}
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+                        </svg>
+                        <p class="info-text">Elevador</p>
+                    </div>
+                    {% endif %}
+                    {% if building.concierge %}
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-lock" viewBox="0 0 16 16">
+                            <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1V1Z"/>
+                            <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
+                        </svg>
+                        <p class="info-text">Portaria</p>
+                    </div>
+                    {% endif %}
+                    {% if building.recreation_area%}
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-water" viewBox="0 0 16 16">
+                            <path d="M.036 3.314a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 3.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 6.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 9.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65z"/>
+                        </svg>
+                        <p class="info-text">Área de lazer</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="map" style="height: 150px;"></div>
             </div>
         </div>
-    </div>
-    <br>
-    <div class="row" style="display: flex; align-items: center;">
-        <div class="col-md-5">
-            <div class="property-container">
-                <h5>Oferece:</h5>
-                {% if building.elevator %}
-                <p>Elevador</p>
-                {% endif %}
-                {% if building.concierge %}
-                <p>Portaria</p>
-                {% endif %}
-                {% if building.recreation_area%}
-                <p>Área de lazer</p>
-                {% endif %}
-            </div>
-        </div>
-        <div class="col-md-7"></div>
-    </div>
-    <br>
-    <div class="row" style="display: flex; align-items: center;">
-        <div class="col-md-5">
-            <div class="apartments-container">
-                <h5>Apartamentos:</h5>
-                <div class="nav nav-tabs" id="nav-tabs" role="tablist">
+        <br>
+        <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-6">
+                <div class="apartments-container">
+                    <h5>Apartamentos:</h5>
+                    <div class="nav nav-tabs" id="nav-tabs" role="tablist">
+                        {% for apartment in apartments %}
+                        {% if apartment.vacant == True%}
+                        {% if forloop.first %}
+                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" onclick="get_apartment_number('{{apartment.base_price}}')">{{apartment.number}}</button>
+                        {% else %}
+                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" onclick="get_apartment_number('{{apartment.base_price}}')">{{apartment.number}}</button>
+                        {% endif %}
+                        {%else%}
+                        {% if forloop.first %}
+                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" onclick="get_apartment_number('{{apartment.base_price}}')" disabled>{{apartment.number}}</button>
+                        {% else %}
+                            <button class="apartment-button" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" onclick="get_apartment_number('{{apartment.base_price}}')" disabled>{{apartment.number}}</button>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>      
+            <div class="col-md-6">
+                <div class="tab-content" id="nav-tab-content">
                     {% for apartment in apartments %}
                     {% if forloop.first %}
-                        <button class="nav-link active" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="true" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
+                    <div class="tab-pane fade show active p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
+                        <h4>Informações do apartamento <strong>{{apartment.number}}</strong>:</h4>
+                        <div class="apartment-infos">
+                            <div>
+                                <div class="icon-container">
+                                    <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
+                                    <p class="info-text">{{apartment.rooms}} quarto(s)</p>
+                                </div>
+                                <div class="icon-container">
+                                    <img src="{% static 'images/banheiro.png' %}" alt="" class="card-icon">
+                                    <p class="info-text">{{apartment.bathrooms}} banheiro(s)</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="icon-container">
+                                    <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
+                                    <p class="info-text">{{apartment.suites}} suite(s)</p>
+                                </div>
+                                <div class="icon-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rulers" viewBox="0 0 16 16">
+                                        <path d="M1 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5v-1H2v-1h4v-1H4v-1h2v-1H2v-1h4V9H4V8h2V7H2V6h4V2h1v4h1V4h1v2h1V2h1v4h1V4h1v2h1V2h1v4h1V1a1 1 0 0 0-1-1H1z"/>
+                                    </svg>
+                                    <p class="info-text">{{apartment.area}} m²</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% else %}
-                        <button class="nav-link" id="nav-{{apartment.pk}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{apartment.pk}}" type="button" role="tab" aria-controls="nav-{{apartment.pk}}" aria-selected="false" style="background-image: linear-gradient(to left, #7d86928c, #6d77858f, #707680cb);">{{apartment.number}}</button>
+                    <div class="tab-pane fade p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
+                        <h4>Informações do apartamento <strong>{{apartment.number}}</strong>:</h4>
+                        <div class="apartment-infos">
+                            <div>
+                                <div class="icon-container">
+                                    <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
+                                    <p class="info-text">{{apartment.rooms}} quarto(s)</p>
+                                </div>
+                                <div class="icon-container">
+                                    <img src="{% static 'images/banheiro.png' %}" alt="" class="card-icon">
+                                    <p class="info-text">{{apartment.bathrooms}} banheiro(s)</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="icon-container">
+                                    <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
+                                    <p class="info-text">{{apartment.suites}} suite(s)</p>
+                                </div>
+                                <div class="icon-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rulers" viewBox="0 0 16 16">
+                                        <path d="M1 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5v-1H2v-1h4v-1H4v-1h2v-1H2v-1h4V9H4V8h2V7H2V6h4V2h1v4h1V4h1v2h1V2h1v4h1V4h1v2h1V2h1v4h1V1a1 1 0 0 0-1-1H1z"/>
+                                    </svg>
+                                    <p class="info-text">{{apartment.area}} m²</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endif %}
                     {% endfor %}
                 </div>
-            </div>
-        </div>      
-        <div class="col-md-7">
-            <div class="tab-content" id="nav-tab-content">
-                {% for apartment in apartments %}
-                {% if forloop.first %}
-                <div class="tab-pane fade show active p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
-                    <h5 style="text-align: center;">Informações do apartamento {{apartment.number}}:</h5>
-                    <div class="apartment-infos">
-                        <div>
-                            <p>{{apartment.rooms}} quarto(s)</p>
-                            <p>{{apartment.bathrooms}} banheiro(s)</p>
+            </div>      
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                        <div class="property-container">
+                            <div class="price-container">
+                                <div>
+                                    <h4 class="price-tag"><strong>R${{building | get_first_apartment_by_building}}</strong> por mês</h4>    
+                                </div>
+                                <a href="#" class="contact-button" class="btn btn-primary">Entrar em contato</a>
+                            </div>
                         </div>
-                        <div>
-                            <p>{{apartment.suites}} suite(s)</p>
-                            <p>{{apartment.area}} m²</p>
-                        </div>
-                    </div>
                 </div>
-                {% else %}
-                <div class="tab-pane fade p-3" id="nav-{{apartment.pk}}" role="tabpanel" aria-labelledby="nav-{{apartment.pk}}-tab">
-                    <h5 style="text-align: center;">Informações do apartamento {{apartment.number}}:</h5>
-                    <div class="apartment-infos">
-                        <div>
-                            <p>{{apartment.rooms}} quarto(s)</p>
-                            <p>{{apartment.bathrooms}} banheiro(s)</p>
-                        </div>
-                        <div>
-                            <p>{{apartment.suites}} suite(s)</p>
-                            <p>{{apartment.area}} m²</p>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                {% endfor %}
             </div>
-        </div>      
-    </div>
-    </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
 </section>
+<script>
+    function get_apartment_number(base_price){
+        const price_tag = document.querySelector('.price-tag');
+        price_tag.innerHTML = `<strong>R$${base_price}</strong> por mês`;
+    }
+</script>
+<script>
+    const city = "{{building.city}}".replace(/ /g, "+")
+    const street = "{{building.address}}".replace(/ /g, "+")
+
+    const data = fetch(`https://nominatim.openstreetmap.org/search?format=json&street=${street}&city=${city}`).then(
+        response => response.json()).then(
+            (data) => {
+                var map = L.map('map').setView([data[0].lat, data[0].lon], 15);
+            
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19
+            }).addTo(map);
+
+                var marker = L.marker([data[0].lat, data[0].lon]).addTo(map);
+            }
+            );
+</script>
 {% endblock %}

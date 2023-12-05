@@ -9,11 +9,16 @@
 <section style="padding-top: 1rem;">
     <div class="container">
         <div class="row">
+          <div class="col-1" style="width: 3%;">
+            <a href="/customer" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg></a>
+          </div>
             <div class="col-md-6">
                 <h4>{{house}}</h4>
                 <p class="text-muted">{{house.city}} - {{house.address}}</p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div style="display: flex; align-items: center; justify-content: end;">
                     <img style=" background-color: #27374D; margin-right: 1rem; border-radius: 60%;" src="{% static 'images/profile.png' %}" width="40px" height="40px" alt="profile">
                     <div>
@@ -60,16 +65,25 @@
                     
                   {% endif %}
                 </div>
+                {% if house.vacant %}
+                {% else %}
                 <div class="col-3"  style="display: flex; align-items: end; justify-content: end; margin-bottom: 0.5rem;">
                   <div class="row">
                     <div class="col-12">
                       <p style="text-align: left; margin-right: 1rem;">
                         {% if house.late_payment %}
                         <span style="border: solid; border-color: #B15959; border-width: 2px;" class="status-span">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-lg" viewBox="0 0 16 16">
+                            <path d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0"/>
+                          </svg>
                           Atrasado
                         </span>
                         {% else %}
                         <span style="border: solid; border-color: #57B657; border-width: 2px;" class="status-span">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                          </svg>
                           Em dia
                         </span>
                         {% endif %}
@@ -77,32 +91,49 @@
                     </div>
                   </div>
                 </div>
+                {% endif %}
               </div>
           </div>
         </div>
         <br>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div id="contract-container">
               {% if house.vacant %}
-              <div class="contract-container-title">
-                <h5 style="margin: 0;">Contrato</h5>
+              <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
+                  <path d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z"/>
+                  <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z"/>
+                </svg>
+                <div class="contract-container-title">
+                  <h5 style="margin: 0;">Contrato</h5>
+                </div>
               </div>
               <br>
               <p style="text-align: start;">Você não adicionou nenhum contrato no momento!</p>
               <br>
-              <a href="#"><span>Cadastrar contrato</span></a>
+              <a href="{% url 'contract_form' house.id %}"><span>Cadastrar contrato</span></a>
               {% else %}
-              <div class="contract-container-title">
-                <h5 style="margin: 0;">Contrato</h5>
-                <p class="card-text" style="font-weight: 400;">Tipo: {{house.months_of_contract}} meses</p>
+              <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
+                  <path d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z"/>
+                  <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z"/>
+                </svg>
+                <div class="contract-container-title">
+                  <h5 style="margin: 0;">Contrato</h5>
+                  <p class="card-text" style="font-weight: 400; justify-content: end;">Tipo: {{house.months_of_contract}} meses</p>
+                </div>
               </div>
               <br>
-              <div id="contract-download" style="text-align: center;">
-                <a id="download" href="{{house.contracts.contract_file.url}}" download>
+              <a id="download" href="{{house.contracts.contract_file.url}}" download>
+                <div id="contract-download" style="text-align: center;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="margin-right:0.5em;" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                  </svg>
                   <span>{{house.contract_name}}</span>
-                </a>
-              </div>
+                </div>
+              </a>
               <br>
               <div>
                 <p class="card-text" style="font-weight: 400; text-align: start;">
@@ -116,10 +147,10 @@
               {% endif %}
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-8">
             <h5>Descrição:</h5>
             <p style="font-size: small; text-align:justify;">{{house.description}}</p>
-        </div>
+          </div>
         </div>  
         <br>
         <div class="row">
@@ -127,88 +158,163 @@
           <div class="col-md-4">
             <div class="property-container">
                 {% if house.garage %}
-                <p>Garagem</p>
+                <div class="icon-container">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+                    <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+                  </svg>
+                  <p class="info-text">Garagem</p>
+                </div>
                 {% endif %}
                 {% if house.backyard %}
-                <p>Quintal</p>
+                <div class="icon-container">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tree" viewBox="0 0 16 16">
+                    <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777l-3-4.5zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507z"/>
+                  </svg>
+                  <p class="info-text">Quintal</p>
+                </div>
                 {% endif %}
                 {% if house.pool%}
-                <p>Piscina</p>
+                <div class="icon-container">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-water" viewBox="0 0 16 16">
+                    <path d="M.036 3.314a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 3.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 6.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 9.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65z"/>
+                  </svg>
+                  <p class="info-text">Piscina</p>
+                </div>
                 {% endif %}
             </div>
         </div>
         <div class="col-md-4">
-          <div class="property-container" >
-            <p>{{house.rooms}} quarto(s)</p>
-            <p>{{house.bathrooms}} banheiros(s)</p>
-        </div>
+          <div class="property-container">
+            <div class="icon-container">
+              <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
+              <p class="info-text">{{house.rooms}} quarto(s)</p>
+            </div>
+            <div class="icon-container">
+              <img src="{% static 'images/banheiro.png' %}" alt="" class="card-icon">
+              <p class="info-text">{{house.bathrooms}} banheiros(s)</p>
+            </div>
+          </div>
         </div>
         <div class="col-md-4">
           <div class="property-container" >
-              <p>{{house.suites}} suite(s)</p>
-              <p>{{house.area}} m²</p>
+            <div class="icon-container">
+              <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
+              <p class="info-text">{{house.suites}} suite(s)</p>
+            </div>
+            <div class="icon-container">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rulers" viewBox="0 0 16 16">
+                <path d="M1 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5v-1H2v-1h4v-1H4v-1h2v-1H2v-1h4V9H4V8h2V7H2V6h4V2h1v4h1V4h1v2h1V2h1v4h1V4h1v2h1V2h1v4h1V1a1 1 0 0 0-1-1H1z"/>
+              </svg>
+              <p class="info-text">{{house.area}} m²</p>
+            </div>
           </div>
       </div>
-        </div>    
-
-    <!-- {% if has_many_medias %}
-    <div class="row" id="image-container">
-        <div class="col-md-8">
-            <div style="display: flex; ">
-                <img style="flex: 1;" id="detail-image"  src="{{house|get_property_image}}" alt="">
-            </div>
-        </div>
-        <div class="col-md-4" >
-                <div>
-                    <img id="detail-image"  src="{{house|get_property_second_image}}" alt="">
-                </div>
-        </div>
-    </div>
-    {% else %}
-    <div class="row" id="image-container" style="display: flex; justify-content: center;">
-        <div class="col-md-10">
-            <div style="display: flex; ">
-                <img style="flex: 1;" id="detail-image"  src="{{house|get_property_image}}" alt="">
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    <hr style="margin: 1rem;">
-    <div class="row" style="display: flex; align-items: center;">
-        <div class="col-md-6">
-            <h5>Descrição:</h5>
-            <p style="font-size: small;">{{house.description}}</p>
-        </div>
-        <div class="col-md-6" style="display: flex; justify-content: space-around;">
-            <div class="property-container" style="width: 35%;">
-                <p>{{house.rooms}} quarto(s)</p>
-                <p>{{house.bathrooms}} banheiros(s)</p>
-            </div>
-            <div class="property-container" style="width: 35%;">
-                <p>{{house.suites}} suite(s)</p>
-                <p>{{house.area}} m²</p>
-            </div>
-        </div>
+    </div>    
+    <br>
+    <div class="payments-container">
+      <div class="payments-container-title">
+        <h5>Pagamentos: </h5>
+      </div>
+      <table class="table">
+        <thead class="thead" style="background-color: #27374D; color: white; ">
+            <th scope="col" style="border-top-left-radius: 1rem;">Data</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Mês referente</th>
+            <th scope="col" style="border-top-right-radius: 1rem;">Ações</th>
+        </thead>
+        <tbody>
+          {% if house.vacant %}
+            <tr >
+              <td colspan="4" style="text-align: center;">Crie um contrato para realizar os pagamentos.</td>
+            </tr>
+          {% elif house.payments_amount == 0 %}
+            <tr >
+              <td colspan="4" style="text-align: center;">Nenhum pagamento realizado.</td>
+            </tr>
+          {% endif %}
+          {% for payment in house.payments %}
+            <tr >
+              <td>{{payment.date}}</td>
+              <td>{{payment.value}}</td>
+              <td>{{payment.base_payment_month}}</td>
+              <td style="margin-left: 1rem;">
+                <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem;">Editar</a>
+                <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if payment.has_other_pages %}
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+              {% if payment.has_previous %}
+                <a class="page-link" href="?page={{ payment.previous_page_number }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                </svg></a>
+              {% endif %}
+              </li>
+              {% for num in payment.paginator.page_range %}
+                <li class="page-item {% if num == payment.number %}active{% endif %}">
+                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+              {% endfor %}
+              <li class="page-item">
+              {% if payment.has_next %}
+                <a class="page-link" href="?page={{ payment.next_page_number }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                </svg></a>
+              {% endif %}
+              </li>
+            </ul>
+          </nav>
+      {% endif %}
     </div>
     <br>
-    <div class="row" style="display: flex; align-items: center;">
-        <div class="col-md-5">
-            <div class="property-container">
-                <h5>Oferece:</h5>
-                {% if house.garage %}
-                <p>Garagem</p>
+    <div class="payments-container">
+      <div class="payments-container-title">
+        <h5>Despesas: </h5>
+      </div>
+      <table class="table">
+        <thead class="thead" style="background-color: #27374D; color: white; ">
+            <th scope="col" style="border-top-left-radius: 1rem;">Descrição</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Realizada</th>
+            <th scope="col" style="border-top-right-radius: 1rem;">Ações</th>
+        </thead>
+        <tbody>
+          {% if house.vacant %}
+            <tr >
+              <td colspan="4" style="text-align: center;">Crie um contrato para realizar os pagamentos.</td>
+            </tr>
+          {% elif house.expenses_amount == 0 %}
+            <tr >
+              <td colspan="4" style="text-align: center;">Nenhuma despesas cadastrada.</td>
+            </tr>
+          {% else %}
+            {% for expense in house.expenses_list %}
+              <tr >
+                <td>{{expense.description}}</td>
+                <td>{{expense.value}}</td>
+                {% if expense.done == true %}
+                  <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                  </svg></td>
+                {% else %}
+                  <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                  </svg></td>
                 {% endif %}
-                {% if house.backyard %}
-                <p>Quintal</p>
-                {% endif %}
-                {% if house.pool%}
-                <p>Piscina</p>
-                {% endif %}
-            </div>
-        </div>
-        <div class="col-md-7"></div>
-    </div> -->
-</div>
-<br>
+                <td style="margin-left: 1rem;">
+                  <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem;">Editar</a>
+                  <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    <br>
+  </div>
 </section>
 {% endblock %}

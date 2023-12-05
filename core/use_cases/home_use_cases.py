@@ -1,27 +1,26 @@
 from django.shortcuts import get_object_or_404
-from core.utils.get_buildings_infos import get_buildings_infos
+from core.utils.get_all_buildings_infos import get_all_buildings_infos
 from core.utils.validate_medias import validate_medias
 from properties.models import Apartment, House, Building
 
 
 def home_use_case():
     '''Properties listing use case.'''
-    apartments = Apartment.objects.all()
     houses = House.objects.all()
-    buildings = get_buildings_infos()
+    buildings = get_all_buildings_infos(None)
 
     context = {
         'title': 'Home',
-        'apartments': apartments,
         'houses': houses,
         'buildings': buildings,
     }
     return context
 
 
-def all_houses_use_case():
+def all_houses_use_case(request):
     '''Houses listing use case.'''
-    houses = House.objects.all()
+    query = request.GET.get("q") if request.GET.get("q") is not None else ""
+    houses = House.objects.filter(city__icontains=query, vacant=True)
     context = {
         'title': 'Houses',
         'houses': houses,
@@ -29,9 +28,10 @@ def all_houses_use_case():
     return context
 
 
-def all_buildings_use_case():
+def all_buildings_use_case(request):
     '''Buildings listing use case.'''
-    buildings = get_buildings_infos()
+    query = request.GET.get("q") if request.GET.get("q") is not None else ""
+    buildings = get_all_buildings_infos(query)
     context = {
         'title': 'Buildings',
         'buildings': buildings,
