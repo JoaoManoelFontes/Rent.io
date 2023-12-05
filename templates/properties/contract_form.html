@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
+{% load static %}
+{% block extrahead %} 
+{% endblock %}
+{% block content%}
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="contract_file">Arquivo:</label>
+            <input class="form-control" type="file" name="contract_file" id="contract_file">
+        </div>
+        <div class="form-group">
+            <label for="base_payment_date">Data base de pagamento</label>
+            <input class="form-control" type="date" name="base_payment_date" id="base_payment_date">
+        </div>
+        <div class="form-group">
+            <label for="due_date">Expiração do contrato</label>
+            <input class="form-control" type="date" name="due_date" id="due_date">
+        </div>
+        <div class="form-group">
+            <label for="price">Preço (R$)</label>
+            <input class="form-control" type="number" name="price" id="price">
+        </div>
+        <div class="form-group">
+            <button type="submit">click</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

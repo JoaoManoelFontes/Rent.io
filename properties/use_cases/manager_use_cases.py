@@ -55,21 +55,24 @@ def detail_house_use_case(request, house_id):
     '''House detail use case.'''
     house = get_house_infos(house_id)
 
-    paginator = Paginator(house.payments, 5)
-    page = request.GET.get('page')
-
-    try:
-        house.payments = paginator.page(page)
-    except PageNotAnInteger:
-        house.payments = paginator.page(1)
-    except EmptyPage:
-        house.payments = paginator.page(paginator.num_pages)
-
     context = {
         'title': 'House Detail | ' + house.__str__(),
         'house': house,
-        'payment': house.payments,
     }
+
+    if len(house.payment.all()) > 0:
+        paginator = Paginator(house.payments, 5)
+        page = request.GET.get('page')
+
+        try:
+            house.payments = paginator.page(page)
+        except PageNotAnInteger:
+            house.payments = paginator.page(1)
+        except EmptyPage:
+            house.payments = paginator.page(paginator.num_pages)
+
+        context['payment'] = house.payments
+
     return context
 
 

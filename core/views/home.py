@@ -19,7 +19,7 @@ def all_houses(request):
 
 def all_buildings(request):
     '''Buildings listing view.'''
-    return render(request, 'core/all_buildings.html', context=all_buildings_use_case())
+    return render(request, 'core/all_buildings.html', context=all_buildings_use_case(request))
 
 
 def detail_building(request, pk=id):

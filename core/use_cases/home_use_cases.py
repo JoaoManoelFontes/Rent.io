@@ -6,13 +6,11 @@ from properties.models import Apartment, House, Building
 
 def home_use_case():
     '''Properties listing use case.'''
-    apartments = Apartment.objects.all()
     houses = House.objects.all()
-    buildings = get_all_buildings_infos()
+    buildings = get_all_buildings_infos(None)
 
     context = {
         'title': 'Home',
-        'apartments': apartments,
         'houses': houses,
         'buildings': buildings,
     }
@@ -22,7 +20,7 @@ def home_use_case():
 def all_houses_use_case(request):
     '''Houses listing use case.'''
     query = request.GET.get("q") if request.GET.get("q") is not None else ""
-    houses = House.objects.filter(city__icontains=query)
+    houses = House.objects.filter(city__icontains=query, vacant=True)
     context = {
         'title': 'Houses',
         'houses': houses,
@@ -30,9 +28,10 @@ def all_houses_use_case(request):
     return context
 
 
-def all_buildings_use_case():
+def all_buildings_use_case(request):
     '''Buildings listing use case.'''
-    buildings = get_all_buildings_infos()
+    query = request.GET.get("q") if request.GET.get("q") is not None else ""
+    buildings = get_all_buildings_infos(query)
     context = {
         'title': 'Buildings',
         'buildings': buildings,
