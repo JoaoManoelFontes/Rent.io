@@ -1,59 +1,238 @@
 {% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
 {% load static %}
-{% block extrahead %} 
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock %}
 {% block content%}
-    <div class="container">
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="address">Endereço:</label>
-                <input class="form-control" type="text" name="address" id="address">
+<div class="container-fluid">
+    <div class="container" style="padding: 1rem;">
+        <div class="form-image">
+            <img src="{% static 'images\undraw_best_place_re_lne9.svg' %}" alt="img">
+        </div>
+        <div class="form">
+            <div class="input-group">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-1" style="width: 3%;">
+                            <a href="/customer" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                            </svg></a>
+                        </div>
+                        <div class="col-md-11" style="margin-left: 0.5rem;">
+                            <div class="form-title">
+                                <h4>Cadastrar Casa</h4  >
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> <span class="step"></span> <span class="step"></span> <span class="step"></span> <span class="step"></span> </div>
+                    
+                    <div class="tab">
+                        <div class="form-group">
+                            <label for="address">Endereço:</label>
+                            <input class="input " type="text" name="address" id="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Cidade:</label>
+                            <input class="input " type="text" name="city" id="city">
+                        </div>
+                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+                    </div>
+
+                    <div class="tab">
+                        <div class="form-group">
+                            <label for="description">Descrição:</label>
+                            <textarea class="input" name="description" id="description"></textarea>
+                        </div>
+                        <div class="row">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+                        </div>
+                    </div>
+
+                    <div class="tab">
+                        <div class="form-group">
+                            <div class="radio-tile-group">
+                                <div class="input-container">
+                                <input id="garage" class="radio-button" type="checkbox" name="garage">
+                                <div class="radio-tile">
+                                    <div class="icon garage-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+                                            <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+                                        </svg>
+                                    </div>
+                                    <label for="garage" class="radio-tile-label">Garagem</label>
+                                </div>
+                                </div>
+                            
+                                <div class="input-container">
+                                <input id="backyard" class="radio-button" type="checkbox" name="backyard">
+                                <div class="radio-tile">
+                                    <div class="icon backyard-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tree" viewBox="0 0 16 16">
+                                            <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777l-3-4.5zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507z"/>
+                                        </svg>
+                                    </div>
+                                    <label for="backyard" class="radio-tile-label">Quintal</label>
+                                </div>
+                                </div>
+                            
+                                <div class="input-container">
+                                <input id="pool" class="radio-button" type="checkbox" name="pool">
+                                <div class="radio-tile">
+                                    <div class="icon car-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-water" viewBox="0 0 16 16">
+                                            <path d="M.036 3.314a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 3.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 6.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 9.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65z"/>
+                                        </svg>
+                                    </div>
+                                    <label for="pool" class="radio-tile-label">Piscina</label>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+                        </div>
+                    </div>
+
+                    <div class="tab">    
+                        <div class="form-group" style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <div class="form-group" style="width: 25%; display: flex; flex-direction: column;">
+                                <label for="rooms">Quartos:</label>
+                                <div class="group">
+                                    <img src="{% static 'images/image 6.png' %}" alt="" class="icon2">
+                                    <input class="input_icon" type="number" name="rooms" id="rooms" placeholder="Quartos">
+                                </div>
+                            </div>
+                            <div class="form-group" style="width: 25%; display: flex; flex-direction: column;">
+                                <label for="bathrooms">Banheiros:</label>
+                                <div class="group">
+                                    <img src="{% static 'images/banheiro.png' %}" alt="" class="icon2">
+                                    <input class="input_icon" type="number" name="bathrooms" id="bathrooms" placeholder="Banheiros">
+                                </div>
+                            </div>
+                            <div class="form-group" style="width: 25%; display: flex; flex-direction: column;" >
+                                <label for="suites">Suítes:</label>
+                                <div class="group">
+                                    <img src="{% static 'images/image 6.png' %}" alt="" class="icon2">
+                                    <input class="input_icon" type="number" name="suites" id="suites" placeholder="Suites">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+                        </div>
+                    </div>
+
+                    <div class="tab">
+                        <div class="form-group">
+                            <label for="area">Área (m²):</label>
+                            <input class="input " type="number" name="area" id="area">
+                        </div>
+                        <div class="form-group">
+                            <label for="base_price">Preço base (R$):</label>
+                            <input class="input " type="number" name="base_price" id="base_price">
+                        </div>
+                        <div class="row">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+                        </div>
+                    </div>
+
+                    <div class="tab">
+                        <div class="form-group">
+                            <label for="image" class="custum-file-upload">
+                                <div class="icon">
+                                    <svg viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z" fill=""></path> </g></svg>
+                                </div>
+                                <div class="text">
+                                   <span>Click to upload image</span>
+                                </div>
+                                <input class="input " type="file" accept="image/png, image/jpeg"  name="image" id="image">
+                            </label>    
+                        </div>
+                        
+                        <div class="row" style="justify-content: space-between;">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                            <button type="submit" id="form-button">Cadastre</button>
+                        </div>
+
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="city">Cidade:</label>
-                <input class="form-control" type="text" name="city" id="city">
-            </div>
-            <div class="form-group">
-                <label for="description">Descrição:</label>
-                <textarea class="form-control" name="description" id="description" >
-                </textarea>
-            </div>
-            <div class="form-group">
-                <label for="garage">Garagem:</label>
-                <input type="checkbox" name="garage" id="garage">
-                <label for="backyard">Quintal:</label>
-                <input type="checkbox" name="backyard" id="backyard">
-                <label for="pool">Piscina:</label>
-                <input type="checkbox" name="pool" id="pool">
-            </div>
-            <div class="form-group">
-                <label for="rooms">Quartos:</label>
-                <input class="form-control" type="number" name="rooms" id="rooms">
-            </div>
-            <div class="form-group">
-                <label for="bathrooms">Banheiros:</label>
-                <input class="form-control" type="number" name="bathrooms" id="bathrooms">
-            </div>
-            <div class="form-group">
-                <label for="suites">Suites:</label>
-                <input class="form-control" type="number" name="suites" id="suites">
-            </div>
-            <div class="form-group">
-                <label for="area">Área (m²):</label>
-                <input class="form-control" type="number" name="area" id="area">
-            </div>
-            <div class="form-group">
-                <label for="base_price">Preço base (R$):</label>
-                <input class="form-control" type="number" name="base_price" id="base_price">
-            </div>
-            <div class="form-group">
-                <label for="image">Imagem:</label>
-                <input class="form-control" type="file" accept="image/png, image/jpeg"  name="image" id="image">
-            </div>
-            <div class="form-group">
-                <button type="submit">Click</button>
-            </div>
-        </form>
+        </div>
     </div>
+</div> 
+
+<script>
+    //your javascript goes here
+var currentTab = 0;
+document.addEventListener("DOMContentLoaded", function(event) {
+
+
+    showTab(currentTab);
+
+});
+
+function showTab(n) {
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    if (n == 0) {
+        document.getElementById("prevBtn").style.display = "none";
+    } else {
+        document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtn").innerHTML = "Submit";
+    } else {
+        document.getElementById("nextBtn").innerHTML = "Next";
+    }
+    fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+    var x = document.getElementsByClassName("tab");
+    if (n == 1 && !validateForm()) return false;
+    x[currentTab].style.display = "none";
+    currentTab = currentTab + n;
+    if (currentTab >= x.length) {
+        // document.getElementById("regForm").submit();
+        // return false;
+        //alert("sdf");
+        document.getElementById("nextprevious").style.display = "none";
+        document.getElementById("all-steps").style.display = "none";
+        document.getElementById("register").style.display = "none";
+        document.getElementById("text-message").style.display = "block";
+
+
+
+
+    }
+    showTab(currentTab);
+}
+
+function validateForm() {
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    for (i = 0; i < y.length; i++) {
+        if (y[i].value == "") {
+            y[i].className += " invalid";
+            valid = false;
+        }
+    }
+    if (valid) { document.getElementsByClassName("step")[currentTab].className += " finish"; }
+    return valid;
+}
+
+function fixStepIndicator(n) {
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) { x[i].className = x[i].className.replace(" active", ""); }
+    x[n].className += " active";
+}
+</script>
+
 {% endblock %}
