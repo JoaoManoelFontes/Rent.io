@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from core.utils.filter import house_filter
 from core.utils.get_all_buildings_infos import get_all_buildings_infos
 from core.utils.validate_medias import validate_medias
 from properties.models import Apartment, House, Building
@@ -19,8 +20,17 @@ def home_use_case():
 
 def all_houses_use_case(request):
     '''Houses listing use case.'''
+    houses = House.objects.filter(vacant=True)
+
     query = request.GET.get("q") if request.GET.get("q") is not None else ""
-    houses = House.objects.filter(city__icontains=query, vacant=True)
+    garage = request.GET.get("garage") if request.GET.get("garage") is not None else ""
+    pool = request.GET.get("pool") if request.GET.get("pool") is not None else ""
+    backyard = request.GET.get("backyard") if request.GET.get("backyard") is not None else ""
+    base_price = request.GET.get("base_price") if request.GET.get("base_price") is not None else ""
+    area = request.GET.get("area") if request.GET.get("area") is not None else ""
+
+    houses = house_filter(query, houses, garage, pool, backyard, base_price, area)
+
     context = {
         'title': 'Houses',
         'houses': houses,

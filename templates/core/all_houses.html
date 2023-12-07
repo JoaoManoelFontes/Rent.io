@@ -55,6 +55,18 @@
         <br>
         {% endfor %}
     </div>
-      
+      <form>
+        <label for="garage">Garagem</label>
+        <input type="checkbox" name="garage">
+        <label for="pool">Piscina</label>
+        <input type="checkbox" name="pool">
+        <label for="backyard">Backyard</label>
+        <input type="checkbox" name="backyard">
+        <label for="base_price">Preço base</label>
+        <input type="number" name="base_price">
+        <label for="area">Área</label>
+        <input type="number" name="area">
+        <button type="submit">Filtrar</button>
+      </form>
 </section>
 {% endblock %}

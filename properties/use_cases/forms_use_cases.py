@@ -1,4 +1,4 @@
-from ..models import House
+from ..models import Apartment, House
 
 
 def register_house_use_case(request):
@@ -25,16 +25,36 @@ def register_house_use_case(request):
     house.save()
 
 
-def register_contract_use_case(request, house_id):
+def register_contract_use_case(request, property_id):
     '''register contract use case.'''
-    house = House.objects.get(id=house_id)
-    house.contract.create(
+    if isinstance(property_id, House):
+        property_object = House.objects.get(id=property_id)
+    else:
+        property_object = Apartment.objects.get(id=property_id)
+
+    property_object.contract.create(
         contract_file=request.FILES.get('contract_file'),
         base_payment_date=request.POST.get('base_payment_date'),
         due_date=request.POST.get('due_date'),
         price=request.POST.get('price')
     )
 
-    house.vacant = False
+    property_object.vacant = False
 
-    house.save()
+    property_object.save()
+
+
+def register_payment_use_case(request, property_id):
+    '''register payment use case.'''
+    if isinstance(property_id, House):
+        property_object = House.objects.get(id=property_id)
+    else:
+        property_object = Apartment.objects.get(id=property_id)
+
+    property_object.payment.create(
+        date=request.POST.get('date'),
+        base_payment_month=request.POST.get('base_payment_month'),
+        value=request.POST.get('value'),
+    )
+
+    property_object.save()

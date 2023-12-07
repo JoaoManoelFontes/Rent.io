@@ -214,6 +214,9 @@
     <div class="payments-container">
       <div class="payments-container-title">
         <h5>Pagamentos: </h5>
+        <a href="{% url 'payment_form' house.id %}">
+          <button type="button" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem; margin-left: 1rem;">Cadastrar</button>
+        </a>
       </div>
       <table class="table">
         <thead class="thead" style="background-color: #27374D; color: white; ">
