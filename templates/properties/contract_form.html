@@ -1,30 +1,54 @@
 {% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
 {% load static %}
 {% block extrahead %} 
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock %}
 {% block content%}
-<div class="container">
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="contract_file">Arquivo:</label>
-            <input class="form-control" type="file" name="contract_file" id="contract_file">
+<div class="container-fluid">
+    <div class="container">
+        <div class="form-image">
+            <img src="{% static 'images\undraw_sync_files_re_ws4c (1).svg' %}" alt="img" style="width: 70%;">
         </div>
-        <div class="form-group">
-            <label for="base_payment_date">Data base de pagamento</label>
-            <input class="form-control" type="date" name="base_payment_date" id="base_payment_date">
+        <div class="form">
+            <div class="input-group">
+                <div class="row" style="padding: 1rem;">
+                    <div class="col-md-1" style="width: 3%;">
+                        <a class="icon" onclick="history.back()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                        </svg></a>
+                    </div>
+                    <div class="col-md-10" style="margin-left: 0.5rem;">
+                        <div class="form-title">
+                            <h4>Cadastrar contrato</h4  >
+                        </div>
+                    </div>
+                </div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="contract_file">Arquivo:</label>
+                        <input class="form-control" style="border-radius: 10px;" accept="application/pdf" type="file" name="contract_file" id="contract_file">
+                        <p style="margin-top: 0.5rem; opacity: 90%; font-size: small;" >Somente PDF</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="base_payment_date">Data base de pagamento</label>
+                        <input class="input" type="date" name="base_payment_date" id="base_payment_date">
+                    </div>
+                    <div class="form-group">
+                        <label for="due_date">Expiração do contrato</label>
+                        <input class="input" type="date" name="due_date" id="due_date">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Preço (R$)</label>
+                        <input class="input" type="number" name="price" id="price">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button class="contract-button" type="submit">Cadastre</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="due_date">Expiração do contrato</label>
-            <input class="form-control" type="date" name="due_date" id="due_date">
-        </div>
-        <div class="form-group">
-            <label for="price">Preço (R$)</label>
-            <input class="form-control" type="number" name="price" id="price">
-        </div>
-        <div class="form-group">
-            <button type="submit">click</button>
-        </div>
-    </form>
+    </div>
 </div>
 {% endblock %}

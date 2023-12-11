@@ -104,7 +104,7 @@
               <br>
               <p style="text-align: start;">Você não adicionou nenhum contrato no momento!</p>
               <br>
-              <a href="#"><span>Cadastrar contrato</span></a>
+              <a href="{{% url 'contract_form' apartment.id 'apartment' %}}"><span>Cadastrar contrato</span></a>
               {% else %}
               <div class="icon-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
@@ -265,6 +265,58 @@
           {% endif %}
         </div>
       <br>
+      <div class="delete-button-container">
+        <button class="delete-button" onclick="deleteItem()">
+          <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+          </svg></span>
+          <span>Deletar Apartamento</span>
+        </button>
+      </div>
+      <br>
     </div>
 </section>
+
+<!-- Modal -->
+<div id="confirmationModal" class="modal">
+  <div class="modal-content">
+    <h2>Confirmar Exclusão</h2>
+    <p>Tem certeza de que deseja deletar este apartamento?</p>
+    <div class="button-group">
+      <button class="delete-button2" id="confirmDelete"><span>Deletar</span></button>
+      <button class="cancel-button" id="cancelDelete"><span>Cancelar</span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let modal = document.getElementById('confirmationModal');
+  let confirmButton = document.getElementById('confirmDelete');
+  let cancelButton = document.getElementById('cancelDelete');
+  
+  function deleteItem(itemId) {
+    // Primeiro, exibir o modal de confirmação
+    modal.style.display = "block";
+    
+    // Quando o usuário clica no botão Deletar
+    confirmButton.onclick = function() {
+      // Deletar o item
+      // Código para deletar o item vai aqui
+      console.log(`Casa deletada.`);
+      
+      // Fechar o modal
+      modal.style.display = "none";
+    }
+    
+    // Quando o usuário clica no botão Cancelar
+    cancelButton.onclick = function() {
+      // Não faça nada
+      console.log('Operação de exclusão cancelada.');
+      
+      // Fechar o modal
+      modal.style.display = "none";
+    }
+  }
+</script>
 {% endblock %}

@@ -1,72 +1,413 @@
-{% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
-{% load static %}
-{% load util %}
-{% block extrahead %} 
-    <link rel="stylesheet" href="{% static 'css/all_properties.css' %}">
-{% endblock %}
-{% block content%} 
+{% extends 'base.html' %} 
+{% block title %}{{title}}{% endblock %} 
+{% load static %} 
+{% load util %} 
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/all_properties.css' %}" />
+{% endblock %} 
+{% block content%}
 <section class="section_card">
-    <br>
-    <div class="container">
-        <h2 class="lead" id="section-main-title">Todas as casas</h2>
-        <hr />
-    </div>
-    <div class="container" id="section-nav">
-            <form action="" method="get" id="section-search-form">
-                <input type="text" name="q" id="section-search-input" placeholder="Pesquisar imóvel"/>
-                <button type="submit" id="section-search-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                  </svg></button>
-            </form>
-            <a class="seemore-link" href="#">
-                <div id="section-nav-filter">
-                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 3px;" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
-                        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                    <span>Filtrar</span>
-                </div>
-            </a>
-    </div>
-    <br>
-    <div class="trending-carrousel">
-        {% for House in houses %}
-        {% if House.vacant == True%}
-        <a class="card-link" href="{% url 'house_detail' House.id %}">
-            <div class="card">
-                <img class="card-image" src="{{House|get_property_image}}" alt="img-card">  
-                <p class="card-title">{{House.city}}</p>
-                <p class="card-subtitle">Casa</p>
-                <div class="card-info">
-                    <div class="icon-container">
-                        <img src="{% static 'images/image 6.png' %}" alt="" class="card-icon">
-                        <p class="card-text-icon">{{House.rooms}}</p>
-                    </div>
-                    <div class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rulers" viewBox="0 0 16 16">
-                            <path d="M1 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5v-1H2v-1h4v-1H4v-1h2v-1H2v-1h4V9H4V8h2V7H2V6h4V2h1v4h1V4h1v2h1V2h1v4h1V4h1v2h1V2h1v4h1V1a1 1 0 0 0-1-1H1z"/>
-                        </svg>
-                        <p class="card-text-icon">{{House.area}}m²</p>
-                    </div>
-                </div>
-                <p class="card-price"><strong>R$ {{House.base_price}}</strong> por mês</p>
-            </div>
-        </a>
-        {% endif %}
-        <br>
-        {% endfor %}
-    </div>
-      <form>
-        <label for="garage">Garagem</label>
-        <input type="checkbox" name="garage">
-        <label for="pool">Piscina</label>
-        <input type="checkbox" name="pool">
-        <label for="backyard">Backyard</label>
-        <input type="checkbox" name="backyard">
-        <label for="base_price">Preço base</label>
-        <input type="number" name="base_price">
-        <label for="area">Área</label>
-        <input type="number" name="area">
-        <button type="submit">Filtrar</button>
-      </form>
+  <br />
+  <div class="container">
+    <h2 class="lead" id="section-main-title">Todas as casas</h2>
+    <hr />
+  </div>
+  <div class="container" id="section-nav">
+    <form action="" method="get" id="section-search-form">
+      <input
+        type="text"
+        name="q"
+        id="section-search-input"
+        placeholder="Pesquisar imóvel"
+      />
+      <button type="submit" id="section-search-btn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-search"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+          />
+        </svg>
+      </button>
+    </form>
+    <button class="filter-link" onclick="filterItem()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        style="margin-bottom: 3px"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-filter"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
+        />
+      </svg>
+      <span>Filtrar</span>
+    </button>
+  </div>
+  <br />
+  <div class="trending-carrousel">
+    {% for House in houses %} {% if House.vacant == True%}
+    <a class="card-link" href="{% url 'house_detail' House.id %}">
+      <div class="card">
+        <img
+          class="card-image"
+          src="{{House|get_property_image}}"
+          alt="img-card"
+        />
+        <p class="card-title">{{House.city}}</p>
+        <p class="card-subtitle">Casa</p>
+        <div class="card-info">
+          <div class="icon-container">
+            <img
+              src="{% static 'images/image 6.png' %}"
+              alt=""
+              class="card-icon"
+            />
+            <p class="card-text-icon">{{House.rooms}}</p>
+          </div>
+          <div class="icon-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-rulers"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M1 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5v-1H2v-1h4v-1H4v-1h2v-1H2v-1h4V9H4V8h2V7H2V6h4V2h1v4h1V4h1v2h1V2h1v4h1V4h1v2h1V2h1v4h1V1a1 1 0 0 0-1-1H1z"
+              />
+            </svg>
+            <p class="card-text-icon">{{House.area}}m²</p>
+          </div>
+        </div>
+        <p class="card-price">
+          <strong>R$ {{House.base_price}}</strong> por mês
+        </p>
+      </div>
+    </a>
+    {% endif %}
+    <br />
+    {% endfor %}
+  </div>
 </section>
+
+<!-- Modal -->
+<div id="filterModal" class="modal">
+  <div class="modal-content">
+    <div class="title-filter">
+      <h1>Filtro</h1>
+    </div>
+    <hr />
+    <form>
+      <div class="title-filter">
+        <h5>Insira as informações da casa que você procura</h5>
+      </div>
+      <br />
+      <div class="form-group">
+        <div class="radio-tile-group">
+          <div class="input-container">
+            <input
+              id="garage"
+              class="radio-button"
+              type="checkbox"
+              name="garage"
+            />
+            <div class="radio-tile">
+              <div class="icon garage-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-car-front-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"
+                  />
+                </svg>
+              </div>
+              <label for="garage" class="radio-tile-label">Garagem</label>
+            </div>
+          </div>
+
+          <div class="input-container">
+            <input
+              id="backyard"
+              class="radio-button"
+              type="checkbox"
+              name="backyard"
+            />
+            <div class="radio-tile">
+              <div class="icon backyard-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-tree"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777l-3-4.5zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507z"
+                  />
+                </svg>
+              </div>
+              <label for="backyard" class="radio-tile-label">Quintal</label>
+            </div>
+          </div>
+
+          <div class="input-container">
+            <input id="pool" class="radio-button" type="checkbox" name="pool" />
+            <div class="radio-tile">
+              <div class="icon car-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-water"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M.036 3.314a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 3.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 6.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 9.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65z"
+                  />
+                </svg>
+              </div>
+              <label for="pool" class="radio-tile-label">Piscina</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- #TODO: modificar o campo de preço base
+      <div class="form-group">
+        <label for="base_price">Preço base</label>
+        <input type="number" name="base_price" />
+      </div>
+      -->
+      <br>
+        <div class="form-group">
+            <div class="wrapper">
+                <div>
+                    <h4>Faixa de preço</h4>
+                    <p>Preço base da propriedade</p>
+                </div>
+                <div class="price-input">
+                    <div class="field">
+                        <span>Min</span>
+                        <input type="number" name="base_price" class="input-min" value="2500" />
+                    </div>
+                    <div class="separator">-</div>
+                    <div class="field">
+                    <span>Max</span>
+                    <input type="number" name="base_price" class="input-max" value="7500" />
+                    </div>
+                </div>
+                <div class="slider">
+                    <div class="progress"></div>
+                </div>
+                <div class="range-input">
+                    <input
+                    type="range"
+                    class="range-min"
+                    min="0"
+                    max="10000"
+                    value="2500"
+                    step="100"
+                    />
+                    <input
+                    type="range"
+                    class="range-max"
+                    min="0"
+                    max="10000"
+                    value="7500"
+                    step="100"
+                    />
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <div class="wrapper">
+                <div>
+                    <h4>Faixa de Área</h4>
+                    <p>Área(m²) da propriedade</p>
+                </div>
+                <div class="area-input">
+                    <div class="field">
+                        <span>Min</span>
+                        <input type="number" name="area" class="input-min" value="500" />
+                    </div>
+                    <div class="separator">-</div>
+                    <div class="field">
+                      <span>Max</span>
+                      <input type="number" name="area" class="input-max" value="1500" />
+                    </div>
+                </div>
+                <div class="slider" id="slide2">
+                    <div class="progress" id="progress2"></div>
+                </div>
+                <div class="range-input" id="range-input2">
+                    <input
+                    type="range"
+                    class="range-min2"
+                    min="0"
+                    max="2000"
+                    value="500"
+                    step="100"
+                    />
+                    <input
+                    type="range"
+                    class="range-max2"
+                    min="0"
+                    max="2000"
+                    value="1500"
+                    step="100"
+                    />
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- #TODO: modificar o campo de área
+        <div class="form-group">
+            <label for="area">Área</label>
+            <input type="number" name="area" />
+        </div>
+        -->
+      <div class="button-group">
+        <button class="cancel-button" id="cancelFilter" type="button">
+          <span>Cancelar</span>
+        </button>
+        <button class="filter-button" id="confirmFilter" type="submit">
+          Filtrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  let modal = document.getElementById("filterModal");
+  let confirmButton = document.getElementById("confirmFilter");
+  let cancelButton = document.getElementById("cancelFilter");
+
+  function filterItem(itemId) {
+    // Primeiro, exibir o modal de confirmação
+    modal.style.display = "block";
+
+    confirmButton.onclick = function () {
+      console.log(`Filtrar`);
+
+      // Fechar o modal
+
+      modal.style.display = "none";
+    };
+
+    // Quando o usuário clica no botão Cancelar
+    cancelButton.onclick = function () {
+      // Não faça nada
+      console.log("Operação de filtragem cancelada.");
+
+      // Fechar o modal
+      modal.style.display = "none";
+    };
+  }
+</script>
+
+<script>
+  const rangeInput = document.querySelectorAll(".range-input input"),
+    priceInput = document.querySelectorAll(".price-input input"),
+    range = document.querySelector(".slider .progress");
+  let priceGap = 200;
+
+  priceInput.forEach((input) => {
+    input.addEventListener("input", (e) => {
+      let minPrice = parseInt(priceInput[0].value),
+        maxPrice = parseInt(priceInput[1].value);
+
+      if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+        if (e.target.className === "input-min") {
+          rangeInput[0].value = minPrice;
+          range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
+        } else {
+          rangeInput[1].value = maxPrice;
+          range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+        }
+      }
+    });
+  });
+
+  rangeInput.forEach((input) => {
+    input.addEventListener("input", (e) => {
+      let minVal = parseInt(rangeInput[0].value),
+        maxVal = parseInt(rangeInput[1].value);
+
+      if (maxVal - minVal < priceGap) {
+        if (e.target.className === "range-min") {
+          rangeInput[0].value = maxVal - priceGap;
+        } else {
+          rangeInput[1].value = minVal + priceGap;
+        }
+      } else {
+        priceInput[0].value = minVal;
+        priceInput[1].value = maxVal;
+        range.style.left = (minVal / rangeInput[0].max) * 100 + "%";
+        range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+      }
+    });
+  });
+</script>
+
+<script>
+  const rangeInput2 = document.querySelectorAll("#range-input2 input"),
+  areaInput = document.querySelectorAll(".area-input input"),
+  range2 = document.querySelector("#slide2 #progress2");
+  let areaGap = 100;
+
+  areaInput.forEach((input) => {
+    input.addEventListener("input", (e) => {
+      let minarea = parseInt(areaInput[0].value),
+        maxarea = parseInt(areaInput[1].value);
+
+      if (maxarea - minarea >= areaGap && maxarea <= rangeInput2[1].max) {
+        if (e.target.className === "input-min") {
+          rangeInput2[0].value = minarea;
+          range2.style.left = (minarea / rangeInput2[0].max) * 100 + "%";
+        } else {
+          rangeInput2[1].value = maxarea;
+          range2.style.right = 100 - (maxarea / rangeInput2[1].max) * 100 + "%";
+        }
+      }
+    });
+  });
+
+  rangeInput2.forEach((input) => {
+    input.addEventListener("input", (e) => {
+      let minArea = parseInt(rangeInput2[0].value),
+        maxArea = parseInt(rangeInput2[1].value);
+
+      if (maxArea - minArea < areaGap) {
+        if (e.target.className === "range-min2") {
+          rangeInput2[0].value = maxArea - areaGap;
+        } else {
+          rangeInput2[1].value = minArea + areaGap;
+        }
+      } else {
+        areaInput[0].value = minArea;
+        areaInput[1].value = maxArea;
+        range2.style.left = (minArea / rangeInput2[0].max) * 100 + "%";
+        range2.style.right = 100 - (maxArea / rangeInput2[1].max) * 100 + "%";
+      }
+    });
+  });
+</script>
 {% endblock %}

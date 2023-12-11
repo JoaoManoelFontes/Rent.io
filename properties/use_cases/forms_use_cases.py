@@ -25,9 +25,9 @@ def register_house_use_case(request):
     house.save()
 
 
-def register_contract_use_case(request, property_id):
+def register_contract_use_case(request, property_id, property_type):
     '''register contract use case.'''
-    if isinstance(property_id, House):
+    if property_type == 'house':
         property_object = House.objects.get(id=property_id)
     else:
         property_object = Apartment.objects.get(id=property_id)
@@ -44,9 +44,9 @@ def register_contract_use_case(request, property_id):
     property_object.save()
 
 
-def register_payment_use_case(request, property_id):
+def register_payment_use_case(request, property_id, property_type):
     '''register payment use case.'''
-    if isinstance(property_id, House):
+    if property_type == 'house':
         property_object = House.objects.get(id=property_id)
     else:
         property_object = Apartment.objects.get(id=property_id)

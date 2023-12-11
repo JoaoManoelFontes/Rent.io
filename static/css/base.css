@@ -193,6 +193,7 @@ main{
 .icon{
     color: #132a3b;
     text-decoration: none;
+    cursor: pointer;
     transition: 0.5s;
 }
 

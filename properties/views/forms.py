@@ -16,10 +16,10 @@ def house_form(request):
 
 
 @login_required(login_url='/login')
-def contract_form(request, property_id):
+def contract_form(request, property_id, property_type):
     '''Contract form view.'''
     if request.method == 'POST':
-        register_contract_use_case(request, property_id)
+        register_contract_use_case(request, property_id, property_type)
         return redirect('customer_home')
     return render(request, 'properties/contract_form.html', {
         'title': 'Register Contract | ' + request.user.username,
@@ -27,10 +27,10 @@ def contract_form(request, property_id):
 
 
 @login_required(login_url='/login')
-def payment_form(request, property_id):
+def payment_form(request, property_id, property_type):
     '''Payment form view.'''
     if request.method == 'POST':
-        register_payment_use_case(request, property_id)
+        register_payment_use_case(request, property_id, property_type)
         return redirect('customer_home')
     return render(request, 'properties/payment_form.html', {
         'title': 'Register Payment | ' + request.user.username,
