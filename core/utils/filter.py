@@ -1,14 +1,14 @@
-def house_filter(query, houses, garage, pool, backyard, base_price, area):
+def house_filter(query, house, garage, pool, backyard, init_base_price, end_base_price, init_area, end_area):
     '''House filter use case.'''
-    houses = houses.filter(city__icontains=query)
+    house = house.filter(city__icontains=query)
     if garage == "on":
-        houses = houses.filter(garage=True)
+        house = house.filter(garage=True)
     if pool == "on":
-        houses = houses.filter(pool=True)
+        house = house.filter(pool=True)
     if backyard == "on":
-        houses = houses.filter(backyard=True)
-    if base_price != "":
-        houses = houses.filter(base_price__lte=base_price)
-    if area != "":
-        houses = houses.filter(area__lte=area)
-    return houses
+        house = house.filter(backyard=True)
+    if init_base_price != "" and end_base_price != "":
+        house = house.filter(base_price__gte=init_base_price, base_price__lte=end_base_price)
+    if init_area != "" and end_area != "":
+        house = house.filter(area__gte=init_area, area__lte=end_area)
+    return house

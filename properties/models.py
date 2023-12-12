@@ -90,6 +90,7 @@ class House(Property):
 
     contract = GenericRelation(Contract)
     payment = GenericRelation(Payment)
+    expenses = GenericRelation(Expense)
 
     def __str__(self):
         return "Casa em " + self.city
@@ -121,6 +122,7 @@ class Apartment(models.Model):
 
     payment = GenericRelation(Payment)
     contract = GenericRelation(Contract)
+    expenses = GenericRelation(Expense)
 
     def __str__(self):
         return "Apartamento " + str(self.number) + " - " + self.building.name

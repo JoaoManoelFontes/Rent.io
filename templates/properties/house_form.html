@@ -325,9 +325,13 @@ inputFile.addEventListener("change", function (e) {
       const img = document.createElement("img");
       img.src = readerTarget.result;
       img.classList.add("picture__img");
+      img.style.objectFit = "cover";
+      img.style.width = "200px";
+      img.style.height = "100px";
+      img.style.borderRadius = "10px";
 
       pictureImage.innerHTML = "";
-      pictureImage.appendChild(img).style.maxWidth = "100%";
+      pictureImage.appendChild(img);
     });
 
     reader.readAsDataURL(file);
@@ -356,10 +360,13 @@ const inputFile2 = document.querySelector("#image2");
           const img = document.createElement("img");
           img.src = readerTarget.result;
           img.classList.add("picture__img2");
+          img.style.objectFit = "cover";
+          img.style.width = "200px";
+          img.style.height = "100px";
+          img.style.borderRadius = "10px";
     
           pictureImage2.innerHTML = "";
-          pictureImage2.appendChild(img).style.maxWidth = "100%";
-          pictureImage2.style.maxHeight = "100%";
+          pictureImage2.appendChild(img);
         });
     
         reader.readAsDataURL(file);

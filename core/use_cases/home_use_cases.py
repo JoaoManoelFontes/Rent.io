@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from core.utils.filter import house_filter
-from core.utils.get_all_buildings_infos import get_all_buildings_infos
+from core.utils.get_all_buildings_infos import get_all_buildings_infos, get_home_buildings_info
 from core.utils.validate_medias import validate_medias
 from properties.models import Apartment, House, Building
 
@@ -8,7 +8,7 @@ from properties.models import Apartment, House, Building
 def home_use_case():
     '''Properties listing use case.'''
     houses = House.objects.all()
-    buildings = get_all_buildings_infos(None)
+    buildings = get_home_buildings_info()
 
     context = {
         'title': 'Home',
@@ -20,20 +20,22 @@ def home_use_case():
 
 def all_houses_use_case(request):
     '''Houses listing use case.'''
-    houses = House.objects.filter(vacant=True)
+    property = House.objects.filter(vacant=True)
 
     query = request.GET.get("q") if request.GET.get("q") is not None else ""
     garage = request.GET.get("garage") if request.GET.get("garage") is not None else ""
     pool = request.GET.get("pool") if request.GET.get("pool") is not None else ""
     backyard = request.GET.get("backyard") if request.GET.get("backyard") is not None else ""
-    base_price = request.GET.get("base_price") if request.GET.get("base_price") is not None else ""
-    area = request.GET.get("area") if request.GET.get("area") is not None else ""
+    init_base_price = request.GET.get("init_base_price") if request.GET.get("init_base_price") is not None else ""
+    end_base_price = request.GET.get("end_base_price") if request.GET.get("end_base_price") is not None else ""
+    init_area = request.GET.get("init_area") if request.GET.get("init_area") is not None else ""
+    end_area = request.GET.get("end_area") if request.GET.get("end_area") is not None else ""
 
-    houses = house_filter(query, houses, garage, pool, backyard, base_price, area)
+    property = house_filter(query, property, garage, pool, backyard, init_base_price, end_base_price, init_area, end_area)
 
     context = {
         'title': 'Houses',
-        'houses': houses,
+        'houses': property,
     }
     return context
 
@@ -41,7 +43,13 @@ def all_houses_use_case(request):
 def all_buildings_use_case(request):
     '''Buildings listing use case.'''
     query = request.GET.get("q") if request.GET.get("q") is not None else ""
-    buildings = get_all_buildings_infos(query)
+    init_base_price = request.GET.get("init_base_price") if request.GET.get("init_base_price") is not None else ""
+    end_base_price = request.GET.get("end_base_price") if request.GET.get("end_base_price") is not None else ""
+    elevator = request.GET.get("elevator") if request.GET.get("elevator") is not None else ""
+    concierge = request.GET.get("concierge") if request.GET.get("concierge") is not None else ""
+    recreation_area = request.GET.get("recreation_area") if request.GET.get("recreation_area") is not None else ""
+    buildings = get_all_buildings_infos(query, init_base_price, end_base_price, elevator, concierge, recreation_area)
+
     context = {
         'title': 'Buildings',
         'buildings': buildings,

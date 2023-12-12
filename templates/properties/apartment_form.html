@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
+{% load static %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+{% block content%}
+<form action="" method="post"  enctype="multipart/form-data" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="floor">Andar</label>
+        <input type="number" name="floor" class="form-control" id="floor" >
+    </div>
+    <div class="form-group">
+        <label for="number">Número</label>
+        <input type="number" name="number" class="form-control" id="number" >
+    </div>
+    <div class="form-group">
+        <label for="floor">Andar</label>
+        <input type="number" name="floor" class="form-control" id="floor" >
+    </div>
+    <div class="form-group">
+        <label for="rooms">Quartos</label>
+        <input type="number" name="rooms" class="form-control" id="rooms" >
+    </div>
+    <div class="form-group">
+        <label for="bathrooms">Banheiros</label>
+        <input type="number" name="bathrooms" class="form-control" id="bathrooms" >
+    </div>
+    <div class="form-group">
+        <label for="suites">Suites</label>
+        <input type="number" name="suites" class="form-control" id="suites" >
+    </div>
+    <div class="form-group">
+        <label for="area">Área (M2)</label>
+        <input type="number" name="area" class="form-control" id="area" >
+    </div>
+    <div class="form-group">
+        <label for="base_price">Preço base (R$)</label>
+        <input type="number" name="base_price" class="form-control" id="base_price" >
+    </div>
+    <input type="submit" value="click">
+</form>
+{% endblock %}

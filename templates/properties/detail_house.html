@@ -242,7 +242,7 @@
               <td>{{payment.base_payment_month}}</td>
               <td style="margin-left: 1rem;">
                 <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem;">Editar</a>
-                <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
+                <a href="{% url 'delete_payment' house.id payment.id 'house' %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
             </tr>
           {% endfor %}
         </tbody>
@@ -277,6 +277,9 @@
     <div class="payments-container">
       <div class="payments-container-title">
         <h5>Despesas: </h5>
+        <a href="{% url 'expense_form' house.id 'house' %}">
+          <button type="button" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem; margin-left: 1rem;">Cadastrar</button>
+        </a>
       </div>
       <table class="table">
         <thead class="thead" style="background-color: #27374D; color: white; ">
@@ -310,7 +313,7 @@
                 {% endif %}
                 <td style="margin-left: 1rem;">
                   <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem;">Editar</a>
-                  <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
+                  <a href="{% url 'delete_expense' house.id expense.id 'house' %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
               </tr>
             {% endfor %}
           {% endif %}
@@ -337,7 +340,10 @@
     <h2>Confirmar Exclusão</h2>
     <p>Tem certeza de que deseja deletar este propriedade?</p>
     <div class="button-group">
-      <button class="delete-button2" id="confirmDelete"><span>Deletar</span></button>
+      <button class="delete-button2" id="confirmDelete"><a href="{% url 'delete_property' house.id 'house' %}">
+        <span>Deletar</span>
+      </a>
+    </button>
       <button class="cancel-button" id="cancelDelete"><span>Cancelar</span></button>
     </div>
   </div>
@@ -354,12 +360,7 @@ function deleteItem(itemId) {
   
   // Quando o usuário clica no botão Deletar
   confirmButton.onclick = function() {
-    // Deletar o item
-    // Código para deletar o item vai aqui
-    console.log(`Casa deletada.`);
     
-    // Fechar o modal
-    modal.style.display = "none";
   }
   
   // Quando o usuário clica no botão Cancelar

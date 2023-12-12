@@ -104,7 +104,7 @@
               <br>
               <p style="text-align: start;">Você não adicionou nenhum contrato no momento!</p>
               <br>
-              <a href="{{% url 'contract_form' apartment.id 'apartment' %}}"><span>Cadastrar contrato</span></a>
+              <a href="{% url 'contract_form' apartment.id 'apartment' %}"><span>Cadastrar contrato</span></a>
               {% else %}
               <div class="icon-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
@@ -206,6 +206,9 @@
         <div class="payments-container">
           <div class="payments-container-title">
             <h5>Pagamentos: </h5>
+            <a href="{% url 'payment_form' apartment.id 'house' %}">
+              <button type="button" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem; margin-left: 1rem;">Cadastrar</button>
+            </a>
           </div>
           <table class="table">
             <thead class="thead" style="background-color: #27374D; color: white; ">
@@ -231,7 +234,7 @@
                     <td>{{payment.base_payment_month}}</td>
                     <td style="margin-left: 1rem;">
                       <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem;">Editar</a>
-                      <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
+                      <a href="{% url 'delete_payment' apartment.id payment.id 'apartment' %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
                   </tr>
                 {% endfor %}
               {% endif %}
@@ -284,7 +287,10 @@
     <h2>Confirmar Exclusão</h2>
     <p>Tem certeza de que deseja deletar este apartamento?</p>
     <div class="button-group">
-      <button class="delete-button2" id="confirmDelete"><span>Deletar</span></button>
+      <button class="delete-button2" id="confirmDelete"><a href="{% url 'delete_property' apartment.id 'apartment' %}">
+        <span>Deletar</span>
+      </a>
+    </button>
       <button class="cancel-button" id="cancelDelete"><span>Cancelar</span></button>
     </div>
   </div>

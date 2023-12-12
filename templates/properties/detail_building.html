@@ -142,6 +142,9 @@
     <div class="payments-container">
         <div class="payments-container-title">
           <h5>Apartamentos: </h5>
+          <a href="{% url 'apartment_form' building.id %}">
+            <button type="button" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem; margin-left: 1rem;">Cadastrar</button>
+          </a>
         </div>
         <table class="table">
           <thead class="thead" style="background-color: #27374D; color: white;">
@@ -205,6 +208,9 @@
       <div class="payments-container">
         <div class="payments-container-title">
           <h5>Despesas: </h5>
+          <a href="{% url 'expense_form' building.id 'building' %}">
+            <button type="button" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem; margin-left: 1rem;">Cadastrar</button>
+          </a>
         </div>
         <table class="table">
           <thead class="thead" style="background-color: #27374D; color: white; ">
@@ -238,7 +244,7 @@
                   {% endif %}
                   <td style="margin-left: 1rem;">
                     <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem;">Editar</a>
-                    <a href="#" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
+                    <a href="{% url 'delete_expense' building.id expense.id 'building' %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
                 </tr>
               {% endfor %}
             {% endif %}
@@ -265,7 +271,10 @@
     <h2>Confirmar Exclusão</h2>
     <p>Tem certeza de que deseja deletar este propriedade?</p>
     <div class="button-group">
-      <button class="delete-button2" id="confirmDelete"><span>Deletar</span></button>
+      <button class="delete-button2" id="confirmDelete"><a href="{% url 'delete_property' building.id 'building' %}">
+        <span>Deletar</span>
+      </a>
+    </button>
       <button class="cancel-button" id="cancelDelete"><span>Cancelar</span></button>
     </div>
   </div>
