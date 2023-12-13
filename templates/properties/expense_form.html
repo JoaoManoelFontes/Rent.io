@@ -4,20 +4,56 @@
     <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock %}
 {% block content%}
-<form action="" method="post">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="description">Descrição</label>
-        <input type="textarea" name="description" id="description" class="form-control">
+<div class="container-fluid">
+    <div class="container">
+        <div class="form-image">
+            <img src="{% static 'images\undraw_data_reports_706v.svg' %}" alt="img" style="width: 70%;">
+        </div>
+        <div class="form">
+            <div class="input-group">
+                <div class="row" style="padding: 1rem; width: 100%;">
+                    <div class="col-md-0" style="width: 3%;">
+                        <a class="icon" onclick="history.back()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                        </svg></a>
+                    </div>
+                    <div class="col-md-10" style="margin-left: 0.5rem;">
+                        <div class="form-title">
+                            <h5>Cadastro de despesas</h5>
+                        </div>
+                    </div>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="description">Descrição</label>
+                        <textarea type="textarea" name="description" id="description" class="input"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="value">Valor</label>
+                        <input type="number" name="value" id="value" class="input">
+                    </div>
+                    <div class="form-group">
+                        <div class="radio-tile-group">
+                            <div class="input-container">
+                                <input id="done" class="radio-button" type="checkbox" name="done">
+                                <div class="radio-tile">
+                                    <div class="icon done-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <label for="done" class="radio-tile-label">Feito</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="contract-button" type="submit">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="done">Concluída</label>
-        <input type="checkbox" name="done" id="done">
-    </div>
-    <div class="form-group">
-        <label for="value">Valor</label>
-        <input type="number" name="value" id="value" class="form-control">
-    </div>
-    <input type="submit" value="Click">
-</form>
+</div>
 {% endblock %}

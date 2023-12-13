@@ -127,14 +127,31 @@
                 </div>
               </a>
               <br>
-              <div>
-                <p class="card-text" style="font-weight: 400; text-align: start;">
-                  Dia do pagamento: {{apartment.payment_day}}
-                </p>
-                <p class="card-text" style="font-weight: 400; text-align: start;">
-                  Expira em: {{apartment.contracts.due_date}}
-                </p>
-                
+              <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div>
+                  <p class="card-text" style="font-weight: 400; text-align: start;">
+                    Dia do pagamento: {{apartment.payment_day}}
+                  </p>
+                  <p class="card-text" style="font-weight: 400; text-align: start;">
+                    Expira em: {{apartment.contracts.due_date}}
+                  </p>
+                </div>
+                <div class="button-group" style="margin: 2rem 0 0 0;">
+                  <button class="button-edit-contract">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                    </svg>
+                    <span>Editar</span>
+                  </button>
+                  <button class="button-delete-contract" onclick="deleteContract()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>
+                    <span>Excluir</span>
+                  </button>
+                </div>
               </div>
               {% endif %}
             </div>
@@ -281,16 +298,37 @@
     </div>
 </section>
 
-<!-- Modal -->
+<!-- Modal Delete Contrato -->
+<div id="confirmationModalContract" class="modal">
+  <div class="modal-content">
+    <h2>Confirmar Exclusão</h2>
+    <hr>
+    <p>Ao deletar o contrato da propriedade, automaticamente o apartamento ficara vazio e todos os registros de pagamentos seram deletados.</p>
+    <p>Tem certeza de que deseja deletar este contrato?</p>
+    <div class="button-group">
+      <a href="">
+        <button class="delete-button2" id="confirmDelete2">
+          <span>Deletar</span>
+        </button>
+      </a>
+      <button class="cancel-button" id="cancelDelete2"><span>Cancelar</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete Propriedade -->
 <div id="confirmationModal" class="modal">
   <div class="modal-content">
     <h2>Confirmar Exclusão</h2>
-    <p>Tem certeza de que deseja deletar este apartamento?</p>
+    <hr>
+    <p>Tem certeza de que deseja deletar este propriedade?</p>
+    <p>Esta ação não pode ser desfeita.</p>
     <div class="button-group">
-      <button class="delete-button2" id="confirmDelete"><a href="{% url 'delete_property' apartment.id 'apartment' %}">
-        <span>Deletar</span>
+      <a href="{% url 'delete_property' apartment.id 'apartment' %}">
+        <button class="delete-button2" id="confirmDelete">
+          <span>Deletar</span>
+        </button>
       </a>
-    </button>
       <button class="cancel-button" id="cancelDelete"><span>Cancelar</span></button>
     </div>
   </div>
@@ -300,6 +338,9 @@
   let modal = document.getElementById('confirmationModal');
   let confirmButton = document.getElementById('confirmDelete');
   let cancelButton = document.getElementById('cancelDelete');
+  let modalContract = document.getElementById('confirmationModalContract');
+  let confirmButton2 = document.getElementById('confirmDelete2');
+  let cancelButton2 = document.getElementById('cancelDelete2');
   
   function deleteItem(itemId) {
     // Primeiro, exibir o modal de confirmação
@@ -307,12 +348,7 @@
     
     // Quando o usuário clica no botão Deletar
     confirmButton.onclick = function() {
-      // Deletar o item
-      // Código para deletar o item vai aqui
-      console.log(`Casa deletada.`);
       
-      // Fechar o modal
-      modal.style.display = "none";
     }
     
     // Quando o usuário clica no botão Cancelar
@@ -324,5 +360,24 @@
       modal.style.display = "none";
     }
   }
-</script>
+  
+  function deleteContract(itemId) {
+    // Primeiro, exibir o modal de confirmação
+    modalContract.style.display = "block";
+    
+    // Quando o usuário clica no botão Deletar
+    confirmButton2.onclick = function() {
+      
+    }
+    
+    // Quando o usuário clica no botão Cancelar
+    cancelButton2.onclick = function() {
+      // Não faça nada
+      console.log('Operação de exclusão cancelada.');
+      
+      // Fechar o modal
+      modalContract.style.display = "none";
+    }
+  }
+  </script>
 {% endblock %}

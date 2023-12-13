@@ -78,13 +78,22 @@ def register_contract_use_case(request, property_id, property_type):
         property_object = House.objects.get(id=property_id)
     else:
         property_object = Apartment.objects.get(id=property_id)
-
-    property_object.contract.create(
-        contract_file=request.FILES.get('contract_file'),
-        base_payment_date=request.POST.get('base_payment_date'),
-        due_date=request.POST.get('due_date'),
-        price=request.POST.get('price')
-    )
+    
+    if property_object.contract.all():
+        property_object.contract.all().delete()
+        property_object.contract.create(
+            contract_file=request.FILES.get('contract_file'),
+            base_payment_date=request.POST.get('base_payment_date'),
+            due_date=request.POST.get('due_date'),
+            price=request.POST.get('price')
+        )
+    else:
+        property_object.contract.create(
+            contract_file=request.FILES.get('contract_file'),
+            base_payment_date=request.POST.get('base_payment_date'),
+            due_date=request.POST.get('due_date'),
+            price=request.POST.get('price')
+        )
 
     property_object.vacant = False
 

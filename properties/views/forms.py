@@ -74,7 +74,7 @@ def expense_form(request, property_id, property_type):
 def delete_property(request, property_id, property_type):
     '''Delete property view.'''
     delete_property_use_case(property_id, property_type)
-    return redirect('customer_home')
+    return redirect('customer_home')    
 
 
 @login_required(login_url='/login')
