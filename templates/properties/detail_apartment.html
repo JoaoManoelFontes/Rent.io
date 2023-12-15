@@ -306,11 +306,14 @@
     <p>Ao deletar o contrato da propriedade, automaticamente o apartamento ficara vazio e todos os registros de pagamentos seram deletados.</p>
     <p>Tem certeza de que deseja deletar este contrato?</p>
     <div class="button-group">
-      <a href="">
-        <button class="delete-button2" id="confirmDelete2">
-          <span>Deletar</span>
-        </button>
-      </a>
+      {%if apartment.vacant %}
+      {% else %}
+        <a href="{% url 'delete_contract' apartment.id apartment.contracts.id 'apartment  ' %}">
+          <button class="delete-button2" id="confirmDelete2">
+            <span>Deletar</span>
+          </button>
+        </a>
+      {% endif %}
       <button class="cancel-button" id="cancelDelete2"><span>Cancelar</span></button>
     </div>
   </div>

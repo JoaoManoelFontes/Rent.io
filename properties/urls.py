@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views.manager import detail_apartment, detail_building, detail_house, home
-from .views.forms import apartment_form, building_form, contract_form, delete_expense, delete_payment, delete_property, expense_form, house_form, payment_form
+from .views.forms import apartment_form, building_form, contract_form, delete_expense, delete_payment, delete_property, expense_form, house_form, payment_form, delete_contract
 
 urlpatterns = [
     path('', home, name='customer_home'),
@@ -17,5 +17,5 @@ urlpatterns = [
     path('delete_property/<int:property_id>/<str:property_type>/', delete_property , name='delete_property'),
     path('delete_payment/<int:property_id>/<int:payment_id>/<str:property_type>/', delete_payment , name='delete_payment'),
     path('delete_expense/<int:property_id>/<int:expense_id>/<str:property_type>/', delete_expense , name='delete_expense'),
-    path('delete_contract/<int:property_id>/<int:contract_id>/<str:property_type>/', delete_expense , name='delete_contract'),
+    path('delete_contract/<int:property_id>/<int:contract_id>/<str:property_type>/', delete_contract , name='delete_contract'),
 ]

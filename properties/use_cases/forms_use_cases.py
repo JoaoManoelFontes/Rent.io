@@ -18,14 +18,18 @@ def register_house_use_case(request):
         base_price=request.POST.get('base_price'),
     )
 
-    house.media.create(
-        image=request.FILES.get('image'),
-    )
+    print(request.FILES.get('image'))
+    print(request.FILES.get('image2'))
 
-    house.media.create(
-        image=request.FILES.get('image2'),
-    )
+    if request.FILES.get('image') is not None:
+        house.media.create(
+            image=request.FILES.get('image'),
+        )
 
+    if request.FILES.get('image2') is not None:
+        house.media.create(
+            image=request.FILES.get('image2'),
+        )
     house.save()
 
 
