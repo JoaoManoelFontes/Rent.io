@@ -1,13 +1,45 @@
 version: '3.7'
 
+volumes:
+  static_files:
+  media_files:
+  mysql_data:
+
+
 services:
+  mysql:
+    image: mysql:5.7
+    env_file:
+      - ./.env
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD= root
+      - MYSQL_DATABASE= rent_io
+      - MYSQL_USER= root
+      - MYSQL_PASSWORD= root
   django:
     build: .
     env_file:
-      - ../.env
+      - ./.env
     command: gunicorn -c conf/gunicorn.py rent_io.wsgi
     ports:
       - "8000:8000"
     volumes:
-      - ../static:/static
-      - ../media:/media
+      - .:/app
+      - static_files:/app/static
+      - media_files:/app/media
+    depends_on:
+      - mysql
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - django
+    volumes:
+      - .:/app
+      - static_files:/app/static
+      - media_files:/app/media

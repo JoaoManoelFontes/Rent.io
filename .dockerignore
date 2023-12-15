@@ -1,2 +1,6 @@
 */venv
 **/__pycache__
+.flake8
+.setup.cfg
+.README.md
+db.sqlite3
