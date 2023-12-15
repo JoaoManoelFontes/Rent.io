@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  django:
+    build: .
+    env_file:
+      - ../.env
+    command: gunicorn -c conf/gunicorn.py rent_io.wsgi
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../static:/static
+      - ../media:/media
