@@ -140,10 +140,20 @@ def delete_property_use_case(property_id, property_type):
     '''delete property use case.'''
     if property_type == 'house':
         property_object = House.objects.get(id=property_id)
+        property_object.media.all().delete()
+        property_object.payment.all().delete()
+        property_object.contract.all().delete()
+        property_object.expenses.all().delete()
     elif property_type == 'apartment':
         property_object = Apartment.objects.get(id=property_id)
+        property_object.payment.all().delete()
+        property_object.contract.all().delete()
     elif property_type == 'building':
         property_object = Building.objects.get(id=property_id)
+        property_object.media.all().delete()
+        property_object.expenses.all().delete()
+        apartments = Apartment.objects.filter(building=property_object)
+        apartments.delete()
 
     property_object.delete()
 
@@ -199,12 +209,17 @@ def update_house_use_case(request, house_id):
     house.suites = request.POST.get('suites') if request.POST.get('suites') else house.suites
     house.area = request.POST.get('area') if request.POST.get('area') else house.area
     house.base_price = request.POST.get('base_price') if request.POST.get('base_price') else house.base_price
-    print(request.FILES.get('image'))
     if request.FILES.get('image') is not None:
-        house.media.all()[0].image = request.FILES.get('image')
-
+        house.media.all()[0].delete()
+        house.media.create(
+            image=request.FILES.get('image'),
+        )
     if request.FILES.get('image2') is not None:
-        house.media.all()[1].image = request.FILES.get('image2')
+        if house.media.all().count() > 1:
+            house.media.all()[1].delete()
+        house.media.create(
+            image=request.FILES.get('image2'),
+        )
 
     house.save()
 

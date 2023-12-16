@@ -18,7 +18,6 @@ def get_occupied_properties_amount(customer) -> int:
 
 def get_late_payments_amount(customer) -> int:
     '''Returns the amount of late payments of a customer'''
-    print('get_late_payments_amount')
     houses = House.objects.filter(customer=customer)
     for house in houses:
         if not house.vacant:

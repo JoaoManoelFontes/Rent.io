@@ -214,7 +214,7 @@
                                 <div class="text">
                                     <span class="picture__image"></span>
                                 </div>
-                                <input class="input" type="file" accept="image/png, image/jpeg" name="image" id="image" required>
+                                <input class="input" type="file" accept="image/png, image/jpeg" name="image" id="image">
                             </label>
                             <label for="image2" class="custum-file-upload" tabindex="0">
                                 <div class="icon" id="icon2">
@@ -312,23 +312,24 @@ const inputFile = document.querySelector("#image");
 const pictureImage = document.querySelector(".picture__image");
 const pictureImageTxt = "Escolha uma imagem";
 pictureImage.innerHTML = pictureImageTxt;
-// var house = "{{house}}";
-// if (house) {
-//     var house_image = "{{house|get_property_image}}";
-//     if (house_image) {
-//       document.getElementById("icon").style.display = "none";
-//       const img = document.createElement("img");
-//       img.src = house_image;
-//       img.classList.add("picture__img");
-//       img.style.objectFit = "cover";
-//       img.style.width = "200px";
-//       img.style.height = "100px";
-//       img.style.borderRadius = "10px";
+var house = "{{house}}";
+if (house) {
+    pictureImage.required = false;
+    var house_image = "{{house|get_property_image}}";
+    if (house_image) {
+      document.getElementById("icon").style.display = "none";
+      const img = document.createElement("img");
+      img.src = house_image;
+      img.classList.add("picture__img");
+      img.style.objectFit = "cover";
+      img.style.width = "200px";
+      img.style.height = "100px";
+      img.style.borderRadius = "10px";
     
-//       pictureImage.innerHTML = "";
-//       pictureImage.appendChild(img);
-//     }
-// }
+      pictureImage.innerHTML = "";
+      pictureImage.appendChild(img);
+    }
+}
 
 
 inputFile.addEventListener("change", function (e) {
@@ -366,22 +367,22 @@ const inputFile2 = document.querySelector("#image2");
     const pictureImageTxt2 = "Escolha uma imagem";
     pictureImage2.innerHTML = pictureImageTxt2;
 
-    // if (house) {
-    //     var house_image2 = "{{house|get_property_second_image}}";
-    //     if (house_image2) {
-    //       document.getElementById("icon2").style.display = "none";
-    //       const img = document.createElement("img");
-    //       img.src = house_image2;
-    //       img.classList.add("picture__img2");
-    //       img.style.objectFit = "cover";
-    //       img.style.width = "200px";
-    //       img.style.height = "100px";
-    //       img.style.borderRadius = "10px";
+    if (house) {
+        var house_image2 = "{{house|get_property_second_image}}";
+        if (house_image2) {
+          document.getElementById("icon2").style.display = "none";
+          const img = document.createElement("img");
+          img.src = house_image2;
+          img.classList.add("picture__img2");
+          img.style.objectFit = "cover";
+          img.style.width = "200px";
+          img.style.height = "100px";
+          img.style.borderRadius = "10px";
     
-    //       pictureImage2.innerHTML = "";
-    //       pictureImage2.appendChild(img);
-    //     }
-    // }
+          pictureImage2.innerHTML = "";
+          pictureImage2.appendChild(img);
+        }
+    }
     
     inputFile2.addEventListener("change", function (e) {
       const inputTarget = e.target;
