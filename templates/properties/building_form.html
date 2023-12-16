@@ -24,23 +24,23 @@
                     </div>
                 </div> 
 
-                <form action="" method="post"  enctype="multipart/form-data" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data" style="margin-top: 1rem;">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="address">Endereço</label>
-                        <input type="text" name="address" class="input" id="address" >
+                        <input type="text" name="address" class="input" id="address" value="{{building.address}}" >
                     </div>
                     <div class="form-group">
                         <label for="city">Cidade</label>
-                        <input type="text" name="city" class="input" id="city" >
+                        <input type="text" name="city" class="input" id="city" value="{{building.city}}" >
                     </div>
                     <div class="form-group">
                         <label for="name">Nome</label>
-                        <input type="text" name="name" class="input" id="name" placeholder="Nome">
+                        <input type="text" name="name" class="input" id="name" value="{{building.name}}" >
                     </div>
                     <div class="form-group">
                         <label for="description">Descrição</label>
-                        <textarea type="text" name="description" class="input" id="description"></textarea>
+                        <textarea type="text" name="description" class="input" id="description">{{building.description}}</textarea>
                     </div>
                     <div class="form-group">
                         <div class="radio-tile-group">
@@ -50,6 +50,7 @@
                                 class="radio-button"
                                 type="checkbox"
                                 name="elevator"
+                                {% if building.elevator %} checked {% endif %}
                                 />
                                 <div class="radio-tile">
                                 <div class="icon garage-icon">
@@ -67,6 +68,7 @@
                                 class="radio-button"
                                 type="checkbox"
                                 name="concierge"
+                                {% if building.concierge %} checked {% endif %}
                                 />
                                 <div class="radio-tile">
                                 <div class="icon backyard-icon">
@@ -80,7 +82,7 @@
                             </div>
 
                             <div class="input-container">
-                                <input id="recreation_area" class="radio-button" type="checkbox" name="recreation_area" />
+                                <input id="recreation_area" class="radio-button" type="checkbox" name="recreation_area" {% if building.recreation_area %} checked {% endif %} />
                                 <div class="radio-tile">
                                 <div class="icon car-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-water" viewBox="0 0 16 16">
@@ -94,10 +96,10 @@
                     </div>
                     <div class="form-group">
                         <label for="floors">Andares</label>
-                        <input type="number" name="floors" class="input" id="floors" >
+                        <input type="number" name="floors" class="input" id="floors" value="{{building.floors}}">
                     </div>
                     <div class="button-group">
-                        <button class="contract-button" type="submit">Cadastrar</button>
+                        <button class="contract-button" type="submit">Concluir</button>
                     </div>
                 </form>
             </div>

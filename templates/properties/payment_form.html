@@ -27,19 +27,19 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="date">Data:</label>
-                        <input class="input" type="date" name="date" id="date">
+                        <input class="input" type="date" name="date" id="date" value="{% if payment.date %}{{ payment.date|date:'Y-m-d' }}{% endif %}">
                     </div>
                     <div class="form-group">
                         <label for="base_payment_month">Mês referente</label>
-                        <input class="input" type="number" name="base_payment_month" id="base_payment_month">
+                        <input class="input" type="number" name="base_payment_month" id="base_payment_month" value="{{payment.base_payment_month}}">
                     </div>
                     <div class="form-group">
                         <label for="value">Preço (R$)</label>
-                        <input class="input" type="number" name="value" id="value">
+                        <input class="input" type="number" name="value" id="value"  value="{{payment.value|floatformat }}">
                     </div>
                     <br>
                     <div class="form-group">
-                        <button class="contract-button" type="submit">Cadastrar</button>
+                        <button class="contract-button" type="submit">Concluir</button>
                     </div>
                 </form>
             </div>

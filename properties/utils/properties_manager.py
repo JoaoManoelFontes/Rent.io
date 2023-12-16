@@ -18,6 +18,7 @@ def get_occupied_properties_amount(customer) -> int:
 
 def get_late_payments_amount(customer) -> int:
     '''Returns the amount of late payments of a customer'''
+    print('get_late_payments_amount')
     houses = House.objects.filter(customer=customer)
     for house in houses:
         if not house.vacant:
@@ -51,6 +52,9 @@ def get_house_infos(house_id) -> House:
     '''Returns a house with its image and contract if it is not vacant'''
     house = get_object_or_404(House, pk=house_id)
     house.image = house.media.first().image
+    house.expenses_amount = house.expenses.all().count()
+    if house.expenses.all().count() > 0:
+        house.expenses_list = house.expenses.all()
     if not house.vacant:
         house.contracts = house.contract.get()
         house.payment_day = house.contracts.base_payment_date.day
@@ -58,9 +62,6 @@ def get_house_infos(house_id) -> House:
         house.months_of_contract = get_time_between_two_dates(house.contracts.base_payment_date, house.contracts.due_date)
         house.contract_name = house.contracts.contract_file.name.split('/')[-1]
         house.payments = house.payment.all()
-        house.expenses_amount = house.expenses.all().count()
-        if house.expenses.all().count() > 0:
-            house.expenses_list = house.expenses.all()
     return house
 
 

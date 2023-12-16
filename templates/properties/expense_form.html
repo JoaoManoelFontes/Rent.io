@@ -27,16 +27,16 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="description">Descrição</label>
-                        <textarea type="textarea" name="description" id="description" class="input"></textarea>
+                        <textarea type="textarea" name="description" id="description" class="input" value="{{expense.description}}">{{expense.description}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="value">Valor</label>
-                        <input type="number" name="value" id="value" class="input">
+                        <input type="number" name="value" id="value" class="input" value="{{expense.value|floatformat}}">
                     </div>
                     <div class="form-group">
                         <div class="radio-tile-group">
                             <div class="input-container">
-                                <input id="done" class="radio-button" type="checkbox" name="done">
+                                <input id="done" class="radio-button" type="checkbox" name="done" {% if expense.done %} checked {% endif %} >
                                 <div class="radio-tile">
                                     <div class="icon done-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="contract-button" type="submit">Cadastrar</button>
+                        <button class="contract-button" type="submit">Concluir</button>
                     </div>
                 </form>
             </div>

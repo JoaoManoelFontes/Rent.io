@@ -8,31 +8,31 @@
     {% csrf_token %}
     <div class="form-group">
         <label for="floor">Andar</label>
-        <input type="number" name="floor" class="form-control" id="floor" >
+        <input type="number" name="floor" class="form-control" id="floor" value="{{apartment.floor}}" >
     </div>
     <div class="form-group">
         <label for="number">Número</label>
-        <input type="number" name="number" class="form-control" id="number" >
+        <input type="number" name="number" class="form-control" id="number" value="{{apartment.number}}">
     </div>  
     <div class="form-group">
         <label for="rooms">Quartos</label>
-        <input type="number" name="rooms" class="form-control" id="rooms" >
+        <input type="number" name="rooms" class="form-control" id="rooms" value="{{apartment.rooms}}" >
     </div>
     <div class="form-group">
         <label for="bathrooms">Banheiros</label>
-        <input type="number" name="bathrooms" class="form-control" id="bathrooms" >
+        <input type="number" name="bathrooms" class="form-control" id="bathrooms" value="{{apartment.bathrooms}}" >
     </div>
     <div class="form-group">
         <label for="suites">Suites</label>
-        <input type="number" name="suites" class="form-control" id="suites" >
+        <input type="number" name="suites" class="form-control" id="suites" value="{{apartment.suites}}">
     </div>
     <div class="form-group">
         <label for="area">Área (M2)</label>
-        <input type="number" name="area" class="form-control" id="area" >
+        <input type="number" name="area" class="form-control" id="area" value="{{apartment.area}}" >
     </div>
     <div class="form-group">
         <label for="base_price">Preço base (R$)</label>
-        <input type="number" name="base_price" class="form-control" id="base_price" >
+        <input type="number" name="base_price" class="form-control" id="base_price" value="{{apartment.base_price|floatformat}}" >
     </div>
     <input type="submit" value="click">
 </form>
