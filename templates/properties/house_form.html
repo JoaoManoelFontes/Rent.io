@@ -12,13 +12,13 @@
         </div>
         <div class="form">
             <div class="input-group">
-                <div class="row" style="padding: 1rem; width: 100%;">
-                    <div class="col-md-1" style="width: 3%;">
-                        <a onclick="history.back()" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                        </svg></a>
-                    </div> 
-                </div>
+                    <div class="row" style="padding: 1rem; width: 100%;">
+                        <div class="col-md-1" style="width: 3%;">
+                            <a onclick="history.back()" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                            </svg></a>
+                        </div> 
+                    </div>
                 <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     
@@ -27,8 +27,12 @@
                     <div class="tab">
                         <div class="row">
                             <div class="col-md-8">
-                                <h3>Vamos</h3> 
-                                <h3>começar?</h3>
+                                {% if house %}
+                                    <h3>Editar casa</h3>
+                                {% else %}
+                                    <h3>Vamos</h3> 
+                                    <h3>começar?</h3>
+                                {% endif %}
                                 <br>
                                 <h4>Insira a localização.</h4>
                             </div>
@@ -411,5 +415,5 @@ const inputFile2 = document.querySelector("#image2");
         pictureImage2.innerHTML = pictureImageTxt2;
       }
     });
-    </script>
+</script>
 {% endblock %}

@@ -29,6 +29,8 @@ DEBUG = config("DEBUG", cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = ["http://localhost:84"]
+
 
 # Application definition
 

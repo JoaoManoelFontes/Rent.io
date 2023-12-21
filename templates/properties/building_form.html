@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="container"> 
         <div class="form-image">
-            <img src="{% static 'images\undraw_best_place_re_lne9.svg' %}" alt="img">
+            <img src="{% static 'images\undraw_building_re_xfcm.svg' %}" alt="img">
         </div>
         <div class="form">
             <div class="input-group">
@@ -19,91 +19,318 @@
                     </div>
                     <div class="col-md-10" style="margin-left: 0.5rem;">
                         <div class="form-title">
+                            {% if not building.id %}
                             <h5>Cadastro de prédio</h5>
+                            {% else %}
+                            <h5>Atualização de prédio</h5>
+                            {% endif %}
                         </div>
                     </div>
                 </div> 
 
                 <form action="" method="post" enctype="multipart/form-data" style="margin-top: 1rem;">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="address">Endereço</label>
-                        <input type="text" name="address" class="input" id="address" value="{{building.address}}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="city">Cidade</label>
-                        <input type="text" name="city" class="input" id="city" value="{{building.city}}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Nome</label>
-                        <input type="text" name="name" class="input" id="name" value="{{building.name}}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Descrição</label>
-                        <textarea type="text" name="description" class="input" id="description">{{building.description}}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <div class="radio-tile-group">
-                            <div class="input-container">
-                                <input
-                                id="elevator"
-                                class="radio-button"
-                                type="checkbox"
-                                name="elevator"
-                                {% if building.elevator %} checked {% endif %}
-                                />
-                                <div class="radio-tile">
-                                <div class="icon garage-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
-                                </svg>
-                                </div>
-                                <label for="elevator" class="radio-tile-label">Elevador</label>
-                                </div>
-                            </div>
 
-                            <div class="input-container">
-                                <input
-                                id="concierge"
-                                class="radio-button"
-                                type="checkbox"
-                                name="concierge"
-                                {% if building.concierge %} checked {% endif %}
-                                />
-                                <div class="radio-tile">
-                                <div class="icon backyard-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-lock" viewBox="0 0 16 16">
-                                    <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1V1Z"/>
-                                    <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
-                                </svg>
-                                </div>
-                                <label for="concierge" class="radio-tile-label">Portaria</label>
-                                </div>
-                            </div>
+                    <div class="all-steps" id="all-steps"> <span class="step"></span> <span class="step"></span> <span class="step"></span> <span class="step"></span></div>
 
-                            <div class="input-container">
-                                <input id="recreation_area" class="radio-button" type="checkbox" name="recreation_area" {% if building.recreation_area %} checked {% endif %} />
-                                <div class="radio-tile">
-                                <div class="icon car-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-water" viewBox="0 0 16 16">
-                                    <path d="M.036 3.314a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 3.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 6.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 9.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65z"/>
-                                </svg>
+                    <div class="tab">
+                        <div class="row">
+                            <div class="col-md-8">
+                                {% if house %}
+                                    <h3>Editar casa</h3>
+                                {% else %}
+                                    <h3>Vamos</h3> 
+                                    <h3>começar?</h3>
+                                {% endif %}
+                                <br>
+                                <h4>Insira a localização.</h4>
+                            </div>
+                            <div class="form-image2">
+                                <img src="{% static 'images\undraw_map_dark_re_36sy.svg' %}" alt="img">
+                            </div>
+                        </div>
+                        <hr>
+                        <h5>Aonde se encontra o prédio?</h5>
+                        <br>  
+                        <div class="form-group">
+                            <label for="address">Endereço</label>
+                            <input type="text" name="address" class="input" id="address" value="{{building.address}}" >
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Cidade</label>
+                            <input type="text" name="city" class="input" id="city" value="{{building.city}}" >
+                        </div>
+                        <div class="button-group1">
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+                        </div>
+                    </div>
+                    <div class="tab">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3>Nome e Descrição</h3>
+                                <br>
+                                <h4>Insira as informações do condomínio</h4>
+                            </div>
+                            <div class="form-image2">
+                                <img src="{% static 'images\undraw_add_information_j2wg.svg' %}" alt="img">
+                            </div>
+                        </div>
+                        <hr>
+                        <br>
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" name="name" class="input" id="name" value="{{building.name}}" >
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Descrição</label>
+                            <textarea type="text" name="description" id="description" rows="4" cols="50">{{building.description}}</textarea>
+                        </div>
+                        <div class="button-group">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+                        </div>
+                    </div>
+                    <div class="tab">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3>Oferece</h3>
+                            </div>
+                        </div>
+                        <hr>
+                        <h5>Selecione o que o prédio oferece</h5>
+                        <br>   
+                        <div class="form-group">
+                            <div class="radio-tile-group">
+                                <div class="input-container">
+                                    <input
+                                    id="elevator"
+                                    class="radio-button"
+                                    type="checkbox"
+                                    name="elevator"
+                                    {% if building.elevator %} checked {% endif %}
+                                    />
+                                    <div class="radio-tile">
+                                    <div class="icon garage-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                                    </div>
+                                    <label for="elevator" class="radio-tile-label">Elevador</label>
+                                    </div>
                                 </div>
-                                    <label for="recreation_area" class="radio-tile-label">Lazer</label>
+
+                                <div class="input-container">
+                                    <input
+                                    id="concierge"
+                                    class="radio-button"
+                                    type="checkbox"
+                                    name="concierge"
+                                    {% if building.concierge %} checked {% endif %}
+                                    />
+                                    <div class="radio-tile">
+                                    <div class="icon backyard-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-lock" viewBox="0 0 16 16">
+                                        <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1V1Z"/>
+                                        <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
+                                    </svg>
+                                    </div>
+                                    <label for="concierge" class="radio-tile-label">Portaria</label>
+                                    </div>
+                                </div>
+
+                                <div class="input-container">
+                                    <input id="recreation_area" class="radio-button" type="checkbox" name="recreation_area" {% if building.recreation_area %} checked {% endif %} />
+                                    <div class="radio-tile">
+                                    <div class="icon car-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-water" viewBox="0 0 16 16">
+                                        <path d="M.036 3.314a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 3.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 6.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 9.964a.5.5 0 0 1-.278-.65zm0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65z"/>
+                                    </svg>
+                                    </div>
+                                        <label for="recreation_area" class="radio-tile-label">Lazer</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="floors">Andares</label>
+                            <input type="number" name="floors" class="input" id="floors" value="{{building.floors}}">
+                        </div>
+                        <div class="button-group">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="floors">Andares</label>
-                        <input type="number" name="floors" class="input" id="floors" value="{{building.floors}}">
-                    </div>
-                    <div class="button-group">
-                        <button class="contract-button" type="submit">Concluir</button>
+                    <div class="tab">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3>Ultima etapa</h3>
+                                <br>
+                                <h4>Insira as imagens do prédio a ser exibido.</h4>
+                            </div>
+                            <div class="form-image2">
+                                <img src="{% static 'images\undraw_landing_page_re_6xev.svg' %}" alt="img">
+                            </div>
+                        </div>
+                        <hr>
+                        <p>Min: 1 Max: 2</p>
+                        <div class="form-group-up">
+                            <label for="image" class="custum-file-upload" tabindex="0">
+                                <div class="icon" id="icon">
+                                    <svg viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z" fill=""></path> </g></svg>
+                                </div>
+                                <div class="text">
+                                    <span class="picture__image"></span>
+                                </div>
+                                <input class="input" type="file" accept="image/png, image/jpeg" name="image" id="image">
+                            </label>
+                            <label for="image2" class="custum-file-upload" tabindex="0">
+                                <div class="icon" id="icon2">
+                                    <svg viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z" fill=""></path> </g></svg>
+                                </div>
+                                <div class="text">
+                                    <span class="picture__image" id="picture__image2"></span>
+                                </div>
+                                <input class="input" type="file" accept="image/png, image/jpeg" name="image2" id="image2">
+                            </label>    
+                        </div>
+                        <div class="button-group">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                            {% if not building.id %}
+                            <button id="nextBtn" type="submit">Cadastrar</button>
+                            {% else %}
+                            <button id="nextBtn" type="submit">Atualizar</button>
+                            {% endif %}
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    var currentTab = 0;
+    document.addEventListener("DOMContentLoaded", function(event) {
+    
+    
+        showTab(currentTab);
+    
+    });
+    
+    function showTab(n) {
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Próximo";
+        }
+        fixStepIndicator(n)
+    }
+    
+    function nextPrev(n) {
+        var x = document.getElementsByClassName("tab");
+        if (n == 1 && !validateForm()) return false;
+        x[currentTab].style.display = "none";
+        currentTab = currentTab + n;
+        showTab(currentTab);
+    }
+    
+    function validateForm() {
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        for (i = 0; i < y.length; i++) {
+            if (y[i].value == "") {
+                y[i].className += " invalid";
+                valid = false;
+            }
+        }
+        if (valid) { document.getElementsByClassName("step")[currentTab].className += " finish"; }
+        return valid;
+    }
+    
+    function fixStepIndicator(n) {
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) { x[i].className = x[i].className.replace(" active", ""); }
+        x[n].className += " active";
+    }
+</script>
+<script>
+    const inputFile = document.querySelector("#image");
+    const pictureImage = document.querySelector(".picture__image");
+    const pictureImageTxt = "Escolha uma imagem";
+    pictureImage.innerHTML = pictureImageTxt;
+
+    
+    
+    inputFile.addEventListener("change", function (e) {
+      const inputTarget = e.target;
+      const file = inputTarget.files[0];
+    
+      if (file) {
+        const reader = new FileReader();
+    
+        reader.addEventListener("load", function (e) {
+          const readerTarget = e.target;
+          document.getElementById("icon").style.display = "none";
+          const img = document.createElement("img");
+          img.src = readerTarget.result;
+          img.classList.add("picture__img");
+          img.style.objectFit = "cover";
+          img.style.width = "200px";
+          img.style.height = "100px";
+          img.style.borderRadius = "10px";
+    
+          pictureImage.innerHTML = "";
+          pictureImage.appendChild(img);
+        });
+    
+        reader.readAsDataURL(file);
+      } else {
+        pictureImage.innerHTML = pictureImageTxt;
+      }
+    });
+    </script>
+    
+    <script>
+    const inputFile2 = document.querySelector("#image2");
+        const pictureImage2 = document.getElementById("picture__image2");
+        const pictureImageTxt2 = "Escolha uma imagem";
+        pictureImage2.innerHTML = pictureImageTxt2;
+    
+        
+        inputFile2.addEventListener("change", function (e) {
+          const inputTarget = e.target;
+          const file = inputTarget.files[0];
+        
+          if (file) {
+            const reader = new FileReader();
+        
+            reader.addEventListener("load", function (e) {
+              const readerTarget = e.target;
+              document.getElementById("icon2").style.display = "none";
+              const img = document.createElement("img");
+              img.src = readerTarget.result;
+              img.classList.add("picture__img2");
+              img.style.objectFit = "cover";
+              img.style.width = "200px";
+              img.style.height = "100px";
+              img.style.borderRadius = "10px";
+        
+              pictureImage2.innerHTML = "";
+              pictureImage2.appendChild(img);
+            });
+        
+            reader.readAsDataURL(file);
+          } else {
+            pictureImage2.innerHTML = pictureImageTxt2;
+          }
+        });
+    </script>
 {% endblock %}

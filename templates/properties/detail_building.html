@@ -242,7 +242,9 @@
                   <td style="margin-left: 1rem;">
                     <a href="{% url 'update_expense' building.id expense.id 'building' %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #27374D; border-color: #27374D; border-radius: 1rem;">Editar</a>
                     <a href="{% url 'delete_expense' building.id expense.id 'building' %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #8b4747; border-color: #8b4747; color: white; border-radius: 1rem;">Excluir</a>
-                    <a href="{% url 'expense_done' building.id expense.id 'building' %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #3d5c57; border-color: #3d5c57; color: white; border-radius: 1rem;">Concluir</a></a>
+                    {% if not expense.done %}
+                      <a href="{% url 'expense_done' building.id expense.id 'building' %}" class="btn btn-primary btn-sm" style="padding:0.3rem 0.5rem 0.3rem 0.5rem; background-color: #3d5c57; border-color: #3d5c57; color: white; border-radius: 1rem;">Concluir</a>
+                    {% endif %}
                   </td>
                 </tr>
               {% endfor %}
@@ -261,6 +263,10 @@
         </button>
         <a href="{% url 'update_building' building.id %}">
           <button class="edit-button">
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+            </svg></span>
             <span>Editar propriedade</span>
           </button>
         </a>

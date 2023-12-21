@@ -1,45 +1,37 @@
-version: '3.7'
+version: '3'
 
 volumes:
-  static_files:
-  media_files:
-  mysql_data:
-
+  static_volume: {}
+  data_volume: {}
+  media_volume: {}
 
 services:
-  mysql:
-    image: mysql:5.7
-    env_file:
-      - ./.env
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
     volumes:
-      - mysql_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD= root
-      - MYSQL_DATABASE= rent_io
-      - MYSQL_USER= root
-      - MYSQL_PASSWORD= root
-  django:
-    build: .
-    env_file:
-      - ./.env
-    command: gunicorn -c conf/gunicorn.py rent_io.wsgi
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-      - static_files:/app/static
-      - media_files:/app/media
+      - static_volume:/home/app/staticfiles
+      - media_volume:/home/app/media
+    command: /start
     depends_on:
-      - mysql
+      - postgres
+
   nginx:
-    build: ./nginx
+    build:
+      context: .
+      dockerfile: ./compose/nginx/Dockerfile
+    volumes:
+      - static_volume:/home/app/staticfiles
+      - media_volume:/home/app/media
     ports:
-      - 1337:80
+      - 84:80
     depends_on:
       - django
+
+  postgres:
+    image: postgres:16.1
     volumes:
-      - .:/app
-      - static_files:/app/static
-      - media_files:/app/media
+      - data_volume:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.postgres

@@ -17,11 +17,19 @@
                             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                         </svg></a>
                     </div>
+                    {% if not expense.id %}
                     <div class="col-md-10" style="margin-left: 0.5rem;">
                         <div class="form-title">
                             <h5>Cadastro de despesas</h5>
                         </div>
                     </div>
+                    {% else %}
+                    <div class="col-md-10" style="margin-left: 0.5rem;">
+                        <div class="form-title">
+                            <h5>Editar despesas</h5>
+                        </div>
+                    </div>
+                    {% endif %} 
                 </div>
                 <form action="" method="post">
                     {% csrf_token %}

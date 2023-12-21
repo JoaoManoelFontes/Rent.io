@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from properties.models import Building, House, Apartment
 from properties.utils.get_time_between_two_dates import get_time_between_two_dates
 from properties.utils.validate_payment_date import validate_payment_date
+from django.utils import timezone
 
 
 def get_properties_amount(customer) -> int:
@@ -56,6 +57,10 @@ def get_house_infos(house_id) -> House:
         house.expenses_list = house.expenses.all()
     if not house.vacant:
         house.contracts = house.contract.get()
+        if house.contracts.due_date < timezone.now().date():
+            house.contract_expired = True
+        else:
+            house.contract_expired = False
         house.payment_day = house.contracts.base_payment_date.day
         house.payments_amount = house.payment.all().count()
         house.months_of_contract = get_time_between_two_dates(house.contracts.base_payment_date, house.contracts.due_date)
@@ -82,6 +87,10 @@ def get_apartment_infos(apartment_id) -> Apartment:
     apartment = get_object_or_404(Apartment, pk=apartment_id)
     if not apartment.vacant:
         apartment.contracts = apartment.contract.get()
+        if apartment.contracts.due_date < timezone.now().date():
+            apartment.contract_expired = True
+        else:
+            apartment.contract_expired = False
         apartment.payment_day = apartment.contracts.base_payment_date.day
         apartment.payments_amount = apartment.payment.all().count()
         apartment.months_of_contract = get_time_between_two_dates(apartment.contracts.base_payment_date, apartment.contracts.due_date)
@@ -104,3 +113,11 @@ def get_properties_list(customer) -> list:
 
     buildings = map((lambda building: get_building_infos(building.id)), Building.objects.filter(customer=customer))
     return list(houses) + list(buildings)
+
+
+def contract_is_expired(contract) -> bool:
+    '''Returns True if the contract is expired, False otherwise'''
+    if contract.due_date < timezone.now().date():
+        return True
+    else:
+        return False
