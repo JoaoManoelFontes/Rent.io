@@ -27,9 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = ["*"]
-
-CSRF_TRUSTED_ORIGINS = ["http://localhost:84"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -84,18 +82,18 @@ WSGI_APPLICATION = "rent_io.wsgi.application"
 
 DATABASES = {
     # SQLITE DATABASE
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
     "default": {
-        "ENGINE": config("ENGINE"),
-        "NAME": config("NAME"),
-        "USER": config("USER"),
-        "PASSWORD": config("PASSWORD"),
-        "HOST": config("HOST"),
-        "PORT": config("PORT"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
+    # "default": {
+    #     "ENGINE": config("ENGINE"),
+    #     "NAME": config("NAME"),
+    #     "USER": config("USER"),
+    #     "PASSWORD": config("PASSWORD"),
+    #     "HOST": config("HOST"),
+    #     "PORT": config("PORT"),
+    # }
 }
 
 
