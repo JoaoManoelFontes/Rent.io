@@ -261,6 +261,31 @@
     transform: scale(1.1);
 }
 
+.edit-button{
+    color: #27374D;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5em;  
+    border-radius: 20px;
+    border: 0.5px solid;
+    border-color: #27374D;
+    background-color: #d9d9d9;
+    transition: all 0.3s ease-in-out;
+}
+
+.edit-button:hover{
+    background-color: #27374D;
+    color: #d9d9d9;
+    transform: scale(1.1);
+}
+
+.edit-button:focus{
+    background-color: #27374D;
+    color: #d9d9d9;
+    transform: scale(1.1);
+}
+
 .modal-content .button-group a{
     width: 35%;
 }

@@ -99,7 +99,11 @@
                         <input type="number" name="floors" class="input" id="floors" value="{{building.floors}}">
                     </div>
                     <div class="button-group">
+                        {% if building.id %}
                         <button class="contract-button" type="submit">Concluir</button>
+                        {% else %}
+                        <button class="contract-button" type="submit">Cadastrar</button>
+                        {% endif %}
                     </div>
                 </form>
             </div>
