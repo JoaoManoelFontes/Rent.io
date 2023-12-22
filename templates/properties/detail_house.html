@@ -530,8 +530,7 @@ function contractModalShow(itemId) {
   let confirmButton4 = document.getElementById('confirmDelete4');
   let cancelButton4 = document.getElementById('cancelDelete4');
   let contract_expired = "{{house.contract_expired}}";
-  console.log(contract_expired);
-  if (contract_expired){
+  if (contract_expired == 'True'){
     // Primeiro, exibir o modal de confirmação
     contract_expiredModal.style.display = "block";
     

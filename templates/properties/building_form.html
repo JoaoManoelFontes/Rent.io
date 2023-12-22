@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
 {% load static %}
+{% load util %}
 {% block extrahead %}
     <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock %}
@@ -266,8 +267,24 @@
     const pictureImage = document.querySelector(".picture__image");
     const pictureImageTxt = "Escolha uma imagem";
     pictureImage.innerHTML = pictureImageTxt;
-
-    
+    var building = "{{ building }}";
+    if(building != ""){
+        pictureImage.required = false;
+        var building_image = "{{building|get_property_image}}";
+        if (building_image != ""){
+            document.getElementById("icon").style.display = "none";
+            const img = document.createElement("img");
+            img.src = building_image;
+            img.classList.add("picture__img");
+            img.style.objectFit = "cover";
+            img.style.width = "200px";
+            img.style.height = "100px";
+            img.style.borderRadius = "10px";
+            
+            pictureImage.innerHTML = "";
+            pictureImage.appendChild(img);
+        }
+    }
     
     inputFile.addEventListener("change", function (e) {
       const inputTarget = e.target;
@@ -303,6 +320,25 @@
         const pictureImage2 = document.getElementById("picture__image2");
         const pictureImageTxt2 = "Escolha uma imagem";
         pictureImage2.innerHTML = pictureImageTxt2;
+
+        if(building != ""){
+            pictureImage2.required = false;
+            var building_image2 = "{{building|get_property_second_image}}";
+            console.log(building_image2 == "None");
+            if (building_image2 != "None"){
+                document.getElementById("icon2").style.display = "none";
+                const img = document.createElement("img");
+                img.src = building_image2;
+                img.classList.add("picture__img2");
+                img.style.objectFit = "cover";
+                img.style.width = "200px";
+                img.style.height = "100px";
+                img.style.borderRadius = "10px";
+                
+                pictureImage2.innerHTML = "";
+                pictureImage2.appendChild(img);
+            }
+        }
     
         
         inputFile2.addEventListener("change", function (e) {

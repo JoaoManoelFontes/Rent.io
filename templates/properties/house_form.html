@@ -317,10 +317,10 @@ const pictureImage = document.querySelector(".picture__image");
 const pictureImageTxt = "Escolha uma imagem";
 pictureImage.innerHTML = pictureImageTxt;
 var house = "{{house}}";
-if (house) {
+if (house != "" ) {
     pictureImage.required = false;
     var house_image = "{{house|get_property_image}}";
-    if (house_image) {
+    if (house_image != "") {
       document.getElementById("icon").style.display = "none";
       const img = document.createElement("img");
       img.src = house_image;
@@ -371,9 +371,9 @@ const inputFile2 = document.querySelector("#image2");
     const pictureImageTxt2 = "Escolha uma imagem";
     pictureImage2.innerHTML = pictureImageTxt2;
 
-    if (house) {
+    if (house != "") {
         var house_image2 = "{{house|get_property_second_image}}";
-        if (house_image2) {
+        if (house_image2 != "None") {
           document.getElementById("icon2").style.display = "none";
           const img = document.createElement("img");
           img.src = house_image2;
