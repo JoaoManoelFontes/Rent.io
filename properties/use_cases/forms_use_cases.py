@@ -44,13 +44,15 @@ def register_building_use_case(request):
         floors=request.POST.get('floors'),
     )
 
-    building.media.create(
-        image=request.FILES.get('image'),
-    )
+    if request.FILES.get('image') is not None:
+        building.media.create(
+            image=request.FILES.get('image'),
+        )
 
-    building.media.create(
-        image=request.FILES.get('image2'),
-    )
+    if request.FILES.get('image2') is not None:
+        building.media.create(
+            image=request.FILES.get('image2'),
+        )
 
     building.save()
 

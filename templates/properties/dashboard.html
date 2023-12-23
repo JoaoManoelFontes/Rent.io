@@ -4,6 +4,7 @@
 {% block extrahead %}
     <link rel="stylesheet" href="{% static 'css/detail.css' %}">
     <link rel="stylesheet" href="{% static 'css/customer_home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 {% endblock %}
 {% block content%}
 <section style="padding-top: 1rem;">
@@ -138,6 +139,7 @@
             </div>
         </div>
       </div>
+      <br>
         {% endif %}
         {% if property|get_house_instance %}
         {% else %}
@@ -201,79 +203,82 @@
             </div>
         </div>
         {% endif %}
+
         <div class="row" style="margin-top: 2rem;">
-            <h4>Despesas:</h4>
+            <h4 style="margin-bottom: 2rem;">Despesas:</h4>
             <div class="col-md-4">
-                <div class="property-container">
-                    <div class="icon-container">
+                <div class="card_dashboard">
+                    <div class="card_inner">
                       <h5>Total:</h5>   
-                        <h5 style="margin-left: 1rem;">{{property.expenses_amount}}</h5>
-                       
+                      <p>{{property.expenses_amount}}</p>  
                     </div>
-                    <div class="icon-container">
+                    <div class="card_inner">
                         <h5>Valor:</h5>
-                        <h5 style="margin-left: 1rem;">R$ {{property.expenses_total_value}}</h5>
+                        <p>R$ {{property.expenses_total_value}}</p>
                     </div>
-                  </div>
+                </div>
             </div>
             <div class="col-md-4">
-                <div class="property-container">
-                <div class="icon-container">
+                <div class="card_dashboard">
+                <div class="card_inner">
                     <h5>Concluídas:</h5>   
-                      <h5  style="margin-left: 1rem;">{{property.concluded_expenses}}</h5>
-                     
+                      <p>{{property.concluded_expenses}}</p>
                   </div>
-                  <div class="icon-container">
+                  <div class="card_inner">
                       <h5>Valor:</h5>
-                      <h5 style="margin-left: 1rem;">R$ {{property.expenses_concluded_value}}</h5>
+                      <p>R$ {{property.expenses_concluded_value}}</p>
                   </div>
             </div>
             </div>
             <div class="col-md-4">
-                <div class="property-container">
-                <div class="icon-container">
+                <div class="card_dashboard">
+                <div class="card_inner">
                     <h5>A realizar:</h5>   
-                      <h5  style="margin-left: 1rem;">{{property.pending_expenses}}</h5>
+                      <p>{{property.pending_expenses}}</p>
                      
                   </div>
-                  <div class="icon-container">
+                  <div class="card_inner">
                       <h5>Valor:</h5>
-                      <h5  style="margin-left: 1rem;">R$ {{property.expenses_pending_value}}</h5>
+                      <p>R$ {{property.expenses_pending_value}}</p>
                   </div>
             </div>
         </div>
     </div>
   </div>
+  <br>
   <hr>
   <br>
   <div class="container">
     <div class="row">
-      <h4>Estatísticas gerais:</h4>
+      <h4 style="margin-bottom: 2rem;">Estatísticas gerais:</h4>
       <div class="col-md-8">
+        <div class="graphic">
           {{ property.graphic|safe }}
+        </div>
       </div>
       <div class="col-md-4">
         <div class="values-infos" style="display: flex; flex-direction: column; height: 450px; justify-content: center;">
-          <div class="property-container">
-            <div class="icon-container" style="justify-content: center;">
+          <div class="card_dashboard2">
+            <div class="card_inner" style="justify-content: center;">
               <h5>Total de receitas:</h5>                
             </div>
-            <div class="icon-container" style="justify-content: center;">              
-                <h5 style="margin-left: 1rem;">R$ {{property.total_value}}</h5>
+            <div class="card_inner" style="justify-content: center;">              
+                <p>R$ {{property.total_value}}</p>
             </div>
           </div>
           <br>
-          <div class="property-container">
-            <div class="icon-container" style="justify-content: center;">
+          <div class="card_dashboard2">
+            <div class="card_inner" style="justify-content: center;">
               <h5>Lucro total:</h5>    
             </div>
-            <div class="icon-container" style="justify-content: center;">
-                <h5 style="margin-left: 1rem;">R$ {{property.profit}}</h5>
+            <div class="card_inner" style="justify-content: center;">
+                <p>R$ {{property.profit}}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <br>
     <br>
   </div>
   </div>

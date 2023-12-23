@@ -3,3 +3,71 @@
     font-weight: bold;
     color: #333333;
 }
+
+.card_dashboard {
+    width: 400px;
+    height: 180px;
+    background: #d9d9d9;
+    border-radius: 30px;
+    box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.281);
+    transition: 0.3s ease-in-out;
+    border: 0.5px solid;
+}   
+
+.card_dashboard:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 10px 5px rgba(0,0,0,0.2);
+}
+
+.card_inner {
+    position: relative;
+    width: 100%;
+    border-radius: 30px;
+    display: flex;  
+    flex-direction: column;
+    padding: 14px 20px 0 20px;
+    box-sizing: border-box;
+    padding-bottom: 0;
+    box-sizing: border-box;
+}
+
+.card_inner p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333333;
+}
+
+.card_dashboard2 {
+    color: white;
+    width: 400px;
+    height: 140px;
+    background: linear-gradient(90deg, rgba(1,71,155,1) 35%, rgba(0,98,215,1) 100%);
+    border-radius: 30px;
+    transition: 0.3s ease-in-out;
+    opacity: 0.9;
+}
+
+.card_dashboard2 p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.card_dashboard2:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 10px 5px rgba(0,0,0,0.2);
+}
+
+.graphic{
+    width: 90%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #d9d9d9;
+    border-radius: 30px;
+    box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.281);
+    transition: 0.3s ease-in-out;
+    border: 1px solid;
+    border-color: linear-gradient(90deg, rgba(1,71,155,1) 35%, rgba(0,98,215,1) 100%);
+}
