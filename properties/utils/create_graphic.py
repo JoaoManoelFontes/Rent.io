@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 
 
 def create_graphics(payments, months):
-    print(payments)
     fig, ax = plt.subplots()
     ax.plot(months, payments, marker='o', linestyle='-')
     ax.set_xticks(range(1, 13))

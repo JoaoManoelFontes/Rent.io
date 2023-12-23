@@ -6,12 +6,12 @@ from core.models import Customer
 class ModelTest(TestCase):
     def setUp(self):
         self.customer = Customer.objects.create_user(
-            username="username", password="password", phone_number="+5511999999999", birth_date="2000-01-01", full_name="Full Name"
+            username="username", password="password", phone_number="+5511999999999", birth_date="2000-01-01", full_name="Full Name", image="./media/customer/customer.jpg"
         )
 
         self.house = {
             "customer": self.customer,
-            "address": "Rua dos Bobos, 0",
+            "street": "Rua dos Bobos, 0",
             "city": "São Paulo",
             "description": "Casa com quintal",
             "garage": True,
@@ -26,7 +26,7 @@ class ModelTest(TestCase):
 
         self.building = {
             "customer": self.customer,
-            "address": "Rua dos Bobos, 0",
+            "street": "Rua dos Bobos, 0",
             "city": "São Paulo",
             "description": "Prédio com elevador",
             "name": "Prédio do " + self.customer.username,
@@ -54,7 +54,9 @@ class ModelTest(TestCase):
         self.contract = {
             "base_payment_date": "2020-01-01",
             "due_date": "2021-01-01",
-            "price": 1040.00
+            "price": 1040.00,
+            "tenant_name": "Tenant Name",
+            "tenant_phone": "+5511999999999",
         }
 
         self.expense = {

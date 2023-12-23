@@ -162,7 +162,6 @@ def get_values_for_graphic(property):
             for apartment in property.apartments_list:
                 if not apartment.vacant:
                     soma += sum(apartment.payments.filter(base_payment_month=i).values_list("value", flat=True)) if apartment.payments.filter(base_payment_month=i).values_list("value", flat=True) is not None else 0
-                    # print(soma)
             payments.append(soma)
     image = create_graphics(payments, months)
     return image

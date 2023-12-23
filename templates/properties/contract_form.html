@@ -38,8 +38,18 @@
                         <label for="contract_file">Arquivo:</label>
                         <input class="form-control" style="border-radius: 10px;" accept="application/pdf" type="file" name="contract_file" id="contract_file">
                         <p style="margin-top: 0.5rem; opacity: 90%; font-size: small;" >Somente PDF</p>
+                        {% if contract %}
                         <p style="opacity: 90%; font-size: small;">
                         <b>Arquivo atual:</b> {{contract.contract_file.name|split_contract_name}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="contract_type">Nome do inquilino:</label>
+                        <input class="input" type="text" name="tenant_name" id="tenant_name" value="{{contract.tenant_name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="contract_type">Número do inquilino:</label>
+                        <input class="input" type="tel" name="tenant_phone" id="tenant_phone" value="{{contract.tenant_phone}}">
                     </div>
                     <div class="form-group">
                         <label for="base_payment_date">Data base de pagamento</label>

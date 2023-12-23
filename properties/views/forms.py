@@ -128,7 +128,6 @@ def update_building(request, building_id):
         return redirect(last_page)
 
     building = Building.objects.get(id=building_id)
-    print(building)
     return render(request, 'properties/building_form.html', {
         'title': 'Update Building | ' + request.user.username, 'building': building
     })

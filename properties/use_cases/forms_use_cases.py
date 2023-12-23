@@ -5,7 +5,7 @@ def register_house_use_case(request):
     '''register house use case.'''
     house = House.objects.create(
         customer=request.user,
-        address=request.POST.get('address'),
+        street=request.POST.get('street'),
         city=request.POST.get('city'),
         description=request.POST.get('description'),
         garage=True if request.POST.get('garage') == 'on' else False,
@@ -17,9 +17,6 @@ def register_house_use_case(request):
         area=request.POST.get('area'),
         base_price=request.POST.get('base_price'),
     )
-
-    print(request.FILES.get('image'))
-    print(request.FILES.get('image2'))
 
     if request.FILES.get('image') is not None:
         house.media.create(
@@ -37,7 +34,7 @@ def register_building_use_case(request):
     '''register building use case.'''
     building = Building.objects.create(
         customer=request.user,
-        address=request.POST.get('address'),
+        street=request.POST.get('street'),
         city=request.POST.get('city'),
         description=request.POST.get('description'),
         name=request.POST.get('name'),
@@ -83,21 +80,14 @@ def register_contract_use_case(request, property_id, property_type):
     else:
         property_object = Apartment.objects.get(id=property_id)
 
-    if property_object.contract.all():
-        property_object.contract.all().delete()
-        property_object.contract.create(
-            contract_file=request.FILES.get('contract_file'),
-            base_payment_date=request.POST.get('base_payment_date'),
-            due_date=request.POST.get('due_date'),
-            price=request.POST.get('price')
-        )
-    else:
-        property_object.contract.create(
-            contract_file=request.FILES.get('contract_file'),
-            base_payment_date=request.POST.get('base_payment_date'),
-            due_date=request.POST.get('due_date'),
-            price=request.POST.get('price')
-        )
+    property_object.contract.create(
+        contract_file=request.FILES.get('contract_file'),
+        base_payment_date=request.POST.get('base_payment_date'),
+        due_date=request.POST.get('due_date'),
+        price=request.POST.get('price'),
+        tenant_name=request.POST.get('tenant_name'),
+        tenant_phone=request.POST.get('tenant_phone') if request.POST.get('tenant_phone') else None,
+    )
 
     property_object.vacant = False
 
@@ -200,7 +190,7 @@ def update_house_use_case(request, house_id):
     '''update house use case.'''
     house = House.objects.get(id=house_id)
 
-    house.address = request.POST.get('address') if request.POST.get('address') else house.address
+    house.street = request.POST.get('street') if request.POST.get('street') else house.street
     house.city = request.POST.get('city') if request.POST.get('city') else house.city
     house.description = request.POST.get('description') if request.POST.get('description') else house.description
     house.garage = True if request.POST.get('garage') == 'on' else False
@@ -230,7 +220,7 @@ def update_building_use_case(request, building_id):
     '''update building use case.'''
     building = Building.objects.get(id=building_id)
 
-    building.address = request.POST.get('address') if request.POST.get('address') else building.address
+    building.street = request.POST.get('street') if request.POST.get('street') else building.street
     building.city = request.POST.get('city') if request.POST.get('city') else building.city
     building.description = request.POST.get('description') if request.POST.get('description') else building.description
     building.name = request.POST.get('name') if request.POST.get('name') else building.name
@@ -238,8 +228,6 @@ def update_building_use_case(request, building_id):
     building.elevator = True if request.POST.get('elevator') == 'on' else False
     building.concierge = True if request.POST.get('concierge') == 'on' else False
     building.floors = request.POST.get('floors') if request.POST.get('floors') else building.floors
-
-    print(request.FILES.get('image'))
 
     if request.FILES.get('image') is not None:
         building.media.all()[0].delete()
@@ -285,6 +273,8 @@ def update_contract_use_case(request, property_id, contract_id, property_type):
     contract_object.base_payment_date = request.POST.get('base_payment_date') if request.POST.get('base_payment_date') else contract_object.base_payment_date
     contract_object.due_date = request.POST.get('due_date') if request.POST.get('due_date') else contract_object.due_date
     contract_object.price = request.POST.get('price') if request.POST.get('price') else contract_object.price
+    contract_object.tenant_name = request.POST.get('tenant_name') if request.POST.get('tenant_name') else contract_object.tenant_name
+    contract_object.tenant_phone = request.POST.get('tenant_phone') if request.POST.get('tenant_phone') else contract_object.tenant_phone
 
     contract_object.save()
 
@@ -307,7 +297,6 @@ def update_payment_use_case(request, property_id, payment_id, property_type):
 
 def update_expense_use_case(request, property_id, expense_id, property_type):
     '''update expense use case.'''
-    print(request.POST.get('done'))
     if property_type == 'house':
         property_object = House.objects.get(id=property_id)
     else:

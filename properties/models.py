@@ -4,6 +4,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 
 from rent_io import settings
 from .utils.model_managers import GenericModelManager
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Media(models.Model):
@@ -50,6 +51,8 @@ class Payment(models.Model):
 class Contract(models.Model):
     contract_file = models.FileField(upload_to="contracts/", null=True, blank=True)
     base_payment_date = models.DateField()
+    tenant_name = models.CharField(max_length=100)
+    tenant_phone = PhoneNumberField(null=True, blank=True)
     due_date = models.DateField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -67,7 +70,7 @@ class Property(models.Model):
         abstract = True
 
     customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    address = models.TextField()
+    street = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     description = models.TextField()
 

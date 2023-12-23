@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-6">
                 <h4>{{building.name}}</h4>
-                <p class="text-muted">{{building.city}} - {{building.address}}</p>
+                <p class="text-muted">{{building.city}} - {{building.street}}</p>
             </div>
         </div>
         {% if has_many_medias %}
@@ -269,7 +269,7 @@
 </script>
 <script>
     const city = "{{building.city}}".replace(/ /g, "+")
-    const street = "{{building.address}}".replace(/ /g, "+")
+    const street = "{{building.street}}".replace(/ /g, "+")
 
     const data = fetch(`https://nominatim.openstreetmap.org/search?format=json&street=${street}&city=${city}`).then(
         response => response.json()).then(

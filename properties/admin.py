@@ -6,12 +6,12 @@ from .models import House, Building, Apartment, Payment, Expense, Contract, Medi
 
 @admin.register(House)
 class HouseAdmin(admin.ModelAdmin):
-    list_display = ('city', 'address', 'base_price', 'late_payment', 'vacant')
+    list_display = ('city', 'street', 'base_price', 'late_payment', 'vacant')
 
 
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'city')
+    list_display = ('name', 'street', 'city')
 
 
 @admin.register(Apartment)
@@ -35,7 +35,7 @@ class ExpenseAdmin(admin.ModelAdmin):
 class ContractAdmin(admin.ModelAdmin):
     '''Admin View for Contract'''
 
-    list_display = ('base_payment_date', 'due_date', 'price', 'content_object')
+    list_display = ('base_payment_date', 'due_date', 'price', 'content_object', 'tenant_name', 'tenant_phone')
 
 
 @admin.register(Media)
