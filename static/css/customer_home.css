@@ -29,8 +29,8 @@ a:hover{
 
 .info-card {
     background-color: white;
-    margin: 1rem;
-    width: 18rem;
+    width: 21rem;
+    flex-wrap: nowrap;
     height: 7rem;
     display: flex;
     align-items: center;

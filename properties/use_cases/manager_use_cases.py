@@ -96,3 +96,17 @@ def detail_apartment_use_case(request, apartment_id):
         'payment': apartment.payments,
     }
     return context
+
+
+def dashboard_use_case(request, property_id, property_type):
+    '''Dashboard use case.'''
+    if property_type == 'building':
+        property = get_building_infos(property_id)
+    elif property_type == 'house':
+        property = get_house_infos(property_id)
+
+    context = {
+        'title': 'Dashboard | ' + request.user.username,
+        'property': property,
+    }
+    return context

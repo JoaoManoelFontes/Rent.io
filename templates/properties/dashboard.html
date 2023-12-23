@@ -1,0 +1,281 @@
+{% extends 'base.html' %} {% block title %}{{title}}{% endblock %} 
+{% load static %}
+{% load util %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/customer_home.css' %}">
+{% endblock %}
+{% block content%}
+<section style="padding-top: 1rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-1" style="width: 3%;">
+                <a href="/customer" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg></a>
+              </div>
+              <div class="col-md-6">
+                <h4>{% if property|get_house_instance %}{{property}} {% else %} {{property.name}} {% endif %}</h4>
+                <p class="text-muted">{{property.city}} - {{property.address}}</p>
+            </div>
+            <div class="col-md-5">
+                <div style="display: flex; align-items: center; justify-content: end;">
+                    <img style=" background-color: #27374D; margin-right: 1rem; border-radius: 60%;" src="{% static 'images/profile.png' %}" width="40px" height="40px" alt="profile">
+                    <div>
+                        <p style="margin-bottom: 0;">{{property.customer}}</p>
+                        <p class="text-muted" style="margin-bottom: 0; font-size: small; ">Proprietário</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if property|get_house_instance %}
+        <div style="margin: 1rem 0 1rem 0;">
+            <div class="container-fluid" id="property">
+              <div class="row">
+                <div class="col-3">
+                  <img src="{{property|get_property_image}}" alt="house" class="card-img">
+                </div>
+                <div class="col-6" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; margin-top: 1rem;">
+                  <div class="row">
+                    <div class="col-12">
+                      <h5>Informações</h5>
+                    </div>
+                  </div>
+                  {% if property.vacant %}
+                  <div class="row" style="margin-bottom: 1rem;">
+                    <div class="col-12">
+                      <p class="card-text">
+                          Casa vazia
+                        </p>
+                    </div>
+                  </div>
+                  {% else %}
+                    <div class="row" style="margin-bottom: 1rem;">
+                      <div class="col-12">
+                        <p class="card-text" style="text-align: left; font-weight: 400;">
+                          Pagamento mensal: R${{property.contracts.price}}
+                        </p>
+                          <p class="card-text" style="font-weight: 400;">
+                            Contrato criado em: {{property.contracts.base_payment_date}}
+                          </p>
+                          <p class="card-text" style="font-weight: 400; text-align: start;">
+                            Total de pagamentos realizados: {{property.payments_amount}}
+                          </p>
+                      </div>
+                    </div>
+                    
+                  {% endif %}
+                </div>
+                {% if property.vacant %}
+                {% else %}
+                <div class="col-3"  style="display: flex; align-items: end; justify-content: end; margin-bottom: 0.5rem;">
+                  <div class="row">
+                    <div class="col-12">
+                      <p style="text-align: left; margin-right: 1rem;">
+                        {% if property.late_payment %}
+                        <span style="border: solid; border-color: #B15959; border-width: 2px;" class="status-span">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-lg" viewBox="0 0 16 16">
+                            <path d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0"/>
+                          </svg>
+                          Atrasado
+                        </span>
+                        {% else %}
+                        <span style="border: solid; border-color: #57B657; border-width: 2px;" class="status-span">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                          </svg>
+                          Em dia
+                        </span>
+                        {% endif %}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+          </div>
+        </div>
+        {% else %}
+        <div style="margin-top: 1rem; margin-bottom: 1rem;">
+            <div class="container-fluid" id="property">
+              <div class="row">
+                  <div class="col-3">
+                      <img src="{{property|get_property_image}}" alt="property" class="card-img">
+                    </div>
+                <div class="col-6" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; margin-top: 1rem;">
+                  <div class="row">
+                    <div class="col-12">
+                      <h5>Informações</h5>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-bottom: 1rem;">
+                    <div class="col-12">
+                      <p class="card-text" style="font-weight: 400;"> {{property.apartments}} apartamento(s)</p>
+                      <p class="card-text" style="text-align: left; font-weight: 400;">
+                        {{property.apartments_occupied}} ocupado(s)
+                      </p>
+                    </div>
+                </div>
+              </div>
+              <div class="col-3" style="display: flex; align-items: end; justify-content: end; margin-bottom: 0.5rem;">
+                <div class="row">
+                  <div class="col-12" >
+                    <p style="text-align: left; margin-right: 1rem;">
+                      {% if property.apartments_late_payments %}
+                      <span style="border: solid; border-color: #B15959; border-width: 2px;" class="status-span">
+                        {{property.apartments_late_payments}} atrasado(s)
+                      </span>
+                      {% else %}
+                      <span style="border: solid; border-color: #57B657; border-width: 2px;" class="status-span">
+                        0 atrasados
+                      </span>
+                      {% endif %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+        {% endif %}
+        {% if property|get_house_instance %}
+        {% else %}
+        <div id="main-infos">
+            <div class="info-card" >
+                <div class="card-number" style="background: linear-gradient(90deg, rgba(1,71,155,1) 35%, rgba(0,98,215,1) 100%);">
+                  <h2 class="card-text1" style="text-align: center; padding: 5%; ">{{property.apartments}}</h2>
+                </div>
+                  <div class="card-body" style="width: 10rem;">
+                    <h4 style="margin: 0; color: black; text-align: center;">Apartamentos 
+                    </h4>  
+                  </div>
+                </div>
+              <div class="info-card" >
+                <div class="card-number" style="background: linear-gradient(90deg, rgba(87,182,87,1) 35%, rgba(105,217,105,1) 100%);">
+                  <h2 class="card-text1" style="text-align: center; padding: 5%;">{{property.apartments_occupied}}</h2>
+                </div>
+                  <div class="card-body" style="width: 10rem;">
+                      <h4 style="margin: 0; color: black; text-align: center;">Ocupados</h4>
+                  </div>
+              </div>
+              <div class="info-card" >
+                <div class="card-number" style="background: linear-gradient(90deg, rgba(177,89,89,1) 35%, rgba(222,110,110,1) 100%);">
+                  <h2 class="card-text1" style="text-align: center; padding: 5%;">{{property.apartments_vacant}}</h2>
+                </div>
+                  <div class="card-body" style="width: 10rem;">
+                      <h4 style="margin: 0; color: black; text-align: center;">Vagos</h4>
+                  </div>
+              </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <div class="payments-container">
+                    <div class="payments-container-title">
+                      <h5>Tabela total de pagamentos: </h5>
+                    </div>
+                    <table class="table">
+                      <thead class="thead" style="background-color: #27374D; color: white; ">
+                          <th scope="col" style="border-top-left-radius: 1rem;">Última data</th>
+                          <th scope="col">Apartamento</th>
+                          <th scope="col">Quantidade</th>
+                          <th scope="col" style="border-top-right-radius: 1rem;">Total de receitas</th>
+                      </thead>
+                      <tbody>
+                            {% if property.apartments > 0 %}
+                            {% for apartment in property.apartments_list %}
+                            {% if apartment.vacant %}
+                            {% else %}
+                                <tr>
+                                    <td>{{apartment.last_payment_date}}</td>
+                                    <td>Ap n.{{apartment.number}}</td>
+                                    <td>{{apartment.payments_amount}}</td>
+                                    <td>R$ {{apartment.payments_total_value}}</td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                      </tbody>
+                    </table>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row" style="margin-top: 2rem;">
+            <h4>Despesas:</h4>
+            <div class="col-md-4">
+                <div class="property-container">
+                    <div class="icon-container">
+                      <h5>Total:</h5>   
+                        <h5 style="margin-left: 1rem;">{{property.expenses_amount}}</h5>
+                       
+                    </div>
+                    <div class="icon-container">
+                        <h5>Valor:</h5>
+                        <h5 style="margin-left: 1rem;">R$ {{property.expenses_total_value}}</h5>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-4">
+                <div class="property-container">
+                <div class="icon-container">
+                    <h5>Concluídas:</h5>   
+                      <h5  style="margin-left: 1rem;">{{property.concluded_expenses}}</h5>
+                     
+                  </div>
+                  <div class="icon-container">
+                      <h5>Valor:</h5>
+                      <h5 style="margin-left: 1rem;">R$ {{property.expenses_concluded_value}}</h5>
+                  </div>
+            </div>
+            </div>
+            <div class="col-md-4">
+                <div class="property-container">
+                <div class="icon-container">
+                    <h5>A realizar:</h5>   
+                      <h5  style="margin-left: 1rem;">{{property.pending_expenses}}</h5>
+                     
+                  </div>
+                  <div class="icon-container">
+                      <h5>Valor:</h5>
+                      <h5  style="margin-left: 1rem;">R$ {{property.expenses_pending_value}}</h5>
+                  </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div class="container">
+    <div class="row">
+      <h4>Estatísticas gerais:</h4>
+      <div class="col-md-8">
+          {{ property.graphic|safe }}
+      </div>
+      <div class="col-md-4">
+        <div class="values-infos" style="display: flex; flex-direction: column; height: 450px; justify-content: center;">
+          <div class="property-container">
+            <div class="icon-container" style="justify-content: center;">
+              <h5>Total de receitas:</h5>                
+            </div>
+            <div class="icon-container" style="justify-content: center;">              
+                <h5 style="margin-left: 1rem;">R$ {{property.total_value}}</h5>
+            </div>
+          </div>
+          <br>
+          <div class="property-container">
+            <div class="icon-container" style="justify-content: center;">
+              <h5>Lucro total:</h5>    
+            </div>
+            <div class="icon-container" style="justify-content: center;">
+                <h5 style="margin-left: 1rem;">R$ {{property.profit}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+  </div>
+</section>
+{% endblock %}

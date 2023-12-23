@@ -470,7 +470,7 @@
   let cancelButton4 = document.getElementById('cancelDelete4');
   let contract_expired = "{{apartment.contract_expired}}";
   console.log(contract_expired);
-  if (contract_expired){
+  if (contract_expired == 'True'){
     // Primeiro, exibir o modal de confirmação
     contract_expiredModal.style.display = "block";
     

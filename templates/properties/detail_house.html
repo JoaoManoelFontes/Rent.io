@@ -362,6 +362,11 @@
           <span>Editar propriedade</span>
         </button>
       </a>
+      <a href="{% url 'customer_dashboard' house.id 'house' %}">
+        <button>
+          <span>Dashboard</span>
+        </button>
+      </a>
     </div>
     <br>
     <p>{{contract.contract_is_expired}}</p>

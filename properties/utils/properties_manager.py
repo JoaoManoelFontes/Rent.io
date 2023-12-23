@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from properties.models import Building, House, Apartment
+from properties.utils.create_graphic import create_graphics
 from properties.utils.get_time_between_two_dates import get_time_between_two_dates
 from properties.utils.validate_payment_date import validate_payment_date
 from django.utils import timezone
@@ -53,6 +54,11 @@ def get_house_infos(house_id) -> House:
     house = get_object_or_404(House, pk=house_id)
     house.image = house.media.first().image
     house.expenses_amount = house.expenses.all().count()
+    house.concluded_expenses = house.expenses.all().filter(done=True).count()
+    house.pending_expenses = house.expenses.all().filter(done=False).count()
+    house.expenses_total_value = sum(house.expenses.values_list("value", flat=True)) if house.expenses.all().count() > 0 else 0
+    house.expenses_concluded_value = sum(house.expenses.all().filter(done=True).values_list("value", flat=True)) if house.expenses.all().count() > 0 else 0
+    house.expenses_pending_value = sum(house.expenses.all().filter(done=False).values_list("value", flat=True)) if house.expenses.all().count() > 0 else 0
     if house.expenses.all().count() > 0:
         house.expenses_list = house.expenses.all()
     if not house.vacant:
@@ -66,19 +72,39 @@ def get_house_infos(house_id) -> House:
         house.months_of_contract = get_time_between_two_dates(house.contracts.base_payment_date, house.contracts.due_date)
         house.contract_name = house.contracts.contract_file.name.split('/')[-1]
         house.payments = house.payment.all()
+        house.total_value = sum(house.payments.values_list("value", flat=True)) if house.payments.all().count() > 0 else 0
+        house.profit = house.total_value - house.expenses_concluded_value
+        house.graphic = get_values_for_graphic(house)
     return house
 
 
 def get_building_infos(building_id) -> Building:
-    '''Returns a building with its image and contract if it is not vacant'''
+    '''Returns a building with all infos'''
     building = get_object_or_404(Building, pk=building_id)
     building.image = building.media.first().image
+    building.expenses_amount = building.expenses.all().count()
+    building.concluded_expenses = building.expenses.all().filter(done=True).count()
+    building.pending_expenses = building.expenses.all().filter(done=False).count()
+    building.expenses_total_value = sum(building.expenses.values_list("value", flat=True)) if building.expenses.all().count() > 0 else 0
+    building.expenses_concluded_value = sum(building.expenses.all().filter(done=True).values_list("value", flat=True)) if building.expenses.all().count() > 0 else 0
+    building.expenses_pending_value = sum(building.expenses.all().filter(done=False).values_list("value", flat=True)) if building.expenses.all().count() > 0 else 0
     building.apartments = Apartment.objects.filter(building=building).count()
     building.apartments_occupied = Apartment.objects.filter(building=building, vacant=False).count()
+    building.apartments_vacant = Apartment.objects.filter(building=building, vacant=True).count()
     building.apartments_late_payments = Apartment.objects.filter(building=building, late_payment=True).count()
     building.expenses_amount = building.expenses.all().count()
     if building.expenses.all().count() > 0:
         building.expenses_list = building.expenses.all()
+    building.apartments_list = []
+    if Apartment.objects.filter(building=building).count() > 0:
+        building.total_value = 0
+        for apartment in Apartment.objects.filter(building=building):
+            ap_info = get_apartment_infos(apartment.id)
+            building.apartments_list.append(get_apartment_infos(apartment.id))
+            if not ap_info.vacant:
+                building.total_value += ap_info.payments_total_value
+        building.profit = building.total_value - building.expenses_concluded_value
+    building.graphic = get_values_for_graphic(building)
     return building
 
 
@@ -93,9 +119,12 @@ def get_apartment_infos(apartment_id) -> Apartment:
             apartment.contract_expired = False
         apartment.payment_day = apartment.contracts.base_payment_date.day
         apartment.payments_amount = apartment.payment.all().count()
+        apartment.last_payment = apartment.payment.all().last().base_payment_month if apartment.payment.all().count() > 0 else None
         apartment.months_of_contract = get_time_between_two_dates(apartment.contracts.base_payment_date, apartment.contracts.due_date)
         apartment.contract_name = apartment.contracts.contract_file.name.split('/')[-1]
         apartment.payments = apartment.payment.all()
+        apartment.payments_total_value = sum(apartment.payments.values_list("value", flat=True)) if apartment.payments.all().count() > 0 else 0
+        apartment.last_payment_date = apartment.payments.last().date if apartment.payments.all().count() > 0 else None
     else:
         apartment.payments = []
     return apartment
@@ -115,9 +144,25 @@ def get_properties_list(customer) -> list:
     return list(houses) + list(buildings)
 
 
-def contract_is_expired(contract) -> bool:
-    '''Returns True if the contract is expired, False otherwise'''
-    if contract.due_date < timezone.now().date():
-        return True
+def get_values_for_graphic(property):
+    '''Returns a list of values for the graphic'''
+    if isinstance(property, House):
+        payments = []
+        months = []
+        if not property.vacant:
+            for i in range(1, 13):
+                months.append(i)
+                payments.append(sum(property.payments.filter(base_payment_month=i).values_list("value", flat=True)) if property.payments.filter(base_payment_month=i).values_list("value", flat=True) is not None else 0)
     else:
-        return False
+        payments = []
+        months = []
+        for i in range(1, 13):
+            months.append(i)
+            soma = 0
+            for apartment in property.apartments_list:
+                if not apartment.vacant:
+                    soma += sum(apartment.payments.filter(base_payment_month=i).values_list("value", flat=True)) if apartment.payments.filter(base_payment_month=i).values_list("value", flat=True) is not None else 0
+                    # print(soma)
+            payments.append(soma)
+    image = create_graphics(payments, months)
+    return image

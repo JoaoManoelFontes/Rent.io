@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from properties.use_cases.manager_use_cases import detail_apartment_use_case, detail_building_use_case, detail_house_use_case, home_use_case
+from properties.use_cases.manager_use_cases import dashboard_use_case, detail_apartment_use_case, detail_building_use_case, detail_house_use_case, home_use_case
 
 
 @login_required(login_url='/login')
@@ -29,3 +29,11 @@ def detail_apartment(request, apartment_id):
     '''Detail view for an apartment.'''
     request.session['last_page'] = request.path
     return render(request, 'properties/detail_apartment.html', context=detail_apartment_use_case(request, apartment_id))
+
+
+@login_required(login_url='/login')
+def dashboard(request, property_id, property_type):
+    '''Dashboard view for the properties managment.'''
+    request.session['last_page'] = request.path
+
+    return render(request, 'properties/dashboard.html', context=dashboard_use_case(request, property_id, property_type))
