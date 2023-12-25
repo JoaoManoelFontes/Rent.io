@@ -135,6 +135,8 @@
                   <p class="card-text" style="font-weight: 400; text-align: start;">
                     Expira em: {{apartment.contracts.due_date}}
                   </p>
+                  <p class="card-text" style="font-weight: 400; text-align: start;">Nome do inquilino: {{apartment.contracts.tenant_name}}</p>
+                  <p class="card-text" style="font-weight: 400; text-align: start;">Número do inquilino: {{apartment.contracts.tenant_phone}}</p>
                 </div>
                 <div class="button-group" style="margin: 2rem 0 0 0;">
                   <a href="{% url 'update_contract' apartment.id apartment.contracts.id 'apartment' %}">
