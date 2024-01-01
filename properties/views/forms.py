@@ -42,10 +42,9 @@ def apartment_form(request, building_id):
 @login_required(login_url='/login')
 def contract_form(request, property_id, property_type):
     '''Contract form view.'''
-    last_page = request.session.get('last_page', '/')
     if request.method == 'POST':
         register_contract_use_case(request, property_id, property_type)
-        return redirect(last_page)
+        return redirect('customer_home')
     return render(request, 'properties/contract_form.html', {
         'title': 'Register Contract | ' + request.user.username,
     })
